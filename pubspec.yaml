@@ -22,6 +22,8 @@ dependencies:
   lottie: ^2.5.0
   shared_preferences: ^2.2.0
   shimmer: ^3.0.0
+  path_provider: ^2.0.15
+  image_picker: ^0.8.4+3
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -39,3 +41,15 @@ flutter:
         - asset: assets/fonts/Ubuntu-Light.ttf
         - asset: assets/fonts/Ubuntu-Italic.ttf
         - asset: assets/fonts/Ubuntu-Bold.ttf
+
+  assets:
+    - assets/icons/visitor1.png
+    - assets/icons/visitor-out.png
+    - assets/icons/wrong-visitors.png
+    - assets/icons/car-in.png
+    - assets/icons/add-car.png
+    - assets/icons/staff-in.png
+    - assets/icons/staff-out.png
+    - assets/icons/add-staff.png
+    - assets/icons/car-out.png
+

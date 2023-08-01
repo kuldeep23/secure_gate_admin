@@ -1,12 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:secure_gates_admin/pages/car_management/car_in.dart';
+import 'package:secure_gates_admin/pages/car_management/car_out.dart';
+import 'package:secure_gates_admin/pages/staff_management/add_staff.dart';
+import 'package:secure_gates_admin/pages/staff_management/staff_in.dart';
+import 'package:secure_gates_admin/pages/staff_management/staff_out.dart';
+import 'package:secure_gates_admin/pages/visitor_management/visitor_in.dart';
+import 'package:secure_gates_admin/pages/visitor_management/visitor_out.dart';
+import 'package:secure_gates_admin/pages/visitor_management/wrong_visitor.dart';
 import 'package:secure_gates_admin/services/authentication_service.dart';
+
+import '../car_management/add_car.dart';
 
 class HomePage extends HookConsumerWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    Size screenSize() {
+      return MediaQuery.of(context).size;
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -17,9 +31,347 @@ class HomePage extends HookConsumerWidget {
           onLongPress: () async {
             await ref.watch(authServiceProvider).signOut();
           },
-          child: const Text("hello "),
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 30),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Center(
+                      child: Stack(
+                          alignment: Alignment.topLeft,
+                          clipBehavior: Clip.none,
+                          children: <Widget>[
+                            Material(
+                              shadowColor: Colors.grey,
+                              elevation: 20,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(50)),
+                              child: Container(
+                                height: 170,
+                                width: screenSize().width / 1.025,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border.all(
+                                        color: Colors.grey, width: 0.5)
+                                    /*borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),*/
+                                    ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () => Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  VisitorIn())),
+                                      child: FeatureItems(
+                                        imageURL: 'assets/icons/visitor1.png',
+                                        featureName: 'Visitor-In',
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 45.0, bottom: 45.0),
+                                      child: VerticalDivider(
+                                        color: Colors.grey,
+                                        thickness: 0.35,
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () => Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  VisitorOut())),
+                                      child: FeatureItems(
+                                        imageURL:
+                                            'assets/icons/visitor-out.png',
+                                        featureName: 'Visitor-Out',
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 45.0, bottom: 45.0),
+                                      child: VerticalDivider(
+                                        color: Colors.grey,
+                                        thickness: 0.35,
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () => Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  WrongVisitor())),
+                                      child: FeatureItems(
+                                        imageURL:
+                                            'assets/icons/wrong-visitors.png',
+                                        featureName: 'Wrong-Visitor',
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                                top: -20,
+                                left: 10,
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  width: 180,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                      color: Color(0xffeabfff),
+                                      border: Border.all(
+                                          color: Colors.grey, width: 1)),
+                                  child: Text(
+                                    "Visitor Management",
+                                    style: TextStyle(
+                                        fontSize: 15, color: Colors.black),
+                                  ),
+                                ))
+                          ]),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Center(
+                      child: Stack(
+                          alignment: Alignment.topLeft,
+                          clipBehavior: Clip.none,
+                          children: <Widget>[
+                            Material(
+                              shadowColor: Colors.grey,
+                              elevation: 20,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                              child: Container(
+                                height: 170,
+                                width: screenSize().width / 1.025,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border.all(
+                                        color: Colors.grey, width: 0.5)
+                                    /*borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),*/
+                                    ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () => Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => StaffIn())),
+                                      child: FeatureItems(
+                                        imageURL: 'assets/icons/staff-in.png',
+                                        featureName: 'Staff-In',
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 45.0, bottom: 45.0),
+                                      child: VerticalDivider(
+                                        color: Colors.grey,
+                                        thickness: 0.35,
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () => Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  StaffOut())),
+                                      child: FeatureItems(
+                                        imageURL: 'assets/icons/staff-out.png',
+                                        featureName: 'Staff-Out',
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 45.0, bottom: 45.0),
+                                      child: VerticalDivider(
+                                        color: Colors.grey,
+                                        thickness: 0.35,
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () => Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  AddStaff())),
+                                      child: FeatureItems(
+                                        imageURL: 'assets/icons/add-staff.png',
+                                        featureName: 'Add Staff',
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                                top: -20,
+                                left: 10,
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  width: 180,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                      color: Color(0xffeabfff),
+                                      border: Border.all(
+                                          color: Colors.grey, width: 1)),
+                                  child: Text(
+                                    "Staff Management",
+                                    style: TextStyle(
+                                        fontSize: 15, color: Colors.black),
+                                  ),
+                                ))
+                          ]),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Center(
+                      child: Stack(
+                          alignment: Alignment.topLeft,
+                          clipBehavior: Clip.none,
+                          children: <Widget>[
+                            Material(
+                              shadowColor: Colors.grey,
+                              elevation: 20,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(50)),
+                              child: Container(
+                                height: 170,
+                                width: screenSize().width / 1.025,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border.all(
+                                        color: Colors.grey, width: 0.5)
+                                    /*borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),*/
+                                    ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () => Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => CarIn())),
+                                      child: FeatureItems(
+                                        imageURL: 'assets/icons/car-in.png',
+                                        featureName: 'Car-In',
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 45.0, bottom: 45.0),
+                                      child: VerticalDivider(
+                                        color: Colors.grey,
+                                        thickness: 0.35,
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () => Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => CarOut())),
+                                      child: FeatureItems(
+                                        imageURL: 'assets/icons/car-out.png',
+                                        featureName: 'Car-Out',
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 45.0, bottom: 45.0),
+                                      child: VerticalDivider(
+                                        color: Colors.grey,
+                                        thickness: 0.35,
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () => Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => AddCar())),
+                                      child: FeatureItems(
+                                        imageURL: 'assets/icons/add-car.png',
+                                        featureName: 'Add Car',
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                                top: -20,
+                                left: 10,
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  width: 180,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                      color: Color(0xffeabfff),
+                                      border: Border.all(
+                                          color: Colors.grey, width: 1)),
+                                  child: Text(
+                                    "Car Management",
+                                    style: TextStyle(
+                                        fontSize: 15, color: Colors.black),
+                                  ),
+                                ))
+                          ]),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
         ),
       ),
+    );
+  }
+}
+
+class FeatureItems extends StatelessWidget {
+  final String imageURL;
+  final String featureName;
+
+  FeatureItems({required this.imageURL, required this.featureName});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Card(
+          elevation: 5,
+          child: Container(
+            padding: EdgeInsets.all(10.0),
+            height: 95,
+            child: Image(image: AssetImage(imageURL)),
+          ),
+        ),
+        Text(featureName)
+      ],
     );
   }
 }

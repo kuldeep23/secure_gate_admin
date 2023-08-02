@@ -11,7 +11,7 @@ import '../pages/homepage/home_page.dart';
 import 'app_routes_constants.dart';
 
 class MyAppRouterConfig {
-  static final GlobalKey<NavigatorState> _rootNavigatorKey =
+  static final GlobalKey<NavigatorState> rootNavigatorKey =
       GlobalKey<NavigatorState>();
 
   final bool isAuth;
@@ -31,7 +31,7 @@ class MyAppRouterConfig {
   static GoRouter get router => _router;
 
   static final GoRouter _router = GoRouter(
-    navigatorKey: _rootNavigatorKey,
+    navigatorKey: rootNavigatorKey,
     routes: [
       GoRoute(
         name: MyAppRoutes.splashScreen,

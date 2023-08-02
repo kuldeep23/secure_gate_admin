@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:dio/dio.dart';
+import '../auth_exception_handler.dart';
 import '../controllers/user_controller.dart';
-import '../custom_exception.dart';
 import 'login_presistence_service.dart';
 
 final authServiceProvider = Provider<AuthenticationSerivce>((ref) {
@@ -40,9 +40,11 @@ class AuthenticationSerivce implements BaseAuthenticationService {
             .read(loginPresistenceServiceProvider)
             .setUserInPrefs(passingData);
         await ref.read(userControllerProvider).configCurrentUser();
-      } else {}
+      } else if (userResponse.data["flag"] == 0) {
+        return ErrorHandler.errorDialog(userResponse.data["message"]);
+      }
     } catch (e) {
-      throw CustomExeption(message: e.toString());
+      throw ErrorHandler.errorDialog(e);
     }
   }
 

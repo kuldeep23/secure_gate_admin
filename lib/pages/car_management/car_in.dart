@@ -5,6 +5,6 @@ class CarIn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text('CarIn')));
+    return const Scaffold(body: Center(child: Text('CarIn')));
   }
 }

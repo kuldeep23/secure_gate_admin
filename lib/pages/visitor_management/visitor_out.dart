@@ -10,6 +10,6 @@ class VisitorOut extends StatelessWidget {
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: const Text("Visitor-Out"),
         ),
-        body: Center(child: Text('VisitorOut')));
+        body: const Center(child: Text('VisitorOut')));
   }
 }

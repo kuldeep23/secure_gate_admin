@@ -25,7 +25,12 @@ class HomePage extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Secure Gates Admin"),
+        title: GestureDetector(
+          onLongPress: () {
+            ref.read(authServiceProvider).signOut();
+          },
+          child: const Text("Secure Gates Admin"),
+        ),
       ),
       body: Center(
         child: GestureDetector(
@@ -33,7 +38,7 @@ class HomePage extends HookConsumerWidget {
             await ref.watch(authServiceProvider).signOut();
           },
           child: Container(
-            padding: EdgeInsets.symmetric(vertical: 30),
+            padding: const EdgeInsets.symmetric(vertical: 30),
             child: Column(
               children: [
                 Row(
@@ -48,7 +53,7 @@ class HomePage extends HookConsumerWidget {
                               shadowColor: Colors.grey,
                               elevation: 20,
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
+                                  const BorderRadius.all(Radius.circular(50)),
                               child: Container(
                                 height: 170,
                                 width: screenSize().width / 1.025,
@@ -68,14 +73,14 @@ class HomePage extends HookConsumerWidget {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  VisitorIn())),
-                                      child: FeatureItems(
+                                                  const VisitorIn())),
+                                      child: const FeatureItems(
                                         imageURL: 'assets/icons/visitor1.png',
                                         featureName: 'Visitor-In',
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
+                                    const Padding(
+                                      padding: EdgeInsets.only(
                                           top: 45.0, bottom: 45.0),
                                       child: VerticalDivider(
                                         color: Colors.grey,
@@ -87,15 +92,15 @@ class HomePage extends HookConsumerWidget {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  VisitorOut())),
-                                      child: FeatureItems(
+                                                  const VisitorOut())),
+                                      child: const FeatureItems(
                                         imageURL:
                                             'assets/icons/visitor-out.png',
                                         featureName: 'Visitor-Out',
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
+                                    const Padding(
+                                      padding: EdgeInsets.only(
                                           top: 45.0, bottom: 45.0),
                                       child: VerticalDivider(
                                         color: Colors.grey,
@@ -107,8 +112,8 @@ class HomePage extends HookConsumerWidget {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  WrongVisitor())),
-                                      child: FeatureItems(
+                                                  const WrongVisitor())),
+                                      child: const FeatureItems(
                                         imageURL:
                                             'assets/icons/wrong-visitors.png',
                                         featureName: 'Wrong-Visitor',
@@ -126,10 +131,10 @@ class HomePage extends HookConsumerWidget {
                                   width: 180,
                                   height: 40,
                                   decoration: BoxDecoration(
-                                      color: Color(0xffeabfff),
+                                      color: const Color(0xffeabfff),
                                       border: Border.all(
                                           color: Colors.grey, width: 1)),
-                                  child: Text(
+                                  child: const Text(
                                     "Visitor Management",
                                     style: TextStyle(
                                         fontSize: 15, color: Colors.black),
@@ -139,7 +144,7 @@ class HomePage extends HookConsumerWidget {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 Row(
@@ -154,7 +159,7 @@ class HomePage extends HookConsumerWidget {
                               shadowColor: Colors.grey,
                               elevation: 20,
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
+                                  const BorderRadius.all(Radius.circular(10)),
                               child: Container(
                                 height: 170,
                                 width: screenSize().width / 1.025,
@@ -173,14 +178,15 @@ class HomePage extends HookConsumerWidget {
                                       onTap: () => Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => StaffIn())),
-                                      child: FeatureItems(
+                                              builder: (context) =>
+                                                  const StaffIn())),
+                                      child: const FeatureItems(
                                         imageURL: 'assets/icons/staff-in.png',
                                         featureName: 'Staff-In',
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
+                                    const Padding(
+                                      padding: EdgeInsets.only(
                                           top: 45.0, bottom: 45.0),
                                       child: VerticalDivider(
                                         color: Colors.grey,
@@ -192,14 +198,14 @@ class HomePage extends HookConsumerWidget {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  StaffOut())),
-                                      child: FeatureItems(
+                                                  const StaffOut())),
+                                      child: const FeatureItems(
                                         imageURL: 'assets/icons/staff-out.png',
                                         featureName: 'Staff-Out',
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
+                                    const Padding(
+                                      padding: EdgeInsets.only(
                                           top: 45.0, bottom: 45.0),
                                       child: VerticalDivider(
                                         color: Colors.grey,
@@ -211,8 +217,8 @@ class HomePage extends HookConsumerWidget {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  AddStaff())),
-                                      child: FeatureItems(
+                                                  const AddStaff())),
+                                      child: const FeatureItems(
                                         imageURL: 'assets/icons/add-staff.png',
                                         featureName: 'Add Staff',
                                       ),
@@ -229,10 +235,10 @@ class HomePage extends HookConsumerWidget {
                                   width: 180,
                                   height: 40,
                                   decoration: BoxDecoration(
-                                      color: Color(0xffeabfff),
+                                      color: const Color(0xffeabfff),
                                       border: Border.all(
                                           color: Colors.grey, width: 1)),
-                                  child: Text(
+                                  child: const Text(
                                     "Staff Management",
                                     style: TextStyle(
                                         fontSize: 15, color: Colors.black),
@@ -242,7 +248,7 @@ class HomePage extends HookConsumerWidget {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 Row(
@@ -257,7 +263,7 @@ class HomePage extends HookConsumerWidget {
                               shadowColor: Colors.grey,
                               elevation: 20,
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
+                                  const BorderRadius.all(Radius.circular(50)),
                               child: Container(
                                 height: 170,
                                 width: screenSize().width / 1.025,
@@ -276,14 +282,15 @@ class HomePage extends HookConsumerWidget {
                                       onTap: () => Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => CarIn())),
-                                      child: FeatureItems(
+                                              builder: (context) =>
+                                                  const CarIn())),
+                                      child: const FeatureItems(
                                         imageURL: 'assets/icons/car-in.png',
                                         featureName: 'Car-In',
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
+                                    const Padding(
+                                      padding: EdgeInsets.only(
                                           top: 45.0, bottom: 45.0),
                                       child: VerticalDivider(
                                         color: Colors.grey,
@@ -294,14 +301,15 @@ class HomePage extends HookConsumerWidget {
                                       onTap: () => Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => CarOut())),
-                                      child: FeatureItems(
+                                              builder: (context) =>
+                                                  const CarOut())),
+                                      child: const FeatureItems(
                                         imageURL: 'assets/icons/car-out.png',
                                         featureName: 'Car-Out',
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
+                                    const Padding(
+                                      padding: EdgeInsets.only(
                                           top: 45.0, bottom: 45.0),
                                       child: VerticalDivider(
                                         color: Colors.grey,
@@ -312,8 +320,9 @@ class HomePage extends HookConsumerWidget {
                                       onTap: () => Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => AddCar())),
-                                      child: FeatureItems(
+                                              builder: (context) =>
+                                                  const AddCar())),
+                                      child: const FeatureItems(
                                         imageURL: 'assets/icons/add-car.png',
                                         featureName: 'Add Car',
                                       ),
@@ -330,10 +339,10 @@ class HomePage extends HookConsumerWidget {
                                   width: 180,
                                   height: 40,
                                   decoration: BoxDecoration(
-                                      color: Color(0xffeabfff),
+                                      color: const Color(0xffeabfff),
                                       border: Border.all(
                                           color: Colors.grey, width: 1)),
-                                  child: Text(
+                                  child: const Text(
                                     "Car Management",
                                     style: TextStyle(
                                         fontSize: 15, color: Colors.black),
@@ -401,7 +410,8 @@ class FeatureItems extends StatelessWidget {
   final String imageURL;
   final String featureName;
 
-  FeatureItems({required this.imageURL, required this.featureName});
+  const FeatureItems(
+      {super.key, required this.imageURL, required this.featureName});
 
   @override
   Widget build(BuildContext context) {
@@ -411,7 +421,7 @@ class FeatureItems extends StatelessWidget {
         Card(
           elevation: 5,
           child: Container(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             height: 95,
             child: Image(image: AssetImage(imageURL)),
           ),

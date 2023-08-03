@@ -14,6 +14,7 @@ class LoginPage extends HookConsumerWidget {
     final userFieldController = useTextEditingController();
     final pwdFieldController = useTextEditingController();
     final isLoading = useState(false);
+    final isPasswordVisible = useState(false);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -113,7 +114,7 @@ class LoginPage extends HookConsumerWidget {
                               duration: const Duration(milliseconds: 1500),
                               child: TextField(
                                 controller: pwdFieldController,
-                                obscureText: true,
+                                obscureText: isPasswordVisible.value,
                                 decoration: InputDecoration(
                                     labelText: "Password",
                                     labelStyle: const TextStyle(
@@ -125,10 +126,16 @@ class LoginPage extends HookConsumerWidget {
                                       color: Colors.black,
                                       size: 18,
                                     ),
-                                    suffixIcon: const Icon(
-                                      Iconsax.eye,
-                                      color: Colors.black,
-                                      size: 18,
+                                    suffixIcon: GestureDetector(
+                                      onTap: () {
+                                        isPasswordVisible.value =
+                                            !isPasswordVisible.value;
+                                      },
+                                      child: const Icon(
+                                        Iconsax.eye,
+                                        color: Colors.black,
+                                        size: 18,
+                                      ),
                                     ),
                                     contentPadding: const EdgeInsets.symmetric(
                                         vertical: 0, horizontal: 10),
@@ -226,13 +233,11 @@ class LoginPage extends HookConsumerWidget {
                 FadeInUp(
                     delay: const Duration(milliseconds: 700),
                     duration: const Duration(milliseconds: 1500),
-                    child: Container(
-                      child: SizedBox(
-                        height: 250,
-                        child: OverflowBox(
-                          child: Lottie.network(
-                              'https://assets5.lottiefiles.com/packages/lf20_KU3FGB47d6.json'),
-                        ),
+                    child: SizedBox(
+                      height: 250,
+                      child: OverflowBox(
+                        child: Lottie.network(
+                            'https://assets5.lottiefiles.com/packages/lf20_KU3FGB47d6.json'),
                       ),
                     ))
               ],

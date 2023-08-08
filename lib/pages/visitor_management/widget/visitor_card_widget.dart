@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-
-import '../pages/visitor_management/widget/responsive_wrap.dart';
-import '../pages/visitor_management/widget/vertical_divider_widget.dart';
-
+import 'package:secure_gates_admin/pages/visitor_management/widget/responsive_wrap.dart';
+import 'package:secure_gates_admin/pages/visitor_management/widget/vertical_divider_widget.dart';
 
 class VisitorCard extends StatelessWidget {
   const VisitorCard({
     super.key,
     required this.visitorApproveBy,
     required this.visitorEnterTime,
-    required this.visitorExitTime,
     required this.visitorImage,
     required this.visitorName,
     required this.visitorStatus,
@@ -25,8 +22,7 @@ class VisitorCard extends StatelessWidget {
       visitorTypeDetail,
       visitorApproveBy,
       visitorEnterTime,
-      visitorEnterDate,
-      visitorExitTime;
+      visitorEnterDate;
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +91,7 @@ class VisitorCard extends StatelessWidget {
                                 ),
                                 child: Text(
                                   visitorStatus.toUpperCase(),
-                                  
+      
                                 ),
                               ),
                             ],
@@ -206,10 +202,13 @@ class VisitorCard extends StatelessWidget {
                       const SizedBox(
                         width: 2,
                       ),
-                      Text(
-                        "Give Feedback",
-                        style: TextStyle(
-                          fontSize: Responsive.getFontSize(12),
+                      GestureDetector(
+                        onTap: () => print('Hello'),
+                        child: Text(
+                          "Give Feedback",
+                          style: TextStyle(
+                            fontSize: Responsive.getFontSize(12),
+                          ),
                         ),
                       ),
                     ],

@@ -25,7 +25,7 @@ class HomePage extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: GestureDetector(
+        title:  GestureDetector(
           onLongPress: () {
             ref.read(authServiceProvider).signOut();
           },

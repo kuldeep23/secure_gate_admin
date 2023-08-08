@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:secure_gates_admin/entities/visitor.dart';
+import 'package:secure_gates_admin/pages/visitor_management/widget/visitor_card_widget.dart';
 import 'package:secure_gates_admin/services/visitor_service.dart';
 
 final insideVisitorDataProvider =
@@ -26,14 +27,16 @@ class VisitorOut extends HookConsumerWidget {
             data: (data) {
               return ListView(
                 children: data
-                    .map((item) => Card(
-                          child: Row(
-                            children: [
-                              Image.network(item.visitorImage),
-                              Text(item.visitorName),
-                            ],
-                          ),
-                        ))
+                    .map((item) => VisitorCard(
+                              visitorApproveBy: item.visitorApproveBy,
+                              visitorEnterTime: item.visitorEnterTime,
+                              visitorImage: item.visitorImage,
+                              visitorName: item.visitorName,
+                              visitorEnterDate: item.visitorEnterDate,
+                              visitorStatus: item.visitorStatus,
+                              visitorType: item.visitorType,
+                              visitorTypeDetail: item.visitorTypeDetail,
+                            ))
                     .toList(),
               );
             },

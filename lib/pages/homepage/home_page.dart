@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:secure_gates_admin/pages/car_management/car_in.dart';
 import 'package:secure_gates_admin/pages/car_management/car_out.dart';
 import 'package:secure_gates_admin/pages/staff_management/add_staff.dart';
 import 'package:secure_gates_admin/pages/staff_management/staff_in.dart';
 import 'package:secure_gates_admin/pages/staff_management/staff_out.dart';
-import 'package:secure_gates_admin/pages/visitor_management/visitor_in.dart';
-import 'package:secure_gates_admin/pages/visitor_management/visitor_out.dart';
 import 'package:secure_gates_admin/pages/visitor_management/wrong_visitor.dart';
+import 'package:secure_gates_admin/routes/app_routes_constants.dart';
 import 'package:secure_gates_admin/services/authentication_service.dart';
 
 import '../car_management/add_car.dart';
@@ -69,11 +69,9 @@ class HomePage extends HookConsumerWidget {
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
                                     GestureDetector(
-                                      onTap: () => Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const VisitorIn())),
+                                      onTap: () => context.pushNamed(
+                                        MyAppRoutes.visitorInScreen,
+                                      ),
                                       child: const FeatureItems(
                                         imageURL: 'assets/icons/visitor1.png',
                                         featureName: 'Visitor-In',
@@ -88,11 +86,9 @@ class HomePage extends HookConsumerWidget {
                                       ),
                                     ),
                                     GestureDetector(
-                                      onTap: () => Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const VisitorOut())),
+                                      onTap: () => context.pushNamed(
+                                        MyAppRoutes.visitorOutScreen,
+                                      ),
                                       child: const FeatureItems(
                                         imageURL:
                                             'assets/icons/visitor-out.png',

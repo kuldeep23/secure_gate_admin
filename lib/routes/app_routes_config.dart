@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:secure_gates_admin/pages/visitor_management/visitor_in.dart';
+import 'package:secure_gates_admin/pages/visitor_management/visitor_out.dart';
 
 import '../controllers/user_controller.dart';
 import '../error/error_page.dart';
@@ -52,6 +54,16 @@ class MyAppRouterConfig {
         name: MyAppRoutes.signupPage,
         path: "/signup-page",
         builder: (context, state) => const SignupPage(),
+      ),
+      GoRoute(
+        name: MyAppRoutes.visitorInScreen,
+        path: "/visitor-in-screen",
+        builder: (context, state) => const VisitorIn(),
+      ),
+      GoRoute(
+        name: MyAppRoutes.visitorOutScreen,
+        path: "/visitor-out-screen",
+        builder: (context, state) => const VisitorOut(),
       ),
     ],
     errorBuilder: (BuildContext context, GoRouterState state) =>

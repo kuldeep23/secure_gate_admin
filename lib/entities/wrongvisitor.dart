@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
+
 class Wrongvisitor {
   final String visitorId;
   final String socCode;
@@ -97,28 +98,33 @@ class Wrongvisitor {
 
   factory Wrongvisitor.fromMap(Map<String, dynamic> map) {
     return Wrongvisitor(
-      visitorId: map['visitorId'] as String,
-      socCode: map['socCode'] as String,
-      visitorType: map['visitorType'] as String,
-      visitorTypeDetail: map['visitorTypeDetail'] as String,
-      visitorName: map['visitorName'] as String,
-      visitorMobile: map['visitorMobile'] as String,
-      visitorFlatNo: map['visitorFlatNo'] as String,
-      visitorImage: map['visitorImage'] as String,
-      visitorEnterDate: map['visitorEnterDate'] as String,
-      visitorEnterTime: map['visitorEnterTime'] as String,
-      visitorExitDate: map['visitorExitDate'] != null ? map['visitorExitDate'] as String : null,
-      visitorExitTime: map['visitorExitTime'] != null ? map['visitorExitTime'] as String : null,
-      visitorApproveBy: map['visitorApproveBy'] as String,
-      visitorStatus: map['visitorStatus'] as String,
-      visitorIsValid: map['visitorIsValid'] as String,
-      visitorReview: map['visitorReview'] as String,
+      visitorId: map['visitor_id'] as String,
+      socCode: map['soc_code'] as String,
+      visitorType: map['visitor_type'] as String,
+      visitorTypeDetail: map['visitor_type_detail'] as String,
+      visitorName: map['visitor_name'] as String,
+      visitorMobile: map['visitor_mobile'] as String,
+      visitorFlatNo: map['visitor_flat_no'] as String,
+      visitorImage: map['visitor_image'] as String,
+      visitorEnterDate: map['visitor_enter_date'] as String,
+      visitorEnterTime: map['visitor_enter_time'] as String,
+      visitorExitDate: map['visitor_exit_date'] != null
+          ? map['visitor_exit_date'] as String
+          : null,
+      visitorExitTime: map['visitor_exit_time'] != null
+          ? map['visitor_exit_time'] as String
+          : null,
+      visitorApproveBy: map['visitor_approve_by'] as String,
+      visitorStatus: map['visitor_status'] as String,
+      visitorIsValid: map['visitor_is_valid'] as String,
+      visitorReview: map['visitor_review'] as String,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory Wrongvisitor.fromJson(String source) => Wrongvisitor.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Wrongvisitor.fromJson(String source) =>
+      Wrongvisitor.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
@@ -128,43 +134,42 @@ class Wrongvisitor {
   @override
   bool operator ==(covariant Wrongvisitor other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.visitorId == visitorId &&
-      other.socCode == socCode &&
-      other.visitorType == visitorType &&
-      other.visitorTypeDetail == visitorTypeDetail &&
-      other.visitorName == visitorName &&
-      other.visitorMobile == visitorMobile &&
-      other.visitorFlatNo == visitorFlatNo &&
-      other.visitorImage == visitorImage &&
-      other.visitorEnterDate == visitorEnterDate &&
-      other.visitorEnterTime == visitorEnterTime &&
-      other.visitorExitDate == visitorExitDate &&
-      other.visitorExitTime == visitorExitTime &&
-      other.visitorApproveBy == visitorApproveBy &&
-      other.visitorStatus == visitorStatus &&
-      other.visitorIsValid == visitorIsValid &&
-      other.visitorReview == visitorReview;
+
+    return other.visitorId == visitorId &&
+        other.socCode == socCode &&
+        other.visitorType == visitorType &&
+        other.visitorTypeDetail == visitorTypeDetail &&
+        other.visitorName == visitorName &&
+        other.visitorMobile == visitorMobile &&
+        other.visitorFlatNo == visitorFlatNo &&
+        other.visitorImage == visitorImage &&
+        other.visitorEnterDate == visitorEnterDate &&
+        other.visitorEnterTime == visitorEnterTime &&
+        other.visitorExitDate == visitorExitDate &&
+        other.visitorExitTime == visitorExitTime &&
+        other.visitorApproveBy == visitorApproveBy &&
+        other.visitorStatus == visitorStatus &&
+        other.visitorIsValid == visitorIsValid &&
+        other.visitorReview == visitorReview;
   }
 
   @override
   int get hashCode {
     return visitorId.hashCode ^
-      socCode.hashCode ^
-      visitorType.hashCode ^
-      visitorTypeDetail.hashCode ^
-      visitorName.hashCode ^
-      visitorMobile.hashCode ^
-      visitorFlatNo.hashCode ^
-      visitorImage.hashCode ^
-      visitorEnterDate.hashCode ^
-      visitorEnterTime.hashCode ^
-      visitorExitDate.hashCode ^
-      visitorExitTime.hashCode ^
-      visitorApproveBy.hashCode ^
-      visitorStatus.hashCode ^
-      visitorIsValid.hashCode ^
-      visitorReview.hashCode;
+        socCode.hashCode ^
+        visitorType.hashCode ^
+        visitorTypeDetail.hashCode ^
+        visitorName.hashCode ^
+        visitorMobile.hashCode ^
+        visitorFlatNo.hashCode ^
+        visitorImage.hashCode ^
+        visitorEnterDate.hashCode ^
+        visitorEnterTime.hashCode ^
+        visitorExitDate.hashCode ^
+        visitorExitTime.hashCode ^
+        visitorApproveBy.hashCode ^
+        visitorStatus.hashCode ^
+        visitorIsValid.hashCode ^
+        visitorReview.hashCode;
   }
 }

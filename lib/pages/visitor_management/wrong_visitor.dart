@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:secure_gates_admin/entities/wrongvisitor.dart';
-import 'package:secure_gates_admin/pages/visitor_management/widget/visitor_card_widget.dart';
 import 'package:secure_gates_admin/services/wrong_visitor_service.dart';
+
+import '../../entities/wrongvisitor.dart';
 
 final wrongVisitorDataProvider =
     FutureProvider.autoDispose<List<Wrongvisitor>>((ref) async {
-  final wrongvisitors = WrongVisitorService(ref).geWrongVisitors();
+  final wrongvisitors =
+      ref.read(wrongVisitorServiceProvider).getWrongVisitors();
 
-  return wrongvisitors ;
+  return wrongvisitors;
 });
 
 class WrongVisitor extends HookConsumerWidget {
@@ -18,16 +19,17 @@ class WrongVisitor extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final wrongvisitorData = ref.watch(wrongVisitorDataProvider);
 
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
-        title: const Text("Visitor-Out"),
+        title: const Text("Visitor Out"),
       ),
       body: Center(
         child: wrongvisitorData.when(
             data: (data) {
               return ListView(
                 children: data
-                    .map((item) => /* VisitorCard(
+                    .map(
+                        (item) => /* VisitorCard(
                               visitorApproveBy: item.visitorApproveBy,
                               visitorEnterTime: item.visitorEnterTime,
                               visitorImage: item.visitorImage,
@@ -36,7 +38,8 @@ class WrongVisitor extends HookConsumerWidget {
                               visitorStatus: item.visitorStatus,
                               visitorType: item.visitorType,
                               visitorTypeDetail: item.visitorTypeDetail,
-                            ) */ Text(item.visitorName))
+                            ) */
+                            Text(item.visitorName))
                     .toList(),
               );
             },

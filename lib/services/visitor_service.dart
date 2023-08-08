@@ -29,6 +29,15 @@ class VisitorService implements BaseVisitorService {
         "https://gatesadmin.000webhostapp.com/all_visitors_list.php",
         data: formData,
       );
+      // final formData = FormData.fromMap({
+      //   "soc": socCode,
+      //   'flat_no': 360,
+      // });
+
+      // final dataResponse = await _dio.post(
+      //   "https://gatesadmin.000webhostapp.com/get_wrong_visitors.php",
+      //   data: formData,
+      // );
 
       final results = List<Map<String, dynamic>>.from(dataResponse.data);
 

@@ -21,7 +21,7 @@ class WrongVisitor extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Visitor-Out"),
+        title: const Text("Visitor Out"),
       ),
       body: Center(
         child: wrongvisitorData.when(

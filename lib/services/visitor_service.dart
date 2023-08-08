@@ -20,7 +20,7 @@ class VisitorService implements BaseVisitorService {
   VisitorService(this.ref);
 
   @override
-  Future<List<Visitor>> getInsideVisitors() async {
+          Future<List<Visitor>> getInsideVisitors() async {
     try {
       final socCode = ref.watch(userControllerProvider).currentUser!.socCode;
       final formData = FormData.fromMap({"soc_code": socCode});

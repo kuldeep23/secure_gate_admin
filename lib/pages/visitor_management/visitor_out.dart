@@ -6,7 +6,7 @@ import 'package:secure_gates_admin/services/visitor_service.dart';
 
 final insideVisitorDataProvider =
     FutureProvider.autoDispose<List<Visitor>>((ref) async {
-  final visitors = VisitorService(ref).getInsideVisitors();
+  final visitors = ref.read(visitorServiceProvider).getInsideVisitors();
 
   return visitors;
 });
@@ -28,15 +28,15 @@ class VisitorOut extends HookConsumerWidget {
               return ListView(
                 children: data
                     .map((item) => VisitorCard(
-                              visitorApproveBy: item.visitorApproveBy,
-                              visitorEnterTime: item.visitorEnterTime,
-                              visitorImage: item.visitorImage,
-                              visitorName: item.visitorName,
-                              visitorEnterDate: item.visitorEnterDate,
-                              visitorStatus: item.visitorStatus,
-                              visitorType: item.visitorType,
-                              visitorTypeDetail: item.visitorTypeDetail,
-                            ))
+                          visitorApproveBy: item.visitorApproveBy,
+                          visitorEnterTime: item.visitorEnterTime,
+                          visitorImage: item.visitorImage,
+                          visitorName: item.visitorName,
+                          visitorEnterDate: item.visitorEnterDate,
+                          visitorStatus: item.visitorStatus,
+                          visitorType: item.visitorType,
+                          visitorTypeDetail: item.visitorTypeDetail,
+                        ))
                     .toList(),
               );
             },

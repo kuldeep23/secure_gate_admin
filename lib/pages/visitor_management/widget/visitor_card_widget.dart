@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:secure_gates_admin/pages/visitor_management/widget/responsive_wrap.dart';
 import 'package:secure_gates_admin/pages/visitor_management/widget/vertical_divider_widget.dart';
 
@@ -56,7 +57,7 @@ class VisitorCard extends StatelessWidget {
                   ),
                   const VerticalDivider(
                     width: 15,
-                    thickness: 1.5,
+                    thickness: 0.5,
                     color: Colors.grey,
                   ),
                   Expanded(
@@ -190,78 +191,89 @@ class VisitorCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                SizedBox(
-                  width: Responsive.width(context) * 0.28,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.refresh_outlined,
-                        size: 19,
-                      ),
-                      const SizedBox(
-                        width: 2,
-                      ),
-                      GestureDetector(
-                        onTap: () => print('Hello'),
-                        child: Text(
+                GestureDetector(
+                   // ignore: avoid_print
+                   onTap: () => print('Hello'),
+                  child: SizedBox(
+                    width: Responsive.width(context) * 0.28,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.refresh_outlined,
+                          size: 19,
+                        ),
+                        const SizedBox(
+                          width: 2,
+                        ),
+                        Text(
                           "Give Feedback",
                           style: TextStyle(
                             fontSize: Responsive.getFontSize(12),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 const VerticallyDivider(
                   color: Colors.grey,
                   width: 2,
                 ),
-                SizedBox(
-                  width: Responsive.width(context) * 0.28,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.cancel_outlined,
-                        size: 19,
-                      ),
-                      const SizedBox(
-                        width: 2,
-                      ),
-                      Text(
-                        "Wrong Entry",
-                        style: TextStyle(
-                          fontSize: Responsive.getFontSize(12),
+                GestureDetector(
+                   // ignore: avoid_print
+                   onTap: () => print('Hellooo'),
+                  child: SizedBox(
+                    width: Responsive.width(context) * 0.28,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                       const RotatedBox(
+                          quarterTurns: 2,
+                          child: Icon(
+                            Icons.login_outlined,
+                            size: 19,
+                          ),
                         ),
-                      ),
-                    ],
+                        const SizedBox(
+                          width: 2,
+                        ),
+                        Text(
+                          "Out",
+                          style: TextStyle(
+                            fontSize: Responsive.getFontSize(12),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 const VerticallyDivider(
                   width: 2,
                   color: Colors.grey,
                 ),
-                SizedBox(
-                  width: Responsive.width(context) * 0.28,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.call,
-                        size: 19,
-                      ),
-                      const SizedBox(
-                        width: 2,
-                      ),
-                      Text(
-                        "Call",
-                        style: TextStyle(
-                          fontSize: Responsive.getFontSize(12),
+                GestureDetector(
+                   onTap: () => FlutterPhoneDirectCaller.callNumber('+919506078010'),
+                  child: SizedBox(
+                    width: Responsive.width(context) * 0.28,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.call,
+                          size: 19,
                         ),
-                      ),
-                    ],
+                        const SizedBox(
+                          width: 2,
+                        ),
+                        Text(
+                          "Call",
+                          style: TextStyle(
+                            fontSize: Responsive.getFontSize(12),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],

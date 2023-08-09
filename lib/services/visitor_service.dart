@@ -4,6 +4,7 @@ import 'package:secure_gates_admin/controllers/user_controller.dart';
 import 'package:secure_gates_admin/entities/visitor.dart';
 
 import '../auth_exception_handler.dart';
+import '../entities/wrongvisitor.dart';
 
 final visitorServiceProvider = Provider<VisitorService>((ref) {
   return VisitorService(ref);
@@ -11,6 +12,7 @@ final visitorServiceProvider = Provider<VisitorService>((ref) {
 
 abstract class BaseVisitorService {
   Future<List<Visitor>> getInsideVisitors();
+  Future<List<Wrongvisitor>> getWrongVisitors();
 }
 
 class VisitorService implements BaseVisitorService {
@@ -37,6 +39,35 @@ class VisitorService implements BaseVisitorService {
           .toList(growable: false);
 
       return visitors;
+    } catch (e) {
+      throw ErrorHandler.errorDialog(e);
+    }
+  }
+
+   @override
+  Future<List<Wrongvisitor>> getWrongVisitors() async {
+    try {
+      final socCode = ref.watch(userControllerProvider).currentUser!.socCode;
+      final flatNo =
+          ref.watch(userControllerProvider).currentUser!.socFlatNumber;
+
+      final formData = FormData.fromMap({
+        'soc': socCode,
+        'flat_no': flatNo,
+      });
+
+      final dataResponse = await _dio.post(
+        "https://gatesadmin.000webhostapp.com/get_wrong_visitors.php",
+        data: formData,
+      );
+
+      final results = List<Map<String, dynamic>>.from(dataResponse.data);
+
+      List<Wrongvisitor> wrongvisitors = results
+          .map((visitorData) => Wrongvisitor.fromMap(visitorData))
+          .toList(growable: false);
+
+      return wrongvisitors;
     } catch (e) {
       throw ErrorHandler.errorDialog(e);
     }

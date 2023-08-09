@@ -1,8 +1,10 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:secure_gates_admin/pages/visitor_management/widget/responsive_wrap.dart';
 import 'package:secure_gates_admin/pages/visitor_management/widget/vertical_divider_widget.dart';
 
-class VisitorCard extends StatelessWidget {
+class VisitorCard extends StatefulWidget {
   const VisitorCard({
     super.key,
     required this.visitorApproveBy,
@@ -24,6 +26,12 @@ class VisitorCard extends StatelessWidget {
       visitorEnterTime,
       visitorEnterDate;
 
+  @override
+  State<VisitorCard> createState() => _VisitorCardState();
+}
+
+class _VisitorCardState extends State<VisitorCard> {
+  final TextEditingController feedbackController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -48,7 +56,7 @@ class VisitorCard extends StatelessWidget {
                         CircleAvatar(
                           radius: 35,
                           backgroundImage: NetworkImage(
-                            visitorImage,
+                            widget.visitorImage,
                           ),
                         ),
                       ],
@@ -56,7 +64,7 @@ class VisitorCard extends StatelessWidget {
                   ),
                   const VerticalDivider(
                     width: 15,
-                    thickness: 1.5,
+                    thickness: 0.5,
                     color: Colors.grey,
                   ),
                   Expanded(
@@ -72,7 +80,7 @@ class VisitorCard extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "$visitorTypeDetail, $visitorName",
+                                "${widget.visitorTypeDetail}, ${widget.visitorName}",
                                 style: const TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
@@ -90,8 +98,7 @@ class VisitorCard extends StatelessWidget {
                                   ),
                                 ),
                                 child: Text(
-                                  visitorStatus.toUpperCase(),
-      
+                                  widget.visitorStatus.toUpperCase(),
                                 ),
                               ),
                             ],
@@ -111,7 +118,7 @@ class VisitorCard extends StatelessWidget {
                               ),
                             ),
                             child: Text(
-                              visitorType,
+                              widget.visitorType,
                               style: const TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w300,
@@ -133,7 +140,7 @@ class VisitorCard extends StatelessWidget {
                                 width: 2,
                               ),
                               Text(
-                                "Allowed by $visitorApproveBy",
+                                "Allowed by ${widget.visitorApproveBy}",
                                 style: TextStyle(
                                   fontSize: 14,
                                   color: Colors.grey[600],
@@ -153,7 +160,7 @@ class VisitorCard extends StatelessWidget {
                                 width: 2,
                               ),
                               Text(
-                                "Entered at $visitorEnterTime",
+                                "Entered at ${widget.visitorEnterTime}",
                                 style: TextStyle(
                                   fontSize: 14,
                                   color: Colors.grey[600],
@@ -170,7 +177,7 @@ class VisitorCard extends StatelessWidget {
                                 color: Colors.grey[600],
                               ),
                               Text(
-                                visitorEnterDate,
+                                widget.visitorEnterDate,
                                 style: TextStyle(
                                   fontSize: 14,
                                   color: Colors.grey[600],
@@ -190,78 +197,123 @@ class VisitorCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                SizedBox(
-                  width: Responsive.width(context) * 0.28,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.refresh_outlined,
-                        size: 19,
-                      ),
-                      const SizedBox(
-                        width: 2,
-                      ),
-                      GestureDetector(
-                        onTap: () => print('Hello'),
-                        child: Text(
+                GestureDetector(
+                  // ignore: avoid_print
+                  onTap: () => AwesomeDialog(
+                    body: TextField(
+                      maxLines: 5,
+                      maxLength: 100,
+                      controller: feedbackController,
+                      decoration: InputDecoration(
+                          hintText: "Type your feedback",
+                          labelStyle: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400),
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 0, horizontal: 10),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Colors.grey.shade200, width: 2),
+                              borderRadius: BorderRadius.circular(10)),
+                          floatingLabelStyle: const TextStyle(
+                              color: Color(0xffFF6663), fontSize: 18),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color(0xffFF6663), width: 1.5),
+                              borderRadius: BorderRadius.circular(10))),
+                    ),
+                    context: context,
+                    dialogType: DialogType.warning,
+                    animType: AnimType.scale,
+                    title: "Feedback",
+                    btnCancelOnPress: () {},
+                    btnOkOnPress: () {
+                      print(feedbackController.text);
+                    },
+                    btnOkText: "Submit",
+                  ).show(),
+                  child: SizedBox(
+                    width: Responsive.width(context) * 0.28,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.refresh_outlined,
+                          size: 19,
+                        ),
+                        const SizedBox(
+                          width: 2,
+                        ),
+                        Text(
                           "Give Feedback",
                           style: TextStyle(
                             fontSize: Responsive.getFontSize(12),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 const VerticallyDivider(
                   color: Colors.grey,
                   width: 2,
                 ),
-                SizedBox(
-                  width: Responsive.width(context) * 0.28,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.cancel_outlined,
-                        size: 19,
-                      ),
-                      const SizedBox(
-                        width: 2,
-                      ),
-                      Text(
-                        "Wrong Entry",
-                        style: TextStyle(
-                          fontSize: Responsive.getFontSize(12),
+                GestureDetector(
+                  // ignore: avoid_print
+                  onTap: () => print('Hellooo'),
+                  child: SizedBox(
+                    width: Responsive.width(context) * 0.28,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const RotatedBox(
+                          quarterTurns: 2,
+                          child: Icon(
+                            Icons.login_outlined,
+                            size: 19,
+                          ),
                         ),
-                      ),
-                    ],
+                        const SizedBox(
+                          width: 2,
+                        ),
+                        Text(
+                          "Out",
+                          style: TextStyle(
+                            fontSize: Responsive.getFontSize(12),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 const VerticallyDivider(
                   width: 2,
                   color: Colors.grey,
                 ),
-                SizedBox(
-                  width: Responsive.width(context) * 0.28,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.call,
-                        size: 19,
-                      ),
-                      const SizedBox(
-                        width: 2,
-                      ),
-                      Text(
-                        "Call",
-                        style: TextStyle(
-                          fontSize: Responsive.getFontSize(12),
+                GestureDetector(
+                  onTap: () =>
+                      FlutterPhoneDirectCaller.callNumber('+919506078010'),
+                  child: SizedBox(
+                    width: Responsive.width(context) * 0.28,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.call,
+                          size: 19,
                         ),
-                      ),
-                    ],
+                        const SizedBox(
+                          width: 2,
+                        ),
+                        Text(
+                          "Call",
+                          style: TextStyle(
+                            fontSize: Responsive.getFontSize(12),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],

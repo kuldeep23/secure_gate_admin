@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:secure_gates_admin/entities/wrongvisitor.dart';
 import 'package:secure_gates_admin/pages/visitor_management/widget/visitor_card_widget.dart';
 
+import '../../entities/visitor.dart';
 import '../../services/visitor_service.dart';
 
 final wrongVisitorDataProvider =
-    FutureProvider.autoDispose<List<Wrongvisitor>>((ref) async {
+    FutureProvider.autoDispose<List<Visitor>>((ref) async {
   final wrongvisitors = VisitorService(ref).getWrongVisitors();
   return wrongvisitors;
 });
@@ -28,6 +28,7 @@ class WrongVisitor extends HookConsumerWidget {
               return ListView(
                 children: data
                     .map((item) => VisitorCard(
+                          visitorid: item.visitorId,  
                           visitorApproveBy: item.visitorApproveBy,
                           visitorEnterTime: item.visitorEnterTime,
                           visitorImage: item.visitorImage,
@@ -36,6 +37,7 @@ class WrongVisitor extends HookConsumerWidget {
                           visitorStatus: item.visitorStatus,
                           visitorType: item.visitorType,
                           visitorTypeDetail: item.visitorTypeDetail,
+                          visitormobile: item.visitorMobile,
                         ))
                     .toList(),
               );

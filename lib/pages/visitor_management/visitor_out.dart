@@ -12,6 +12,7 @@ final insideVisitorDataProvider =
 });
 
 class VisitorOut extends HookConsumerWidget {
+  
   const VisitorOut({Key? key}) : super(key: key);
 
   @override
@@ -28,6 +29,7 @@ class VisitorOut extends HookConsumerWidget {
               return ListView(
                 children: data
                     .map((item) => VisitorCard(
+                          visitorid: item.visitorId,
                           visitorApproveBy: item.visitorApproveBy,
                           visitorEnterTime: item.visitorEnterTime,
                           visitorImage: item.visitorImage,
@@ -36,6 +38,7 @@ class VisitorOut extends HookConsumerWidget {
                           visitorStatus: item.visitorStatus,
                           visitorType: item.visitorType,
                           visitorTypeDetail: item.visitorTypeDetail,
+                          visitormobile: item.visitorMobile,
                         ))
                     .toList(),
               );
@@ -47,4 +50,5 @@ class VisitorOut extends HookConsumerWidget {
       ),
     );
   }
+  
 }

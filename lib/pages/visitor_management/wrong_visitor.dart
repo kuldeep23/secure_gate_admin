@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:secure_gates_admin/pages/visitor_management/widget/visitor_card_widget.dart';
+import 'package:secure_gates_admin/pages/visitor_management/widget/wrong_visitor_card_widget.dart';
 
 import '../../entities/visitor.dart';
 import '../../services/visitor_service.dart';
@@ -27,7 +27,9 @@ class WrongVisitor extends HookConsumerWidget {
             data: (data) {
               return ListView(
                 children: data
-                    .map((item) => VisitorCard(
+                    .map((item) => WrongVisitorCard(
+                          visitorimage: item.visitorName,
+                          visitorsoccode: item.socCode,
                           visitorid: item.visitorId,  
                           visitorApproveBy: item.visitorApproveBy,
                           visitorEnterTime: item.visitorEnterTime,
@@ -38,6 +40,7 @@ class WrongVisitor extends HookConsumerWidget {
                           visitorType: item.visitorType,
                           visitorTypeDetail: item.visitorTypeDetail,
                           visitormobile: item.visitorMobile,
+                          visitorReview: item.visitorReview,
                         ))
                     .toList(),
               );

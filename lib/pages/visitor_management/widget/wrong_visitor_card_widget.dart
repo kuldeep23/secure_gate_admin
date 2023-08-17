@@ -22,7 +22,8 @@ class WrongVisitorCard extends HookConsumerWidget {
     required this.visitormobile,
     required this.visitorsoccode,
     required this.visitorimage,
-    required this.visitorReview
+    required this.visitorReview,
+    required this.visitorId,
   });
 
   final String visitorImage,
@@ -37,7 +38,8 @@ class WrongVisitorCard extends HookConsumerWidget {
       visitormobile,
       visitorsoccode,
       visitorimage,
-      visitorReview;
+      visitorReview,
+      visitorId;
 
   final TextEditingController feedbackController = TextEditingController();
   final TextEditingController flatController = TextEditingController();
@@ -336,7 +338,8 @@ class WrongVisitorCard extends HookConsumerWidget {
                                         "ok",
                                         "$visitorApproveBy",
                                         "$visitorStatus",
-                                        "$visitorReview"
+                                        "$visitorReview",
+                                        "$visitorid"
                                       )
                                       
                                       .catchError((e, st) {

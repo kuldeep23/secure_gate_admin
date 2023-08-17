@@ -19,7 +19,7 @@ abstract class BaseVisitorService {
   Future<void> updatevisitorFlat(String socCode, String visitorType, String visitorTypeDetails, 
   String visitorName, String visitorMobile, String visitorFlatNo, String visitorImage, String visitorEnterDate,
   String visitorEnterTime, String visitorExistDate, String visitorExistTime, String visitorApproveBy, 
-  String visitorStatus, String visitorReview);
+  String visitorStatus, String visitorReview, String visitorid,);
 }
 
 class VisitorService implements BaseVisitorService {
@@ -163,13 +163,13 @@ class VisitorService implements BaseVisitorService {
   Future<void> updatevisitorFlat(String socCode, String visitorType, String visitorTypeDetails, 
   String visitorName, String visitorMobile, String visitorFlatNo, String visitorImage, String visitorEnterDate,
   String visitorEnterTime, String visitorExistDate, String visitorExistTime, String visitorApproveBy, 
-  String visitorStatus, String visitorReview) async {
+  String visitorStatus, String visitorReview, String visitorid) async {
     try {
       final formData =
           FormData.fromMap({"soc_code": socCode, "visitor_type": visitorType, "visitor_type_details": visitorTypeDetails, "visitor_name": visitorName,
           "visitor_mobile": visitorMobile, "visitor_flat_no": visitorFlatNo, "visitor_image": visitorImage, "visitor_enter_date": visitorEnterDate, 
           "visitor_enter_time": visitorEnterTime, "visitor_exist_date": visitorExistDate, "visitor_exist_time": visitorExistTime, "visitor_approve_by": visitorApproveBy, 
-          "visitor_status": visitorStatus, "visitor_review": visitorReview,});
+          "visitor_status": visitorStatus, "visitor_review": visitorReview, "visitor_id": visitorid});
 
       final userResponse = await _dio.post(
         "https://gatesadmin.000webhostapp.com/wrong_visitor_update.php",

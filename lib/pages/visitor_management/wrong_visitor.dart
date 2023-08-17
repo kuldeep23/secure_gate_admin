@@ -41,6 +41,7 @@ class WrongVisitor extends HookConsumerWidget {
                           visitorTypeDetail: item.visitorTypeDetail,
                           visitormobile: item.visitorMobile,
                           visitorReview: item.visitorReview,
+                          visitorId: item.visitorId,
                         ))
                     .toList(),
               );

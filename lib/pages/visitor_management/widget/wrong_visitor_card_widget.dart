@@ -325,21 +325,21 @@ class WrongVisitorCard extends HookConsumerWidget {
                                  await ref
                                       .read(visitorServiceProvider)
                                       .updatevisitorFlat(
-                                        "$visitorsoccode",
-                                        "$visitorType",
-                                        "$visitorTypeDetail",
-                                        "$visitorName",
-                                        "$visitormobile",
+                                        visitorsoccode,
+                                        visitorType,
+                                        visitorTypeDetail,
+                                        visitorName,
+                                        visitormobile,
                                         flatController.text.trim(),
-                                        "$visitorImage",
-                                        "$visitorEnterDate",
-                                        "$visitorEnterTime",
+                                        visitorImage,
+                                        visitorEnterDate,
+                                        visitorEnterTime,
                                         "ok",
                                         "ok",
-                                        "$visitorApproveBy",
-                                        "$visitorStatus",
-                                        "$visitorReview",
-                                        "$visitorid"
+                                        visitorApproveBy,
+                                        visitorStatus,
+                                        visitorReview,
+                                        visitorid
                                       )
                                       
                                       .catchError((e, st) {

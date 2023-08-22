@@ -13,7 +13,7 @@ class VerticallyDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height ?? 21,
+      height: height ?? 25,
       width: width ?? 1.4,
       color: color ?? Colors.grey[300],
     );

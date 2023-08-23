@@ -6,7 +6,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:secure_gates_admin/pages/visitor_management/widget/responsive_wrap.dart';
 import 'package:secure_gates_admin/pages/visitor_management/widget/vertical_divider_widget.dart';
 import 'package:secure_gates_admin/services/staff_services.dart';
-import 'package:secure_gates_admin/services/visitor_service.dart';
 
 class StaffCard extends HookConsumerWidget {
    StaffCard({

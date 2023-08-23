@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:secure_gates_admin/entities/staff.dart';
-import 'package:secure_gates_admin/pages/staff_management/widget/staff_card_widget.dart';
+import 'package:secure_gates_admin/pages/staff_management/widget/outside_staff_card_widget.dart';
 import 'package:secure_gates_admin/services/staff_services.dart';
 
 
-final allInsideStaffDataProvider =
+final allOutsideStaffDataProvider =
     FutureProvider.autoDispose<List<Staff>>((ref) async {
-  final staff = ref.read(staffServiceProvider).getStaff();
+  final staff = ref.read(staffServiceProvider).getOutsideStaff();
   return staff;
 });
+
 class StaffIn extends HookConsumerWidget {
   const StaffIn({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final outsideStaffData = ref.watch(allInsideStaffDataProvider); 
+    final outsideStaffData = ref.watch(allOutsideStaffDataProvider); 
 
     return Scaffold(
       appBar: AppBar(

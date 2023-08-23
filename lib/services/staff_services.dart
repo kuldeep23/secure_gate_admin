@@ -4,7 +4,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:secure_gates_admin/controllers/user_controller.dart';
 import 'package:secure_gates_admin/entities/staff.dart';
+import 'package:secure_gates_admin/pages/staff_management/staff_out.dart';
 import '../auth_exception_handler.dart';
+import '../pages/staff_management/staff_in.dart';
 
 
 final staffServiceProvider = Provider<StaffServices>((ref) {
@@ -12,8 +14,10 @@ final staffServiceProvider = Provider<StaffServices>((ref) {
 });
 
 abstract class BaseStaffService {
-  Future<List<Staff>> getStaff();
+  Future<List<Staff>> getOutsideStaff();
   Future<void> staffEnter(String staffId, String socCode);
+  Future<List<Staff>> getInsideStaff();
+  Future<void> staffExist(String staffuid, String staffsoccode);
 }
 
 class StaffServices implements BaseStaffService {
@@ -23,13 +27,13 @@ class StaffServices implements BaseStaffService {
   StaffServices(this.ref);
 
   @override
-  Future<List<Staff>> getStaff() async {
+  Future<List<Staff>> getOutsideStaff() async {
     try {
       final socCode = ref.watch(userControllerProvider).currentUser!.socCode;
       final formData = FormData.fromMap({"soc": socCode});
 
       final dataResponse = await _dio.post(
-        "https://gatesadmin.000webhostapp.com/get_all_staff.php",
+        "https://gatesadmin.000webhostapp.com/get_all_outside_staff.php",
         data: formData,
       );
 
@@ -58,7 +62,8 @@ class StaffServices implements BaseStaffService {
       );
       if (userResponse.data["status"] == 1) {
         
-        //print(value1);
+         ref.refresh(allOutsideStaffDataProvider);
+        
         Fluttertoast.showToast(
         msg: "Staff Entered Successfully !!!",
         toastLength: Toast.LENGTH_LONG,
@@ -70,6 +75,69 @@ class StaffServices implements BaseStaffService {
       } else if (userResponse.data["status"] == 0) {
          Fluttertoast.showToast(
         msg: "Staff Entered Failed !!!",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        textColor: Colors.white,
+        backgroundColor: Colors.red,
+        fontSize: 30.0
+    );
+        return ErrorHandler.errorDialog(userResponse.data["status"]);
+      }
+    } catch (e) {
+      throw ErrorHandler.errorDialog(e);
+    }
+  }
+
+  @override
+  Future<List<Staff>> getInsideStaff() async {
+    try {
+      final socCode = ref.watch(userControllerProvider).currentUser!.socCode;
+      final formData = FormData.fromMap({"soc": socCode});
+
+      final dataResponse = await _dio.post(
+        "https://gatesadmin.000webhostapp.com/get_all_inside_staff.php",
+        data: formData,
+      );
+
+      final results = List<Map<String, dynamic>>.from(dataResponse.data["data"]);
+      
+      List<Staff> staff = results
+          .map((staffData) => Staff.fromMap(staffData))
+          .toList(growable: false);
+
+      return staff;
+    } catch (e) {
+      throw ErrorHandler.errorDialog(e);
+    }
+  }
+
+  @override
+  Future<void> staffExist(String staffuid, String staffsoccode) async {
+    try {
+       
+       final formData =
+          FormData.fromMap({"staff_uid": staffuid, "staff_soc_code": staffsoccode});
+
+      final userResponse = await _dio.post(
+        "https://gatesadmin.000webhostapp.com/staff_exit.php",
+        data: formData,
+      );
+      if (userResponse.data["status"] == 1) {
+        
+        ref.refresh(allInsideStaffDataProvider);
+        
+        Fluttertoast.showToast(
+        msg: "Staff Exist Successfully !!!",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        textColor: Colors.black,
+        fontSize: 30.0
+    );
+      } else if (userResponse.data["status"] == 0) {
+         Fluttertoast.showToast(
+        msg: "Staff Exist Failed !!!",
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,

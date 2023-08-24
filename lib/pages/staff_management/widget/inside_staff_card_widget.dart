@@ -8,7 +8,7 @@ import 'package:secure_gates_admin/pages/visitor_management/widget/vertical_divi
 import 'package:secure_gates_admin/services/staff_services.dart';
 
 class StaffCard extends HookConsumerWidget {
-   StaffCard({
+  StaffCard({
     super.key,
     required this.uid,
     required this.socCode,
@@ -16,24 +16,28 @@ class StaffCard extends HookConsumerWidget {
     required this.staffType,
     required this.staffIcon,
     required this.staffStatus,
+    required this.lastEnterDate,
+    required this.lastEnterTime,
     required this.staffMobileNo,
     required this.staffRating,
     required this.staffCreationDate,
-    required this. staffDeactivateDate,
-    required this. staffIsActive,
+    required this.staffDeactivateDate,
+    required this.staffIsActive,
   });
 
- final String uid,
-  socCode, 
-  staffName, 
-  staffType, 
-  staffIcon, 
-  staffStatus,
-  staffMobileNo,
-  staffRating, 
-  staffCreationDate,
-  staffDeactivateDate,
-  staffIsActive;  
+  final String uid,
+      socCode,
+      staffName,
+      staffType,
+      staffIcon,
+      staffStatus,
+      lastEnterDate,
+      lastEnterTime,
+      staffMobileNo,
+      staffRating,
+      staffCreationDate,
+      staffDeactivateDate,
+      staffIsActive;
 
   final TextEditingController feedbackController = TextEditingController();
 
@@ -42,7 +46,7 @@ class StaffCard extends HookConsumerWidget {
     return Card(
       margin: const EdgeInsets.symmetric(
         horizontal: 5,
-        vertical: 10,
+        vertical: 5,
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(
@@ -62,6 +66,25 @@ class StaffCard extends HookConsumerWidget {
                           radius: 35,
                           backgroundImage: NetworkImage(
                             staffIcon,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 1,
+                            horizontal: 5,
+                          ),
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 34, 74, 103),
+                            borderRadius: BorderRadius.circular(
+                              10,
+                            ),
+                          ),
+                          child: Text(
+                            staffStatus.toUpperCase(),
+                            style: const TextStyle(color: Colors.white),
                           ),
                         ),
                       ],
@@ -85,7 +108,7 @@ class StaffCard extends HookConsumerWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "$staffType, $staffName",
+                                staffName,
                                 style: const TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
@@ -97,13 +120,15 @@ class StaffCard extends HookConsumerWidget {
                                   horizontal: 5,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: const Color(0xff6CB4EE),
+                                  color:
+                                      const Color.fromARGB(255, 102, 102, 216),
                                   borderRadius: BorderRadius.circular(
-                                    10,
+                                    5,
                                   ),
                                 ),
                                 child: Text(
-                                  staffStatus.toUpperCase(),
+                                  "ID : $uid",
+                                  style: const TextStyle(color: Colors.white),
                                 ),
                               ),
                             ],
@@ -117,7 +142,7 @@ class StaffCard extends HookConsumerWidget {
                               vertical: 2,
                             ),
                             decoration: BoxDecoration(
-                              color: const Color(0xff6CB4EE),
+                              color: const Color(0xffFF6663),
                               borderRadius: BorderRadius.circular(
                                 5,
                               ),
@@ -132,23 +157,46 @@ class StaffCard extends HookConsumerWidget {
                             ),
                           ),
                           const SizedBox(
-                            height: 5,
+                            height: 2,
                           ),
                           Row(
                             children: [
                               Icon(
-                                Icons.check_circle_outline,
+                                Icons.person_2_outlined,
                                 size: 18,
-                                color: Colors.grey[600],
+                                color: Colors.grey[800],
                               ),
                               const SizedBox(
                                 width: 2,
                               ),
                               Text(
-                                "Allowed by $staffStatus",
+                                "Added on $staffCreationDate",
                                 style: TextStyle(
                                   fontSize: 14,
-                                  color: Colors.grey[600],
+                                  color: Colors.grey[800],
+                                  height: 0.9,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 2,
+                          ),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.calendar_month_outlined,
+                                size: 18,
+                                color: Colors.grey[800],
+                              ),
+                              const SizedBox(
+                                width: 2,
+                              ),
+                              Text(
+                                "Last Enter $lastEnterDate",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.grey[800],
                                   height: 0.9,
                                 ),
                               ),
@@ -159,22 +207,21 @@ class StaffCard extends HookConsumerWidget {
                               Icon(
                                 Icons.schedule_outlined,
                                 size: 18,
-                                color: Colors.grey[600],
+                                color: Colors.grey[800],
                               ),
                               const SizedBox(
                                 width: 2,
                               ),
                               Text(
-                                "Added at $staffCreationDate",
+                                "Last Enter $lastEnterTime",
                                 style: TextStyle(
                                   fontSize: 14,
-                                  color: Colors.grey[600],
+                                  color: Colors.grey[800],
                                   height: 0.9,
                                 ),
                               ),
                             ],
                           ),
-                        
                         ],
                       ),
                     ),
@@ -187,82 +234,22 @@ class StaffCard extends HookConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 GestureDetector(
-                  // ignore: avoid_print
                   onTap: () => AwesomeDialog(
                     context: context,
-                    transitionAnimationDuration: const Duration(milliseconds: 400),
-                    dialogType: DialogType.question,
-                    animType: AnimType.scale,
-                    title: "Exit Staff",
-                    desc: "Do you want to exit the staff ?",
-                    btnCancelOnPress: () {},
-                    btnCancelText: "No",
-                    btnOkOnPress: ()  async {
-                                 await ref
-                                      .read(staffServiceProvider)
-                                      .staffExist(
-                                        uid,
-                                        socCode,
-                                      )
-                                      
-                                      .catchError((e, st) {
-                                    
-                                  });
-                                  
-                                 await FlutterTts().setLanguage("en-Us");
-                                 await FlutterTts().setVolume(1.0);
-                                 await FlutterTts().setSpeechRate(0.5);
-                                 await FlutterTts().setPitch(1.0);
-                                 await FlutterTts().speak("Staff Exit Successfully");
-
-                            
-                    },
-                    btnOkText: "Yes",
-                  ).show(), 
-                  child: SizedBox(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.login_outlined,
-                          size: 25,
-                        ),
-                        const SizedBox(
-                          width: 2,
-                        ),
-                        Text(
-                          "Exit",
-                          style: TextStyle(
-                            fontSize: Responsive.getFontSize(18),
-                            color: Colors.green
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                const VerticallyDivider(
-                  width: 1,
-                  color: Colors.grey,
-                ),
-                GestureDetector(
-                  onTap: () => AwesomeDialog(
-                    context: context,
-                    transitionAnimationDuration: const Duration(milliseconds: 400),
+                    transitionAnimationDuration:
+                        const Duration(milliseconds: 400),
                     dialogType: DialogType.question,
                     animType: AnimType.scale,
                     title: "Call Staff",
                     desc: "Do you  want to call the staff ?",
                     btnCancelOnPress: () {},
                     btnCancelText: "No",
-                    btnOkOnPress: ()  {
-                                 FlutterPhoneDirectCaller.callNumber('+91$staffMobileNo');
-                                  },
+                    btnOkOnPress: () {
+                      FlutterPhoneDirectCaller.callNumber('+91$staffMobileNo');
+                    },
                     btnOkText: "Yes",
                   ).show(),
-                      
                   child: SizedBox(
-                   
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -278,6 +265,60 @@ class StaffCard extends HookConsumerWidget {
                           style: TextStyle(
                             fontSize: Responsive.getFontSize(18),
                           ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const VerticallyDivider(
+                  width: 1,
+                  color: Colors.grey,
+                ),
+                GestureDetector(
+                  // ignore: avoid_print
+                  onTap: () => AwesomeDialog(
+                    context: context,
+                    transitionAnimationDuration:
+                        const Duration(milliseconds: 400),
+                    dialogType: DialogType.question,
+                    animType: AnimType.scale,
+                    title: "Exit Staff",
+                    desc: "Do you want to exit the staff ?",
+                    btnCancelOnPress: () {},
+                    btnCancelText: "No",
+                    btnOkOnPress: () async {
+                      await ref
+                          .read(staffServiceProvider)
+                          .staffExist(
+                            uid,
+                            socCode,
+                          )
+                          .catchError((e, st) {});
+
+                      await FlutterTts().setLanguage("en-Us");
+                      await FlutterTts().setVolume(1.0);
+                      await FlutterTts().setSpeechRate(0.5);
+                      await FlutterTts().setPitch(1.0);
+                      await FlutterTts().speak("Staff Exit Successfully");
+                    },
+                    btnOkText: "Yes",
+                  ).show(),
+                  child: SizedBox(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.login_outlined,
+                          size: 25,
+                        ),
+                        const SizedBox(
+                          width: 2,
+                        ),
+                        Text(
+                          "Exit",
+                          style: TextStyle(
+                              fontSize: Responsive.getFontSize(18),
+                              color: Colors.green),
                         ),
                       ],
                     ),

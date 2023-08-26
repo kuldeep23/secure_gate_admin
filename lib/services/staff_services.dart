@@ -62,7 +62,8 @@ class StaffServices implements BaseStaffService {
       );
       if (userResponse.data["status"] == 1) {
         
-         ref.refresh(allOutsideStaffDataProvider);
+         // ignore: unused_result
+         ref.refresh(allOutsideStaffDataProvider.future);
         
         Fluttertoast.showToast(
         msg: "Staff Entered Successfully !!!",
@@ -125,7 +126,8 @@ class StaffServices implements BaseStaffService {
       );
       if (userResponse.data["status"] == 1) {
         
-        ref.refresh(allInsideStaffDataProvider);
+        // ignore: unused_result
+        ref.refresh(allInsideStaffDataProvider.future);
         
         Fluttertoast.showToast(
         msg: "Staff Exist Successfully !!!",

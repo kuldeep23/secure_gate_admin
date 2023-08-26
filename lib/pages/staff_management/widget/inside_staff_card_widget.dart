@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:secure_gates_admin/pages/visitor_management/widget/responsive_wrap.dart';
 import 'package:secure_gates_admin/pages/visitor_management/widget/vertical_divider_widget.dart';
 import 'package:secure_gates_admin/services/staff_services.dart';
@@ -162,8 +163,8 @@ class StaffCard extends HookConsumerWidget {
                           Row(
                             children: [
                               Icon(
-                                Icons.person_2_outlined,
-                                size: 18,
+                                Iconsax.user_add,
+                                size: 14,
                                 color: Colors.grey[800],
                               ),
                               const SizedBox(
@@ -185,8 +186,8 @@ class StaffCard extends HookConsumerWidget {
                           Row(
                             children: [
                               Icon(
-                                Icons.calendar_month_outlined,
-                                size: 18,
+                                Iconsax.calendar_add,
+                                size: 15,
                                 color: Colors.grey[800],
                               ),
                               const SizedBox(
@@ -206,7 +207,7 @@ class StaffCard extends HookConsumerWidget {
                             children: [
                               Icon(
                                 Icons.schedule_outlined,
-                                size: 18,
+                                size: 15,
                                 color: Colors.grey[800],
                               ),
                               const SizedBox(

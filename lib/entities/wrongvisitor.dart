@@ -18,6 +18,7 @@ class Wrongvisitor {
   final String visitorStatus;
   final String visitorIsValid;
   final String visitorReview;
+  final String visitorIsValidUpdate;
   Wrongvisitor({
     required this.visitorId,
     required this.socCode,
@@ -35,6 +36,7 @@ class Wrongvisitor {
     required this.visitorStatus,
     required this.visitorIsValid,
     required this.visitorReview,
+    required this.visitorIsValidUpdate,
   });
 
   Wrongvisitor copyWith({
@@ -54,6 +56,7 @@ class Wrongvisitor {
     String? visitorStatus,
     String? visitorIsValid,
     String? visitorReview,
+    String? visitorIsValidUpdate,
   }) {
     return Wrongvisitor(
       visitorId: visitorId ?? this.visitorId,
@@ -72,6 +75,7 @@ class Wrongvisitor {
       visitorStatus: visitorStatus ?? this.visitorStatus,
       visitorIsValid: visitorIsValid ?? this.visitorIsValid,
       visitorReview: visitorReview ?? this.visitorReview,
+      visitorIsValidUpdate: visitorIsValidUpdate ?? this.visitorIsValidUpdate,
     );
   }
 
@@ -93,6 +97,7 @@ class Wrongvisitor {
       'visitorStatus': visitorStatus,
       'visitorIsValid': visitorIsValid,
       'visitorReview': visitorReview,
+      'visitorIsValidUpdate': visitorIsValidUpdate,
     };
   }
 
@@ -108,16 +113,13 @@ class Wrongvisitor {
       visitorImage: map['visitor_image'] as String,
       visitorEnterDate: map['visitor_enter_date'] as String,
       visitorEnterTime: map['visitor_enter_time'] as String,
-      visitorExitDate: map['visitor_exit_date'] != null
-          ? map['visitor_exit_date'] as String
-          : null,
-      visitorExitTime: map['visitor_exit_time'] != null
-          ? map['visitor_exit_time'] as String
-          : null,
+      visitorExitDate: map['visitor_exit_date'] != null ? map['visitor_exit_date'] as String : null,
+      visitorExitTime: map['visitor_exit_time'] != null ? map['visitor_exit_time'] as String : null,
       visitorApproveBy: map['visitor_approve_by'] as String,
       visitorStatus: map['visitor_status'] as String,
       visitorIsValid: map['visitor_is_valid'] as String,
       visitorReview: map['visitor_review'] as String,
+      visitorIsValidUpdate: map['visitor_is_valid_update'] as String,
     );
   }
 
@@ -128,48 +130,51 @@ class Wrongvisitor {
 
   @override
   String toString() {
-    return 'Wrongvisitor(visitorId: $visitorId, socCode: $socCode, visitorType: $visitorType, visitorTypeDetail: $visitorTypeDetail, visitorName: $visitorName, visitorMobile: $visitorMobile, visitorFlatNo: $visitorFlatNo, visitorImage: $visitorImage, visitorEnterDate: $visitorEnterDate, visitorEnterTime: $visitorEnterTime, visitorExitDate: $visitorExitDate, visitorExitTime: $visitorExitTime, visitorApproveBy: $visitorApproveBy, visitorStatus: $visitorStatus, visitorIsValid: $visitorIsValid, visitorReview: $visitorReview)';
+    return 'Wrongvisitor(visitorId: $visitorId, socCode: $socCode, visitorType: $visitorType, visitorTypeDetail: $visitorTypeDetail, visitorName: $visitorName, visitorMobile: $visitorMobile, visitorFlatNo: $visitorFlatNo, visitorImage: $visitorImage, visitorEnterDate: $visitorEnterDate, visitorEnterTime: $visitorEnterTime, visitorExitDate: $visitorExitDate, visitorExitTime: $visitorExitTime, visitorApproveBy: $visitorApproveBy, visitorStatus: $visitorStatus, visitorIsValid: $visitorIsValid, visitorReview: $visitorReview, visitorIsValidUpdate: $visitorIsValidUpdate)';
   }
 
   @override
   bool operator ==(covariant Wrongvisitor other) {
     if (identical(this, other)) return true;
-
-    return other.visitorId == visitorId &&
-        other.socCode == socCode &&
-        other.visitorType == visitorType &&
-        other.visitorTypeDetail == visitorTypeDetail &&
-        other.visitorName == visitorName &&
-        other.visitorMobile == visitorMobile &&
-        other.visitorFlatNo == visitorFlatNo &&
-        other.visitorImage == visitorImage &&
-        other.visitorEnterDate == visitorEnterDate &&
-        other.visitorEnterTime == visitorEnterTime &&
-        other.visitorExitDate == visitorExitDate &&
-        other.visitorExitTime == visitorExitTime &&
-        other.visitorApproveBy == visitorApproveBy &&
-        other.visitorStatus == visitorStatus &&
-        other.visitorIsValid == visitorIsValid &&
-        other.visitorReview == visitorReview;
+  
+    return 
+      other.visitorId == visitorId &&
+      other.socCode == socCode &&
+      other.visitorType == visitorType &&
+      other.visitorTypeDetail == visitorTypeDetail &&
+      other.visitorName == visitorName &&
+      other.visitorMobile == visitorMobile &&
+      other.visitorFlatNo == visitorFlatNo &&
+      other.visitorImage == visitorImage &&
+      other.visitorEnterDate == visitorEnterDate &&
+      other.visitorEnterTime == visitorEnterTime &&
+      other.visitorExitDate == visitorExitDate &&
+      other.visitorExitTime == visitorExitTime &&
+      other.visitorApproveBy == visitorApproveBy &&
+      other.visitorStatus == visitorStatus &&
+      other.visitorIsValid == visitorIsValid &&
+      other.visitorReview == visitorReview &&
+      other.visitorIsValidUpdate == visitorIsValidUpdate;
   }
 
   @override
   int get hashCode {
     return visitorId.hashCode ^
-        socCode.hashCode ^
-        visitorType.hashCode ^
-        visitorTypeDetail.hashCode ^
-        visitorName.hashCode ^
-        visitorMobile.hashCode ^
-        visitorFlatNo.hashCode ^
-        visitorImage.hashCode ^
-        visitorEnterDate.hashCode ^
-        visitorEnterTime.hashCode ^
-        visitorExitDate.hashCode ^
-        visitorExitTime.hashCode ^
-        visitorApproveBy.hashCode ^
-        visitorStatus.hashCode ^
-        visitorIsValid.hashCode ^
-        visitorReview.hashCode;
+      socCode.hashCode ^
+      visitorType.hashCode ^
+      visitorTypeDetail.hashCode ^
+      visitorName.hashCode ^
+      visitorMobile.hashCode ^
+      visitorFlatNo.hashCode ^
+      visitorImage.hashCode ^
+      visitorEnterDate.hashCode ^
+      visitorEnterTime.hashCode ^
+      visitorExitDate.hashCode ^
+      visitorExitTime.hashCode ^
+      visitorApproveBy.hashCode ^
+      visitorStatus.hashCode ^
+      visitorIsValid.hashCode ^
+      visitorReview.hashCode ^
+      visitorIsValidUpdate.hashCode;
   }
 }

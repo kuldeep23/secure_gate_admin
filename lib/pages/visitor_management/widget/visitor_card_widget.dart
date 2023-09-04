@@ -8,7 +8,7 @@ import 'package:secure_gates_admin/pages/visitor_management/widget/vertical_divi
 import 'package:secure_gates_admin/services/visitor_service.dart';
 
 class VisitorCard extends HookConsumerWidget {
-   VisitorCard({
+  VisitorCard({
     super.key,
     required this.visitorApproveBy,
     required this.visitorEnterTime,
@@ -19,7 +19,7 @@ class VisitorCard extends HookConsumerWidget {
     required this.visitorEnterDate,
     required this.visitorTypeDetail,
     required this.visitorid,
-    required this. visitormobile,
+    required this.visitormobile,
   });
 
   final String visitorImage,
@@ -62,6 +62,25 @@ class VisitorCard extends HookConsumerWidget {
                             visitorImage,
                           ),
                         ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 1,
+                            horizontal: 5,
+                          ),
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 34, 74, 103),
+                            borderRadius: BorderRadius.circular(
+                              10,
+                            ),
+                          ),
+                          child: Text(
+                            visitorStatus.toUpperCase(),
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -83,7 +102,7 @@ class VisitorCard extends HookConsumerWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "$visitorTypeDetail, $visitorName",
+                                visitorName,
                                 style: const TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
@@ -95,13 +114,15 @@ class VisitorCard extends HookConsumerWidget {
                                   horizontal: 5,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: const Color(0xff6CB4EE),
+                                  color:
+                                      const Color.fromARGB(255, 102, 102, 216),
                                   borderRadius: BorderRadius.circular(
                                     10,
                                   ),
                                 ),
                                 child: Text(
-                                  visitorStatus.toUpperCase(),
+                                  "ID :$visitorid",
+                                  style: const TextStyle(color: Colors.white),
                                 ),
                               ),
                             ],
@@ -227,21 +248,19 @@ class VisitorCard extends HookConsumerWidget {
                               borderRadius: BorderRadius.circular(10))),
                     ),
                     context: context,
-                    transitionAnimationDuration: const Duration(milliseconds: 400),
+                    transitionAnimationDuration:
+                        const Duration(milliseconds: 400),
                     dialogType: DialogType.warning,
                     animType: AnimType.scale,
-                    
                     btnCancelOnPress: () {},
                     btnOkOnPress: () async {
-                                  await ref
-                                      .read(visitorServiceProvider)
-                                      .visitorreview(
-                                        visitorid,
-                                        feedbackController.text.trim(),
-                                      )
-                                      .catchError((e, st) {
-                                  });
-                                               
+                      await ref
+                          .read(visitorServiceProvider)
+                          .visitorreview(
+                            visitorid,
+                            feedbackController.text.trim(),
+                          )
+                          .catchError((e, st) {});
                     },
                     btnOkText: "Submit",
                   ).show(),
@@ -275,32 +294,29 @@ class VisitorCard extends HookConsumerWidget {
                   // ignore: avoid_print
                   onTap: () => AwesomeDialog(
                     context: context,
-                    transitionAnimationDuration: const Duration(milliseconds: 400),
+                    transitionAnimationDuration:
+                        const Duration(milliseconds: 400),
                     dialogType: DialogType.question,
                     animType: AnimType.scale,
                     title: "Exist Visitor",
                     desc: "Do you really want to exit visitor ?",
                     btnCancelOnPress: () {},
                     btnCancelText: "No",
-                    btnOkOnPress: ()  async {
-                                 await ref
-                                      .read(visitorServiceProvider)
-                                      .visitorout(
-                                        visitorid,
-                                      )
-                                      
-                                      .catchError((e, st) {
-                                  });
-                                   await FlutterTts().setLanguage("en-Us");
-                                 await FlutterTts().setVolume(1.0);
-                                 await FlutterTts().setSpeechRate(0.5);
-                                 await FlutterTts().setPitch(1.0);
-                                 await FlutterTts().speak("Visitor Out Succesfully");
-
-                            
+                    btnOkOnPress: () async {
+                      await ref
+                          .read(visitorServiceProvider)
+                          .visitorout(
+                            visitorid,
+                          )
+                          .catchError((e, st) {});
+                      await FlutterTts().setLanguage("en-Us");
+                      await FlutterTts().setVolume(1.0);
+                      await FlutterTts().setSpeechRate(0.5);
+                      await FlutterTts().setPitch(1.0);
+                      await FlutterTts().speak("Visitor Out Succesfully");
                     },
                     btnOkText: "Yes",
-                  ).show(), 
+                  ).show(),
                   child: SizedBox(
                     width: Responsive.width(context) * 0.28,
                     child: Row(
@@ -333,19 +349,19 @@ class VisitorCard extends HookConsumerWidget {
                 GestureDetector(
                   onTap: () => AwesomeDialog(
                     context: context,
-                    transitionAnimationDuration: const Duration(milliseconds: 400),
+                    transitionAnimationDuration:
+                        const Duration(milliseconds: 400),
                     dialogType: DialogType.question,
                     animType: AnimType.scale,
                     title: "Call Visitor",
                     desc: "Do you really want to call visitor ?",
                     btnCancelOnPress: () {},
                     btnCancelText: "No",
-                    btnOkOnPress: ()  {
-                                 FlutterPhoneDirectCaller.callNumber('+91$visitormobile');
-                                      },
+                    btnOkOnPress: () {
+                      FlutterPhoneDirectCaller.callNumber('+91$visitormobile');
+                    },
                     btnOkText: "Yes",
                   ).show(),
-                      
                   child: SizedBox(
                     width: Responsive.width(context) * 0.28,
                     child: Row(

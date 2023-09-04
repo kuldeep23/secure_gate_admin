@@ -19,6 +19,7 @@ class StaffCard extends HookConsumerWidget {
     required this.staffStatus,
     required this.lastEnterDate,
     required this.lastEnterTime,
+    required this.lastEnterBy,
     required this.staffMobileNo,
     required this.staffRating,
     required this.staffCreationDate,
@@ -34,6 +35,7 @@ class StaffCard extends HookConsumerWidget {
       staffStatus,
       lastEnterDate,
       lastEnterTime,
+      lastEnterBy,
       staffMobileNo,
       staffRating,
       staffCreationDate,
@@ -172,6 +174,29 @@ class StaffCard extends HookConsumerWidget {
                               ),
                               Text(
                                 "Added on $staffCreationDate",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.grey[800],
+                                  height: 0.9,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 2,
+                          ),
+                          Row(
+                            children: [
+                              Icon(
+                                Iconsax.user_add,
+                                size: 14,
+                                color: Colors.grey[800],
+                              ),
+                              const SizedBox(
+                                width: 2,
+                              ),
+                              Text(
+                                "Last Enter By $lastEnterBy",
                                 style: TextStyle(
                                   fontSize: 14,
                                   color: Colors.grey[800],

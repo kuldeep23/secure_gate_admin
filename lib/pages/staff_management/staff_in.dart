@@ -35,6 +35,7 @@ class StaffIn extends HookConsumerWidget {
                           staffStatus: item.staffStatus,
                           lastExistDate: item.lastExistDate,
                           lastExistTime: item.lastExistTime,
+                          lastExistBy: item.lastExistBy,
                           staffMobileNo: item.staffMobileNo,
                           staffRating: item.staffRating,
                           staffCreationDate: item.staffCreationDate,

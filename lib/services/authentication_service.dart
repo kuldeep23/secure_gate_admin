@@ -31,16 +31,19 @@ class AuthenticationSerivce implements BaseAuthenticationService {
         "https://gatesadmin.000webhostapp.com/admin_login.php",
         data: formData,
       );
-      if (userResponse.data["flag"] == 1) {
+      if (userResponse.data["code"] == "100") {
+        print(userResponse.data["data"]);
         final testData =
             Map<String, dynamic>.from(userResponse.data["data"] as dynamic);
 
         final passingData = jsonEncode(testData);
+
         await ref
             .read(loginPresistenceServiceProvider)
             .setUserInPrefs(passingData);
+
         await ref.read(userControllerProvider).configCurrentUser();
-      } else if (userResponse.data["flag"] == 0) {
+      } else if (userResponse.data["code"] == "101") {
         return ErrorHandler.errorDialog(userResponse.data["message"]);
       }
     } catch (e) {

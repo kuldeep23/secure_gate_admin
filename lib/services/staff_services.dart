@@ -8,7 +8,6 @@ import 'package:secure_gates_admin/pages/staff_management/staff_out.dart';
 import '../auth_exception_handler.dart';
 import '../pages/staff_management/staff_in.dart';
 
-
 final staffServiceProvider = Provider<StaffServices>((ref) {
   return StaffServices(ref);
 });
@@ -37,8 +36,9 @@ class StaffServices implements BaseStaffService {
         data: formData,
       );
 
-      final results = List<Map<String, dynamic>>.from(dataResponse.data["data"]);
-      
+      final results =
+          List<Map<String, dynamic>>.from(dataResponse.data["data"]);
+
       List<Staff> staff = results
           .map((staffData) => Staff.fromMap(staffData))
           .toList(growable: false);
@@ -51,38 +51,36 @@ class StaffServices implements BaseStaffService {
 
   @override
   Future<void> staffEnter(String staffId, String socCode) async {
+    final guardName =
+        ref.watch(userControllerProvider).currentUser!.ownerFirstName;
     try {
-       
-       final formData =
-          FormData.fromMap({"staff_id": staffId, "soc_code": socCode});
+      final formData = FormData.fromMap(
+          {"staff_id": staffId, "soc_code": socCode, "guard_name": guardName});
 
       final userResponse = await _dio.post(
         "https://gatesadmin.000webhostapp.com/staff_enter.php",
         data: formData,
       );
       if (userResponse.data["status"] == 1) {
-        
-         // ignore: unused_result
-         ref.refresh(allOutsideStaffDataProvider.future);
-        
+        // ignore: unused_result
+        ref.refresh(allOutsideStaffDataProvider.future);
+
         Fluttertoast.showToast(
-        msg: "Staff Entered Successfully !!!",
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        textColor: Colors.black,
-        fontSize: 30.0
-    );
+            msg: "Staff Entered Successfully !!!",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            textColor: Colors.black,
+            fontSize: 30.0);
       } else if (userResponse.data["status"] == 0) {
-         Fluttertoast.showToast(
-        msg: "Staff Entered Failed !!!",
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        textColor: Colors.white,
-        backgroundColor: Colors.red,
-        fontSize: 30.0
-    );
+        Fluttertoast.showToast(
+            msg: "Staff Entered Failed !!!",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            textColor: Colors.white,
+            backgroundColor: Colors.red,
+            fontSize: 30.0);
         return ErrorHandler.errorDialog(userResponse.data["status"]);
       }
     } catch (e) {
@@ -101,8 +99,9 @@ class StaffServices implements BaseStaffService {
         data: formData,
       );
 
-      final results = List<Map<String, dynamic>>.from(dataResponse.data["data"]);
-      
+      final results =
+          List<Map<String, dynamic>>.from(dataResponse.data["data"]);
+
       List<Staff> staff = results
           .map((staffData) => Staff.fromMap(staffData))
           .toList(growable: false);
@@ -115,44 +114,43 @@ class StaffServices implements BaseStaffService {
 
   @override
   Future<void> staffExist(String staffuid, String staffsoccode) async {
+    final guardName =
+        ref.watch(userControllerProvider).currentUser!.ownerFirstName;
     try {
-       
-       final formData =
-          FormData.fromMap({"staff_uid": staffuid, "staff_soc_code": staffsoccode});
+      final formData = FormData.fromMap({
+        "staff_uid": staffuid,
+        "staff_soc_code": staffsoccode,
+        "guard_name": guardName
+      });
 
       final userResponse = await _dio.post(
         "https://gatesadmin.000webhostapp.com/staff_exit.php",
         data: formData,
       );
       if (userResponse.data["status"] == 1) {
-        
         // ignore: unused_result
         ref.refresh(allInsideStaffDataProvider.future);
-        
+
         Fluttertoast.showToast(
-        msg: "Staff Exist Successfully !!!",
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        textColor: Colors.black,
-        fontSize: 30.0
-    );
+            msg: "Staff Exist Successfully !!!",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            textColor: Colors.black,
+            fontSize: 30.0);
       } else if (userResponse.data["status"] == 0) {
-         Fluttertoast.showToast(
-        msg: "Staff Exist Failed !!!",
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        textColor: Colors.white,
-        backgroundColor: Colors.red,
-        fontSize: 30.0
-    );
+        Fluttertoast.showToast(
+            msg: "Staff Exist Failed !!!",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            textColor: Colors.white,
+            backgroundColor: Colors.red,
+            fontSize: 30.0);
         return ErrorHandler.errorDialog(userResponse.data["status"]);
       }
     } catch (e) {
       throw ErrorHandler.errorDialog(e);
     }
   }
-
-
-  }
+}

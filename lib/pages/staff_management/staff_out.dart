@@ -37,6 +37,7 @@ class StaffOut extends HookConsumerWidget {
                           staffStatus: item.staffStatus,
                           lastEnterDate: item.lastEnterDate,
                           lastEnterTime: item.lastEnterTime,
+                          lastEnterBy: item.lastEnterBy,
                           staffMobileNo: item.staffMobileNo,
                           staffRating: item.staffRating,
                           staffCreationDate: item.staffCreationDate,

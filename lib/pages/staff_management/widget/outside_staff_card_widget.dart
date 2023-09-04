@@ -19,6 +19,7 @@ class StaffCard extends HookConsumerWidget {
     required this.staffStatus,
     required this.lastExistDate,
     required this.lastExistTime,
+    required this.lastExistBy,
     required this.staffMobileNo,
     required this.staffRating,
     required this.staffCreationDate,
@@ -34,6 +35,7 @@ class StaffCard extends HookConsumerWidget {
       staffStatus,
       lastExistDate,
       lastExistTime,
+      lastExistBy,
       staffMobileNo,
       staffRating,
       staffCreationDate,
@@ -174,6 +176,29 @@ class StaffCard extends HookConsumerWidget {
                               ),
                               Text(
                                 "Added on $staffCreationDate",
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  color: Colors.grey[800],
+                                  height: 0.9,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Row(
+                            children: [
+                              Icon(
+                                Iconsax.user_add,
+                                size: 14,
+                                color: Colors.grey[800],
+                              ),
+                              const SizedBox(
+                                width: 2,
+                              ),
+                              Text(
+                                "Last Exist By $lastExistBy",
                                 style: TextStyle(
                                   fontSize: 13,
                                   color: Colors.grey[800],

@@ -21,6 +21,8 @@ class MyApp extends StatelessWidget {
           iconTheme: IconThemeData(color: Colors.white),
           color: Color(0xffFF6663),
         ),
+        cardTheme: const CardTheme(surfaceTintColor: Colors.white),
+        scaffoldBackgroundColor: Colors.grey[200],
         fontFamily: "Ubuntu",
         useMaterial3: true,
       ),

@@ -32,9 +32,9 @@ class AuthenticationSerivce implements BaseAuthenticationService {
         data: formData,
       );
       if (userResponse.data["code"] == "100") {
-        print(userResponse.data["data"]);
+     
         final testData =
-            Map<String, dynamic>.from(userResponse.data["data"] as dynamic);
+            Map<String, dynamic>.from(userResponse.data["data"]as dynamic);
 
         final passingData = jsonEncode(testData);
 

@@ -5,7 +5,6 @@ import 'package:secure_gates_admin/pages/staff_management/widget/inside_staff_ca
 import '../../entities/staff.dart';
 import '../../services/staff_services.dart';
 
-
 final allInsideStaffDataProvider =
     FutureProvider.autoDispose<List<Staff>>((ref) async {
   final staff = ref.read(staffServiceProvider).getInsideStaff();
@@ -17,7 +16,7 @@ class StaffOut extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final outsideStaffData = ref.watch(allInsideStaffDataProvider); 
+    final outsideStaffData = ref.watch(allInsideStaffDataProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -26,25 +25,31 @@ class StaffOut extends HookConsumerWidget {
       body: Center(
         child: outsideStaffData.when(
             data: (data) {
-              return ListView(
-                children: data
-                    .map((item) => StaffCard(
-                          uid: item.uid,
-                          socCode: item.socCode,
-                          staffName: item.staffName,
-                          staffType: item.staffType,
-                          staffIcon: item.staffIcon,
-                          staffStatus: item.staffStatus,
-                          lastEnterDate: item.lastEnterDate,
-                          lastEnterTime: item.lastEnterTime,
-                          lastEnterBy: item.lastEnterBy,
-                          staffMobileNo: item.staffMobileNo,
-                          staffRating: item.staffRating,
-                          staffCreationDate: item.staffCreationDate,
-                          staffDeactivateDate: item.staffDeactivateDate,
-                          staffIsActive: item.staffIsActive,
-                        ))
-                    .toList(),
+              return RefreshIndicator(
+                onRefresh: () async {
+                  // ignore: unused_result
+                  ref.refresh(allInsideStaffDataProvider.future);
+                },
+                child: ListView(
+                  children: data
+                      .map((item) => StaffCard(
+                            uid: item.uid,
+                            socCode: item.socCode,
+                            staffName: item.staffName,
+                            staffType: item.staffType,
+                            staffIcon: item.staffIcon,
+                            staffStatus: item.staffStatus,
+                            lastEnterDate: item.lastEnterDate,
+                            lastEnterTime: item.lastEnterTime,
+                            lastEnterBy: item.lastEnterBy,
+                            staffMobileNo: item.staffMobileNo,
+                            staffRating: item.staffRating,
+                            staffCreationDate: item.staffCreationDate,
+                            staffDeactivateDate: item.staffDeactivateDate,
+                            staffIsActive: item.staffIsActive,
+                          ))
+                      .toList(),
+                ),
               );
             },
             loading: () => const Center(child: CircularProgressIndicator()),

@@ -24,25 +24,31 @@ class StaffIn extends HookConsumerWidget {
       body: Center(
         child: outsideStaffData.when(
             data: (data) {
-              return ListView(
-                children: data
-                    .map((item) => StaffCard(
-                          uid: item.uid,
-                          socCode: item.socCode,
-                          staffName: item.staffName,
-                          staffType: item.staffType,
-                          staffIcon: item.staffIcon,
-                          staffStatus: item.staffStatus,
-                          lastExistDate: item.lastExistDate,
-                          lastExistTime: item.lastExistTime,
-                          lastExistBy: item.lastExistBy,
-                          staffMobileNo: item.staffMobileNo,
-                          staffRating: item.staffRating,
-                          staffCreationDate: item.staffCreationDate,
-                          staffDeactivateDate: item.staffDeactivateDate,
-                          staffIsActive: item.staffIsActive,
-                        ))
-                    .toList(),
+              return RefreshIndicator(
+                onRefresh: () async {
+                  // ignore: unused_result
+                  ref.refresh(allOutsideStaffDataProvider.future);
+                },
+                child: ListView(
+                  children: data
+                      .map((item) => StaffCard(
+                            uid: item.uid,
+                            socCode: item.socCode,
+                            staffName: item.staffName,
+                            staffType: item.staffType,
+                            staffIcon: item.staffIcon,
+                            staffStatus: item.staffStatus,
+                            lastExistDate: item.lastExistDate,
+                            lastExistTime: item.lastExistTime,
+                            lastExistBy: item.lastExistBy,
+                            staffMobileNo: item.staffMobileNo,
+                            staffRating: item.staffRating,
+                            staffCreationDate: item.staffCreationDate,
+                            staffDeactivateDate: item.staffDeactivateDate,
+                            staffIsActive: item.staffIsActive,
+                          ))
+                      .toList(),
+                ),
               );
             },
             loading: () => const Center(child: CircularProgressIndicator()),

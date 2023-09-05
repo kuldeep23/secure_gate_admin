@@ -14,6 +14,13 @@ final visitorServiceProvider = Provider<VisitorService>((ref) {
 
 abstract class BaseVisitorService {
   Future<List<Visitor>> getInsideVisitors();
+  Future<void> visitorEntry(
+    String visitorType,
+    String visitorName,
+    String visitorMobile,
+    String visitorFlatNo,
+    String visitorImage,
+  );
   Future<List<Wrongvisitor>> getWrongVisitors();
   Future<void> visitorreview(String reviewid, String review);
   Future<void> visitorout(String visitorid);
@@ -45,6 +52,41 @@ class VisitorService implements BaseVisitorService {
   Visitor? _visitors;
   Visitor? get visitors => _visitors;
 
+  
+ @override
+  Future<void> visitorEntry(String visitorType, String visitorName, String visitorMobile, String visitorFlatNo, String visitorImage) async {
+    try {
+      final formData =
+          FormData.fromMap({"Visitor_Type": visitorType, "Visitor_Name": visitorName, "Visitor_Mobile": visitorMobile, "Visitor_Flat_No": visitorFlatNo, "Visitor_Image": visitorImage});
+
+      final userResponse = await _dio.post(
+        "https://gatesadmin.000webhostapp.com/jh_visitors.php",
+        data: formData,
+      );
+      if (userResponse.data["status"] == 1) {
+        //print(value1);
+        Fluttertoast.showToast(
+            msg: "Visitor Enter successfully !!!",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            textColor: Colors.black,
+            fontSize: 30.0);
+      } else if (userResponse.data["status"] == 0) {
+        Fluttertoast.showToast(
+            msg: "Visitor Enter faied !!!",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            textColor: Colors.white,
+            backgroundColor: Colors.red,
+            fontSize: 30.0);
+        return ErrorHandler.errorDialog(userResponse.data["status"]);
+      }
+    } catch (e) {
+      throw ErrorHandler.errorDialog(e);
+    }
+  }
   @override
   Future<List<Visitor>> getInsideVisitors() async {
     try {

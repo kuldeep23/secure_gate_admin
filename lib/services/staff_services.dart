@@ -68,19 +68,21 @@ class StaffServices implements BaseStaffService {
         Fluttertoast.showToast(
             msg: "Staff Entered Successfully !!!",
             toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            textColor: Colors.black,
-            fontSize: 30.0);
-      } else if (userResponse.data["status"] == 0) {
-        Fluttertoast.showToast(
-            msg: "Staff Entered Failed !!!",
-            toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.CENTER,
+            gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             textColor: Colors.white,
-            backgroundColor: Colors.red,
-            fontSize: 30.0);
+            backgroundColor: const Color(0xffFF6663),
+            fontSize: 15.0);
+      } else if (userResponse.data["status"] == 0) {
+        Fluttertoast.showToast(
+          msg: "Staff Entered Failed !!!",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          textColor: Colors.white,
+          backgroundColor: const Color(0xffFF6663),
+          fontSize: 15.0,
+          timeInSecForIosWeb: 1,
+        );
         return ErrorHandler.errorDialog(userResponse.data["status"]);
       }
     } catch (e) {
@@ -134,19 +136,18 @@ class StaffServices implements BaseStaffService {
         Fluttertoast.showToast(
             msg: "Staff Exist Successfully !!!",
             toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.CENTER,
+            gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
-            textColor: Colors.black,
-            fontSize: 30.0);
+            textColor: Colors.white,
+            backgroundColor: const Color(0xffFF6663),
+            fontSize: 15.0);
       } else if (userResponse.data["status"] == 0) {
         Fluttertoast.showToast(
             msg: "Staff Exist Failed !!!",
             toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.CENTER,
+            gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
-            textColor: Colors.white,
-            backgroundColor: Colors.red,
-            fontSize: 30.0);
+            fontSize: 15.0);
         return ErrorHandler.errorDialog(userResponse.data["status"]);
       }
     } catch (e) {

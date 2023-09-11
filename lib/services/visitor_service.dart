@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:secure_gates_admin/controllers/user_controller.dart';
 import 'package:secure_gates_admin/entities/visitor.dart';
+import 'package:secure_gates_admin/pages/visitor_management/wrong_visitor.dart';
 import '../auth_exception_handler.dart';
 import '../entities/wrongvisitor.dart';
 import '../pages/visitor_management/visitor_out.dart';
@@ -52,12 +53,17 @@ class VisitorService implements BaseVisitorService {
   Visitor? _visitors;
   Visitor? get visitors => _visitors;
 
-  
- @override
-  Future<void> visitorEntry(String visitorType, String visitorName, String visitorMobile, String visitorFlatNo, String visitorImage) async {
+  @override
+  Future<void> visitorEntry(String visitorType, String visitorName,
+      String visitorMobile, String visitorFlatNo, String visitorImage) async {
     try {
-      final formData =
-          FormData.fromMap({"Visitor_Type": visitorType, "Visitor_Name": visitorName, "Visitor_Mobile": visitorMobile, "Visitor_Flat_No": visitorFlatNo, "Visitor_Image": visitorImage});
+      final formData = FormData.fromMap({
+        "Visitor_Type": visitorType,
+        "Visitor_Name": visitorName,
+        "Visitor_Mobile": visitorMobile,
+        "Visitor_Flat_No": visitorFlatNo,
+        "Visitor_Image": visitorImage
+      });
 
       final userResponse = await _dio.post(
         "https://gatesadmin.000webhostapp.com/jh_visitors.php",
@@ -87,6 +93,7 @@ class VisitorService implements BaseVisitorService {
       throw ErrorHandler.errorDialog(e);
     }
   }
+
   @override
   Future<List<Visitor>> getInsideVisitors() async {
     try {
@@ -185,13 +192,13 @@ class VisitorService implements BaseVisitorService {
         ref.refresh(insideVisitorDataProvider.future);
 
         Fluttertoast.showToast(
-            msg: "Visitor out successfully !!!",
+            msg: "Visitor exist successfully !!!",
             toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.CENTER,
+            gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             textColor: Colors.white,
             backgroundColor: Colors.red,
-            fontSize: 30.0);
+            fontSize: 15.0);
       } else if (userResponse.data["status"] == 0) {
         Fluttertoast.showToast(
             msg: "Visitor out Falied !!!",
@@ -249,14 +256,17 @@ class VisitorService implements BaseVisitorService {
         data: formData,
       );
       if (userResponse.data["status"] == 1) {
+
+         ref.refresh(wrongVisitorDataProvider.future);
+         
         Fluttertoast.showToast(
             msg: "Visitor Updates successfully !!!",
             toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.CENTER,
+            gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             textColor: Colors.white,
             backgroundColor: Colors.red,
-            fontSize: 30.0);
+            fontSize: 15.0);
       } else if (userResponse.data["status"] == 0) {
         Fluttertoast.showToast(
             msg: "Visitor Updation Falied !!!",

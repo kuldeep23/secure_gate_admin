@@ -4,7 +4,6 @@ import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:secure_gates_admin/pages/visitor_management/widget/responsive_wrap.dart';
 import 'package:secure_gates_admin/pages/visitor_management/widget/vertical_divider_widget.dart';
 import 'package:secure_gates_admin/services/staff_services.dart';
 
@@ -15,6 +14,7 @@ class StaffCard extends HookConsumerWidget {
     required this.socCode,
     required this.staffName,
     required this.staffType,
+    required this.staffFlatNo,
     required this.staffIcon,
     required this.staffStatus,
     required this.lastEnterDate,
@@ -31,6 +31,7 @@ class StaffCard extends HookConsumerWidget {
       socCode,
       staffName,
       staffType,
+      staffFlatNo,
       staffIcon,
       staffStatus,
       lastEnterDate,
@@ -88,7 +89,7 @@ class StaffCard extends HookConsumerWidget {
                           child: Text(
                             staffStatus.toUpperCase(),
                             style: const TextStyle(
-                                color: Colors.white, fontSize: 11),
+                                color: Colors.white, fontSize: 12),
                           ),
                         ),
                       ],
@@ -134,7 +135,7 @@ class StaffCard extends HookConsumerWidget {
                                   "ID : $uid",
                                   style: const TextStyle(
                                     color: Colors.white,
-                                    fontSize: 12,
+                                    fontSize: 13,
                                   ),
                                 ),
                               ),
@@ -157,7 +158,7 @@ class StaffCard extends HookConsumerWidget {
                             child: Text(
                               staffType,
                               style: const TextStyle(
-                                fontSize: 12,
+                                fontSize: 13,
                                 fontWeight: FontWeight.w300,
                                 color: Colors.white,
                               ),
@@ -170,7 +171,7 @@ class StaffCard extends HookConsumerWidget {
                             children: [
                               Icon(
                                 Iconsax.user_add,
-                                size: 14,
+                                size: 13,
                                 color: Colors.grey[600],
                               ),
                               const SizedBox(
@@ -179,7 +180,7 @@ class StaffCard extends HookConsumerWidget {
                               Text(
                                 "Added on $staffCreationDate",
                                 style: TextStyle(
-                                  fontSize: 12,
+                                  fontSize: 13,
                                   color: Colors.grey[600],
                                   height: 1.0,
                                 ),
@@ -193,7 +194,7 @@ class StaffCard extends HookConsumerWidget {
                             children: [
                               Icon(
                                 Icons.check_circle_outline,
-                                size: 12,
+                                size: 13,
                                 color: Colors.grey[600],
                               ),
                               const SizedBox(
@@ -202,7 +203,7 @@ class StaffCard extends HookConsumerWidget {
                               Text(
                                 "Last Enter By $lastEnterBy",
                                 style: TextStyle(
-                                  fontSize: 12,
+                                  fontSize: 13,
                                   color: Colors.grey[600],
                                   height: 1.0,
                                 ),
@@ -216,7 +217,7 @@ class StaffCard extends HookConsumerWidget {
                             children: [
                               Icon(
                                 Icons.logout,
-                                size: 12,
+                                size: 13,
                                 color: Colors.grey[600],
                               ),
                               const SizedBox(
@@ -225,7 +226,7 @@ class StaffCard extends HookConsumerWidget {
                               Text(
                                 "$lastEnterTime, $lastEnterDate",
                                 style: TextStyle(
-                                  fontSize: 12,
+                                  fontSize: 13,
                                   color: Colors.grey[600],
                                   height: 1.0,
                                 ),
@@ -236,16 +237,16 @@ class StaffCard extends HookConsumerWidget {
                             children: [
                               Icon(
                                 Icons.apartment,
-                                size: 12,
+                                size: 13,
                                 color: Colors.grey[600],
                               ),
                               const SizedBox(
                                 width: 2,
                               ),
                               Text(
-                                "Work in 305, 306",
+                                "Work in Flat No. $staffFlatNo",
                                 style: TextStyle(
-                                  fontSize: 12,
+                                  fontSize: 13,
                                   color: Colors.grey[600],
                                   height: 1.2,
                                 ),
@@ -285,6 +286,7 @@ class StaffCard extends HookConsumerWidget {
                       children: [
                         const Icon(
                           Icons.call,
+                          color: Colors.red,
                           size: 25,
                         ),
                         const SizedBox(
@@ -293,7 +295,10 @@ class StaffCard extends HookConsumerWidget {
                         Text(
                           "Call",
                           style: TextStyle(
-                            fontSize: Responsive.getFontSize(18),
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red[600],
+                            height: 1.2,
                           ),
                         ),
                       ],
@@ -341,6 +346,7 @@ class StaffCard extends HookConsumerWidget {
                           quarterTurns: 2,
                           child: Icon(
                             Icons.login_outlined,
+                            color: Colors.green,
                             size: 25,
                           ),
                         ),
@@ -350,8 +356,11 @@ class StaffCard extends HookConsumerWidget {
                         Text(
                           "Exit",
                           style: TextStyle(
-                              fontSize: Responsive.getFontSize(18),
-                              color: Colors.green),
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.green[600],
+                            height: 1.2,
+                          ),
                         ),
                       ],
                     ),

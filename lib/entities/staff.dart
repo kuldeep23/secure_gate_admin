@@ -6,6 +6,7 @@ class Staff {
   final String socCode;
   final String staffName;
   final String staffType;
+  final String staffFlatNo;
   final String staffIcon;
   final String staffStatus;
   final String lastEnterDate;
@@ -24,6 +25,7 @@ class Staff {
     required this.socCode,
     required this.staffName,
     required this.staffType,
+    required this.staffFlatNo,
     required this.staffIcon,
     required this.staffStatus,
     required this.lastEnterDate,
@@ -44,6 +46,7 @@ class Staff {
     String? socCode,
     String? staffName,
     String? staffType,
+    String? staffFlatNo,
     String? staffIcon,
     String? staffStatus,
     String? lastEnterDate,
@@ -63,6 +66,7 @@ class Staff {
       socCode: socCode ?? this.socCode,
       staffName: staffName ?? this.staffName,
       staffType: staffType ?? this.staffType,
+      staffFlatNo: staffFlatNo ?? this.staffFlatNo,
       staffIcon: staffIcon ?? this.staffIcon,
       staffStatus: staffStatus ?? this.staffStatus,
       lastEnterDate: lastEnterDate ?? this.lastEnterDate,
@@ -85,6 +89,7 @@ class Staff {
       'socCode': socCode,
       'staffName': staffName,
       'staffType': staffType,
+      'staffFlatNo': staffFlatNo,
       'staffIcon': staffIcon,
       'staffStatus': staffStatus,
       'lastEnterDate': lastEnterDate,
@@ -107,6 +112,7 @@ class Staff {
       socCode: map['soc_code'] as String,
       staffName: map['staff_name'] as String,
       staffType: map['staff_type'] as String,
+      staffFlatNo: map['staff_flat_no'] as String,
       staffIcon: map['staff_icon'] as String,
       staffStatus: map['staff_status'] as String,
       lastEnterDate: map['last_enter_date'] as String,
@@ -130,7 +136,7 @@ class Staff {
 
   @override
   String toString() {
-    return 'Staff(uid: $uid, socCode: $socCode, staffName: $staffName, staffType: $staffType, staffIcon: $staffIcon, staffStatus: $staffStatus, lastEnterDate: $lastEnterDate, lastEnterTime: $lastEnterTime, lastEnterBy: $lastEnterBy, lastExistDate: $lastExistDate, lastExistTime: $lastExistTime, lastExistBy: $lastExistBy, staffMobileNo: $staffMobileNo, staffRating: $staffRating, staffCreationDate: $staffCreationDate, staffDeactivateDate: $staffDeactivateDate, staffIsActive: $staffIsActive)';
+    return 'Staff(uid: $uid, socCode: $socCode, staffName: $staffName, staffType: $staffType, staffFlatNo: $staffFlatNo, staffIcon: $staffIcon, staffStatus: $staffStatus, lastEnterDate: $lastEnterDate, lastEnterTime: $lastEnterTime, lastEnterBy: $lastEnterBy, lastExistDate: $lastExistDate, lastExistTime: $lastExistTime, lastExistBy: $lastExistBy, staffMobileNo: $staffMobileNo, staffRating: $staffRating, staffCreationDate: $staffCreationDate, staffDeactivateDate: $staffDeactivateDate, staffIsActive: $staffIsActive)';
   }
 
   @override
@@ -142,6 +148,7 @@ class Staff {
       other.socCode == socCode &&
       other.staffName == staffName &&
       other.staffType == staffType &&
+      other.staffFlatNo == staffFlatNo &&
       other.staffIcon == staffIcon &&
       other.staffStatus == staffStatus &&
       other.lastEnterDate == lastEnterDate &&
@@ -163,6 +170,7 @@ class Staff {
       socCode.hashCode ^
       staffName.hashCode ^
       staffType.hashCode ^
+      staffFlatNo.hashCode ^
       staffIcon.hashCode ^
       staffStatus.hashCode ^
       lastEnterDate.hashCode ^

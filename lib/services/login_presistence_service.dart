@@ -14,6 +14,7 @@ final loginPresistenceServiceProvider =
 });
 
 class LoginPresistenceService implements BaseLoginPresistenceService {
+  // ignore: constant_identifier_names
   static const PREF_KEY_FOR_USER = "prefKeyForUser";
   static SharedPreferences? _sharedPreferences;
 

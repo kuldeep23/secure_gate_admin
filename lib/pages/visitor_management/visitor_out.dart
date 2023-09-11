@@ -12,7 +12,6 @@ final insideVisitorDataProvider =
 });
 
 class VisitorOut extends HookConsumerWidget {
-  
   const VisitorOut({Key? key}) : super(key: key);
 
   @override
@@ -21,7 +20,10 @@ class VisitorOut extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Visitor-Out"),
+        title: const Text(
+          "Visitor-Out",
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: Center(
         child: visitorData.when(
@@ -39,6 +41,7 @@ class VisitorOut extends HookConsumerWidget {
                           visitorType: item.visitorType,
                           visitorTypeDetail: item.visitorTypeDetail,
                           visitormobile: item.visitorMobile,
+                          visitorFlatNo: item.visitorFlatNo,
                         ))
                     .toList(),
               );
@@ -50,5 +53,4 @@ class VisitorOut extends HookConsumerWidget {
       ),
     );
   }
-  
 }

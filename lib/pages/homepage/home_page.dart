@@ -25,7 +25,7 @@ class HomePage extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title:  GestureDetector(
+        title: GestureDetector(
           onLongPress: () {
             ref.read(authServiceProvider).signOut();
           },
@@ -37,12 +37,10 @@ class HomePage extends HookConsumerWidget {
           onLongPress: () async {
             await ref.watch(authServiceProvider).signOut();
           },
-          child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 30),
+          child: SingleChildScrollView(
             child: Column(
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Center(
                       child: Stack(

@@ -8,7 +8,7 @@ import 'package:secure_gates_admin/pages/visitor_management/widget/vertical_divi
 import 'package:secure_gates_admin/services/visitor_service.dart';
 
 class WrongVisitorCard extends HookConsumerWidget {
-   WrongVisitorCard({
+  WrongVisitorCard({
     super.key,
     required this.visitorApproveBy,
     required this.visitorEnterTime,
@@ -24,6 +24,7 @@ class WrongVisitorCard extends HookConsumerWidget {
     required this.visitorimage,
     required this.visitorReview,
     required this.visitorId,
+    required this.visitorFlatNo,
   });
 
   final String visitorImage,
@@ -39,7 +40,8 @@ class WrongVisitorCard extends HookConsumerWidget {
       visitorsoccode,
       visitorimage,
       visitorReview,
-      visitorId;
+      visitorId,
+      visitorFlatNo;
 
   final TextEditingController feedbackController = TextEditingController();
   final TextEditingController flatController = TextEditingController();
@@ -66,9 +68,29 @@ class WrongVisitorCard extends HookConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CircleAvatar(
-                          radius: 35,
+                          radius: 32,
                           backgroundImage: NetworkImage(
                             visitorImage,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 1,
+                            horizontal: 5,
+                          ),
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 34, 74, 103),
+                            borderRadius: BorderRadius.circular(
+                              10,
+                            ),
+                          ),
+                          child: Text(
+                            visitorStatus.toUpperCase(),
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 12),
                           ),
                         ),
                       ],
@@ -83,7 +105,7 @@ class WrongVisitorCard extends HookConsumerWidget {
                     flex: 3,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
+                        horizontal: 5,
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,31 +114,34 @@ class WrongVisitorCard extends HookConsumerWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "$visitorTypeDetail, $visitorName",
+                                "$visitorName, $visitorTypeDetail",
                                 style: const TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                               Container(
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 1,
-                                  horizontal: 5,
+                                  horizontal: 3,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: const Color(0xff6CB4EE),
+                                  color:
+                                      const Color.fromARGB(255, 102, 102, 216),
                                   borderRadius: BorderRadius.circular(
                                     10,
                                   ),
                                 ),
                                 child: Text(
-                                  visitorStatus.toUpperCase(),
+                                  "ID : $visitorId",
+                                  style: const TextStyle(
+                                      color: Colors.white, fontSize: 13),
                                 ),
                               ),
                             ],
                           ),
                           const SizedBox(
-                            height: 5,
+                            height: 2,
                           ),
                           Container(
                             padding: const EdgeInsets.symmetric(
@@ -132,20 +157,20 @@ class WrongVisitorCard extends HookConsumerWidget {
                             child: Text(
                               visitorType,
                               style: const TextStyle(
-                                fontSize: 14,
+                                fontSize: 13,
                                 fontWeight: FontWeight.w300,
                                 color: Colors.white,
                               ),
                             ),
                           ),
                           const SizedBox(
-                            height: 5,
+                            height: 3,
                           ),
                           Row(
                             children: [
                               Icon(
                                 Icons.check_circle_outline,
-                                size: 18,
+                                size: 13,
                                 color: Colors.grey[600],
                               ),
                               const SizedBox(
@@ -154,18 +179,21 @@ class WrongVisitorCard extends HookConsumerWidget {
                               Text(
                                 "Allowed by $visitorApproveBy",
                                 style: TextStyle(
-                                  fontSize: 14,
+                                  fontSize: 13,
                                   color: Colors.grey[600],
-                                  height: 0.9,
+                                  height: 1.0,
                                 ),
                               ),
                             ],
+                          ),
+                          const SizedBox(
+                            height: 2,
                           ),
                           Row(
                             children: [
                               Icon(
                                 Icons.schedule_outlined,
-                                size: 18,
+                                size: 13,
                                 color: Colors.grey[600],
                               ),
                               const SizedBox(
@@ -174,26 +202,52 @@ class WrongVisitorCard extends HookConsumerWidget {
                               Text(
                                 "Entered at $visitorEnterTime",
                                 style: TextStyle(
-                                  fontSize: 14,
+                                  fontSize: 13,
                                   color: Colors.grey[600],
-                                  height: 0.9,
+                                  height: 1.0,
                                 ),
                               ),
                             ],
+                          ),
+                          const SizedBox(
+                            height: 2,
                           ),
                           Row(
                             children: [
                               Icon(
                                 Icons.calendar_month_outlined,
-                                size: 18,
+                                size: 13,
                                 color: Colors.grey[600],
                               ),
                               Text(
                                 visitorEnterDate,
                                 style: TextStyle(
-                                  fontSize: 14,
+                                  fontSize: 13,
                                   color: Colors.grey[600],
-                                  height: 0.9,
+                                  height: 1.0,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 2,
+                          ),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.apartment,
+                                size: 13,
+                                color: Colors.grey[600],
+                              ),
+                              const SizedBox(
+                                width: 2,
+                              ),
+                              Text(
+                                "Flat No $visitorFlatNo",
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  color: Colors.grey[600],
+                                  height: 1.2,
                                 ),
                               ),
                             ],
@@ -236,40 +290,42 @@ class WrongVisitorCard extends HookConsumerWidget {
                               borderRadius: BorderRadius.circular(10))),
                     ),
                     context: context,
-                    transitionAnimationDuration: const Duration(milliseconds: 400),
+                    transitionAnimationDuration:
+                        const Duration(milliseconds: 400),
                     dialogType: DialogType.warning,
                     animType: AnimType.scale,
-                    
                     btnCancelOnPress: () {},
                     btnOkOnPress: () async {
-                                  await ref
-                                      .read(visitorServiceProvider)
-                                      .visitorreview(
-                                        visitorid,
-                                        feedbackController.text.trim(),
-                                      )
-                                      .catchError((e, st) {
-                                  });
-                                               
+                      await ref
+                          .read(visitorServiceProvider)
+                          .visitorreview(
+                            visitorid,
+                            feedbackController.text.trim(),
+                          )
+                          .catchError((e, st) {});
                     },
                     btnOkText: "Submit",
                   ).show(),
                   child: SizedBox(
                     width: Responsive.width(context) * 0.28,
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(
+                        Icon(
                           Icons.refresh_outlined,
+                          color: Color.fromARGB(255, 31, 118, 142),
                           size: 19,
                         ),
-                        const SizedBox(
+                        SizedBox(
                           width: 2,
                         ),
                         Text(
-                          "Give Feedback",
+                          "Feedback",
                           style: TextStyle(
-                            fontSize: Responsive.getFontSize(12),
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 31, 118, 142),
+                            height: 1.2,
                           ),
                         ),
                       ],
@@ -283,76 +339,69 @@ class WrongVisitorCard extends HookConsumerWidget {
                 GestureDetector(
                   // ignore: avoid_print
                   onTap: () => AwesomeDialog(
-                      
                     body: TextField(
                       maxLength: 4,
-                               controller: flatController,
-                                decoration: InputDecoration(
-                                    labelText: "Flat Number",
-                                    labelStyle: const TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400),
-                                    prefixIcon: const Icon(
-                                      Icons.apartment,
-                                      color: Colors.black,
-                                      size: 18,
-                                    ),
-                                    contentPadding: const EdgeInsets.symmetric(
-                                        vertical: 0, horizontal: 10),
-                                    enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.grey.shade200,
-                                            width: 2),
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    floatingLabelStyle: const TextStyle(
-                                        color: Color(0xffFF6663), fontSize: 18),
-                                    focusedBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            color: Color(0xffFF6663),
-                                            width: 1.5),
-                                        borderRadius:
-                                            BorderRadius.circular(10))),
-                              ),
+                      controller: flatController,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                          labelText: "Flat Number",
+                          labelStyle: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400),
+                          prefixIcon: const Icon(
+                            Icons.apartment,
+                            color: Colors.black,
+                            size: 18,
+                          ),
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 0, horizontal: 10),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Colors.grey.shade200, width: 2),
+                              borderRadius: BorderRadius.circular(10)),
+                          floatingLabelStyle: const TextStyle(
+                              color: Color(0xffFF6663), fontSize: 18),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color(0xffFF6663), width: 1.5),
+                              borderRadius: BorderRadius.circular(10))),
+                    ),
                     context: context,
-                    transitionAnimationDuration: const Duration(milliseconds: 400),
+                    transitionAnimationDuration:
+                        const Duration(milliseconds: 400),
                     dialogType: DialogType.info,
                     animType: AnimType.scale,
                     btnCancelOnPress: () {},
                     btnCancelText: "No",
-                    btnOkOnPress: ()   async {
-                                 await ref
-                                      .read(visitorServiceProvider)
-                                      .updatevisitorFlat(
-                                        visitorsoccode,
-                                        visitorType,
-                                        visitorTypeDetail,
-                                        visitorName,
-                                        visitormobile,
-                                        flatController.text.trim(),
-                                        visitorImage,
-                                        visitorEnterDate,
-                                        visitorEnterTime,
-                                        "ok",
-                                        "ok",
-                                        visitorApproveBy,
-                                        visitorStatus,
-                                        visitorReview,
-                                        visitorid
-                                      )
-                                      
-                                      .catchError((e, st) {
-                                  });
-                                   await FlutterTts().setLanguage("en-Us");
-                                 await FlutterTts().setVolume(1.0);
-                                 await FlutterTts().setSpeechRate(0.5);
-                                 await FlutterTts().setPitch(1.0);
-                                 await FlutterTts().speak("Visitor Updated Succesfully");
-                                                           
+                    btnOkOnPress: () async {
+                      await ref
+                          .read(visitorServiceProvider)
+                          .updatevisitorFlat(
+                              visitorsoccode,
+                              visitorType,
+                              visitorTypeDetail,
+                              visitorName,
+                              visitormobile,
+                              flatController.text.trim(),
+                              visitorImage,
+                              visitorEnterDate,
+                              visitorEnterTime,
+                              "ok",
+                              "ok",
+                              visitorApproveBy,
+                              visitorStatus,
+                              visitorReview,
+                              visitorid)
+                          .catchError((e, st) {});
+                      await FlutterTts().setLanguage("en-Us");
+                      await FlutterTts().setVolume(1.0);
+                      await FlutterTts().setSpeechRate(0.5);
+                      await FlutterTts().setPitch(1.0);
+                      await FlutterTts().speak("Visitor Updated Succesfully");
                     },
                     btnOkText: "Yes",
-                  ).show(), 
+                  ).show(),
                   child: SizedBox(
                     width: Responsive.width(context) * 0.28,
                     child: Row(
@@ -360,7 +409,7 @@ class WrongVisitorCard extends HookConsumerWidget {
                       children: [
                         const Icon(
                           Icons.apartment,
-                          size: 19,
+                          color: Colors.green,
                         ),
                         const SizedBox(
                           width: 2,
@@ -368,7 +417,10 @@ class WrongVisitorCard extends HookConsumerWidget {
                         Text(
                           "Update Flat",
                           style: TextStyle(
-                            fontSize: Responsive.getFontSize(12),
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.green[600],
+                            height: 1.2,
                           ),
                         ),
                       ],
@@ -382,25 +434,26 @@ class WrongVisitorCard extends HookConsumerWidget {
                 GestureDetector(
                   onTap: () => AwesomeDialog(
                     context: context,
-                    transitionAnimationDuration: const Duration(milliseconds: 400),
+                    transitionAnimationDuration:
+                        const Duration(milliseconds: 400),
                     dialogType: DialogType.question,
                     animType: AnimType.scale,
                     title: "Call Visitor",
                     desc: "Do you really want to call visitor ?",
                     btnCancelOnPress: () {},
                     btnCancelText: "No",
-                    btnOkOnPress: ()  {
-                                 FlutterPhoneDirectCaller.callNumber('+91$visitormobile');
-                                      },
+                    btnOkOnPress: () {
+                      FlutterPhoneDirectCaller.callNumber('+91$visitormobile');
+                    },
                     btnOkText: "Yes",
                   ).show(),
-                      
                   child: SizedBox(
                     width: Responsive.width(context) * 0.28,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Icon(
+                          color: Colors.red,
                           Icons.call,
                           size: 19,
                         ),
@@ -410,7 +463,10 @@ class WrongVisitorCard extends HookConsumerWidget {
                         Text(
                           "Call",
                           style: TextStyle(
-                            fontSize: Responsive.getFontSize(12),
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red[600],
+                            height: 1.2,
                           ),
                         ),
                       ],

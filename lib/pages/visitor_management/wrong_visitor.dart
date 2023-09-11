@@ -19,7 +19,10 @@ class WrongVisitor extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Visitor-Out"),
+        title: const Text(
+          "Wrong-Visitors",
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: Center(
         child: wrongvisitorData.when(
@@ -29,7 +32,7 @@ class WrongVisitor extends HookConsumerWidget {
                     .map((item) => WrongVisitorCard(
                           visitorimage: item.visitorName,
                           visitorsoccode: item.socCode,
-                          visitorid: item.visitorId,  
+                          visitorid: item.visitorId,
                           visitorApproveBy: item.visitorApproveBy,
                           visitorEnterTime: item.visitorEnterTime,
                           visitorImage: item.visitorImage,
@@ -41,6 +44,7 @@ class WrongVisitor extends HookConsumerWidget {
                           visitormobile: item.visitorMobile,
                           visitorReview: item.visitorReview,
                           visitorId: item.visitorId,
+                          visitorFlatNo: item.visitorFlatNo,
                         ))
                     .toList(),
               );

@@ -19,7 +19,10 @@ class StaffIn extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Staff-In"),
+        title: const Text(
+          "Staff-In",
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: Center(
         child: outsideStaffData.when(
@@ -36,6 +39,7 @@ class StaffIn extends HookConsumerWidget {
                             socCode: item.socCode,
                             staffName: item.staffName,
                             staffType: item.staffType,
+                            staffFlatNo: item.staffFlatNo,
                             staffIcon: item.staffIcon,
                             staffStatus: item.staffStatus,
                             lastExistDate: item.lastExistDate,

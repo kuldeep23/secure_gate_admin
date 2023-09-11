@@ -20,6 +20,7 @@ class VisitorCard extends HookConsumerWidget {
     required this.visitorTypeDetail,
     required this.visitorid,
     required this.visitormobile,
+    required this.visitorFlatNo,
   });
 
   final String visitorImage,
@@ -31,7 +32,8 @@ class VisitorCard extends HookConsumerWidget {
       visitorEnterTime,
       visitorEnterDate,
       visitorid,
-      visitormobile;
+      visitormobile,
+      visitorFlatNo;
 
   final TextEditingController feedbackController = TextEditingController();
 
@@ -40,7 +42,7 @@ class VisitorCard extends HookConsumerWidget {
     return Card(
       margin: const EdgeInsets.symmetric(
         horizontal: 5,
-        vertical: 10,
+        vertical: 5,
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(
@@ -78,7 +80,8 @@ class VisitorCard extends HookConsumerWidget {
                           ),
                           child: Text(
                             visitorStatus.toUpperCase(),
-                            style: const TextStyle(color: Colors.white),
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 13),
                           ),
                         ),
                       ],
@@ -104,7 +107,7 @@ class VisitorCard extends HookConsumerWidget {
                               Text(
                                 visitorName,
                                 style: const TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -122,13 +125,14 @@ class VisitorCard extends HookConsumerWidget {
                                 ),
                                 child: Text(
                                   "ID :$visitorid",
-                                  style: const TextStyle(color: Colors.white),
+                                  style: const TextStyle(
+                                      color: Colors.white, fontSize: 13),
                                 ),
                               ),
                             ],
                           ),
                           const SizedBox(
-                            height: 5,
+                            height: 2,
                           ),
                           Container(
                             padding: const EdgeInsets.symmetric(
@@ -144,20 +148,20 @@ class VisitorCard extends HookConsumerWidget {
                             child: Text(
                               visitorType,
                               style: const TextStyle(
-                                fontSize: 14,
+                                fontSize: 13,
                                 fontWeight: FontWeight.w300,
                                 color: Colors.white,
                               ),
                             ),
                           ),
                           const SizedBox(
-                            height: 5,
+                            height: 2,
                           ),
                           Row(
                             children: [
                               Icon(
                                 Icons.check_circle_outline,
-                                size: 18,
+                                size: 13,
                                 color: Colors.grey[600],
                               ),
                               const SizedBox(
@@ -166,18 +170,21 @@ class VisitorCard extends HookConsumerWidget {
                               Text(
                                 "Allowed by $visitorApproveBy",
                                 style: TextStyle(
-                                  fontSize: 14,
+                                  fontSize: 13,
                                   color: Colors.grey[600],
                                   height: 0.9,
                                 ),
                               ),
                             ],
                           ),
+                          const SizedBox(
+                            height: 2,
+                          ),
                           Row(
                             children: [
                               Icon(
                                 Icons.schedule_outlined,
-                                size: 18,
+                                size: 13,
                                 color: Colors.grey[600],
                               ),
                               const SizedBox(
@@ -186,26 +193,52 @@ class VisitorCard extends HookConsumerWidget {
                               Text(
                                 "Entered at $visitorEnterTime",
                                 style: TextStyle(
-                                  fontSize: 14,
+                                  fontSize: 13,
                                   color: Colors.grey[600],
                                   height: 0.9,
                                 ),
                               ),
                             ],
                           ),
+                          const SizedBox(
+                            height: 2,
+                          ),
                           Row(
                             children: [
                               Icon(
                                 Icons.calendar_month_outlined,
-                                size: 18,
+                                size: 13,
                                 color: Colors.grey[600],
                               ),
                               Text(
                                 visitorEnterDate,
                                 style: TextStyle(
-                                  fontSize: 14,
+                                  fontSize: 13,
                                   color: Colors.grey[600],
                                   height: 0.9,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 2,
+                          ),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.apartment,
+                                size: 13,
+                                color: Colors.grey[600],
+                              ),
+                              const SizedBox(
+                                width: 2,
+                              ),
+                              Text(
+                                "Flat No $visitorFlatNo",
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  color: Colors.grey[600],
+                                  height: 1.2,
                                 ),
                               ),
                             ],
@@ -266,20 +299,24 @@ class VisitorCard extends HookConsumerWidget {
                   ).show(),
                   child: SizedBox(
                     width: Responsive.width(context) * 0.28,
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(
+                        Icon(
                           Icons.refresh_outlined,
+                          color: Color.fromARGB(255, 31, 118, 142),
                           size: 19,
                         ),
-                        const SizedBox(
+                        SizedBox(
                           width: 2,
                         ),
                         Text(
-                          "Give Feedback",
+                          "Feedback",
                           style: TextStyle(
-                            fontSize: Responsive.getFontSize(12),
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 31, 118, 142),
+                            height: 1.2,
                           ),
                         ),
                       ],
@@ -313,7 +350,7 @@ class VisitorCard extends HookConsumerWidget {
                       await FlutterTts().setVolume(1.0);
                       await FlutterTts().setSpeechRate(0.5);
                       await FlutterTts().setPitch(1.0);
-                      await FlutterTts().speak("Visitor Out Succesfully");
+                      await FlutterTts().speak("Visitor Exist Succesfully");
                     },
                     btnOkText: "Yes",
                   ).show(),
@@ -326,6 +363,7 @@ class VisitorCard extends HookConsumerWidget {
                           quarterTurns: 2,
                           child: Icon(
                             Icons.login_outlined,
+                            color: Colors.green,
                             size: 19,
                           ),
                         ),
@@ -333,9 +371,12 @@ class VisitorCard extends HookConsumerWidget {
                           width: 2,
                         ),
                         Text(
-                          "Out",
+                          "Exist",
                           style: TextStyle(
-                            fontSize: Responsive.getFontSize(12),
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.green[600],
+                            height: 1.2,
                           ),
                         ),
                       ],
@@ -370,6 +411,7 @@ class VisitorCard extends HookConsumerWidget {
                         const Icon(
                           Icons.call,
                           size: 19,
+                          color: Colors.red,
                         ),
                         const SizedBox(
                           width: 2,
@@ -377,7 +419,10 @@ class VisitorCard extends HookConsumerWidget {
                         Text(
                           "Call",
                           style: TextStyle(
-                            fontSize: Responsive.getFontSize(12),
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red[600],
+                            height: 1.2,
                           ),
                         ),
                       ],

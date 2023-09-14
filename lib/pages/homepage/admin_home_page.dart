@@ -94,7 +94,8 @@ class AdminPage extends HookConsumerWidget {
                                       MyAppRoutes.visitorOutScreen,
                                     ),
                                     child: const FeatureItems(
-                                      imageURL: 'assets/icons/visitor-out.png',
+                                      imageURL:
+                                          'assets/icons/activate-user.png',
                                       featureName: 'Activate User',
                                     ),
                                   ),
@@ -113,8 +114,7 @@ class AdminPage extends HookConsumerWidget {
                                             builder: (context) =>
                                                 const WrongVisitor())),
                                     child: const FeatureItems(
-                                      imageURL:
-                                          'assets/icons/wrong-visitors.png',
+                                      imageURL: 'assets/icons/remove-user.png',
                                       featureName: 'Remove User',
                                     ),
                                   ),
@@ -133,8 +133,7 @@ class AdminPage extends HookConsumerWidget {
                                             builder: (context) =>
                                                 const WrongVisitor())),
                                     child: const FeatureItems(
-                                      imageURL:
-                                          'assets/icons/wrong-visitors.png',
+                                      imageURL: 'assets/icons/user-list.png',
                                       featureName: 'User List',
                                     ),
                                   ),
@@ -200,7 +199,7 @@ class AdminPage extends HookConsumerWidget {
                                             builder: (context) =>
                                                 const StaffIn())),
                                     child: const FeatureItems(
-                                      imageURL: 'assets/icons/staff-in.png',
+                                      imageURL: 'assets/icons/add-staff.png',
                                       featureName: 'Add Staff',
                                     ),
                                   ),
@@ -219,7 +218,7 @@ class AdminPage extends HookConsumerWidget {
                                             builder: (context) =>
                                                 const StaffOut())),
                                     child: const FeatureItems(
-                                      imageURL: 'assets/icons/staff-out.png',
+                                      imageURL: 'assets/icons/remove-staff.png',
                                       featureName: 'Remove Staff',
                                     ),
                                   ),
@@ -238,7 +237,7 @@ class AdminPage extends HookConsumerWidget {
                                             builder: (context) =>
                                                 const AddStaff())),
                                     child: const FeatureItems(
-                                      imageURL: 'assets/icons/add-staff.png',
+                                      imageURL: 'assets/icons/staff-list.png',
                                       featureName: 'Staff List',
                                     ),
                                   ),
@@ -304,7 +303,7 @@ class AdminPage extends HookConsumerWidget {
                                             builder: (context) =>
                                                 const CarIn())),
                                     child: const FeatureItems(
-                                      imageURL: 'assets/icons/car-in.png',
+                                      imageURL: 'assets/icons/add-guard.png',
                                       featureName: 'Add Guard',
                                     ),
                                   ),
@@ -323,7 +322,7 @@ class AdminPage extends HookConsumerWidget {
                                             builder: (context) =>
                                                 const CarOut())),
                                     child: const FeatureItems(
-                                      imageURL: 'assets/icons/car-out.png',
+                                      imageURL: 'assets/icons/remove-guard.png',
                                       featureName: 'Remove Guard',
                                     ),
                                   ),
@@ -342,7 +341,7 @@ class AdminPage extends HookConsumerWidget {
                                             builder: (context) =>
                                                 const AddCar())),
                                     child: const FeatureItems(
-                                      imageURL: 'assets/icons/add-car.png',
+                                      imageURL: 'assets/icons/guard-list.png',
                                       featureName: 'Guard List',
                                     ),
                                   ),
@@ -363,6 +362,110 @@ class AdminPage extends HookConsumerWidget {
                                         color: Colors.grey, width: 1)),
                                 child: const Text(
                                   "Guard Management",
+                                  style: TextStyle(
+                                      fontSize: 15, color: Colors.black),
+                                ),
+                              ))
+                        ]),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Center(
+                    child: Stack(
+                        alignment: Alignment.topLeft,
+                        clipBehavior: Clip.none,
+                        children: <Widget>[
+                          Material(
+                            shadowColor: Colors.grey,
+                            elevation: 20,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(50)),
+                            child: Container(
+                              height: 170,
+                              width: screenSize().width / 1.025,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border:
+                                      Border.all(color: Colors.grey, width: 0.5)
+                                  /*borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),*/
+                                  ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const AdminPage())),
+                                    child: const FeatureItems(
+                                      imageURL: 'assets/icons/car-in.png',
+                                      featureName: 'Car-In',
+                                    ),
+                                  ),
+                                  const Padding(
+                                    padding: EdgeInsets.only(
+                                        top: 45.0, bottom: 45.0),
+                                    child: VerticalDivider(
+                                      color: Colors.grey,
+                                      thickness: 0.35,
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const CarOut())),
+                                    child: const FeatureItems(
+                                      imageURL: 'assets/icons/car-out.png',
+                                      featureName: 'Car-Out',
+                                    ),
+                                  ),
+                                  const Padding(
+                                    padding: EdgeInsets.only(
+                                        top: 45.0, bottom: 45.0),
+                                    child: VerticalDivider(
+                                      color: Colors.grey,
+                                      thickness: 0.35,
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const AddCar())),
+                                    child: const FeatureItems(
+                                      imageURL: 'assets/icons/add-car.png',
+                                      featureName: 'Add Car',
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                              top: -20,
+                              left: 10,
+                              child: Container(
+                                alignment: Alignment.center,
+                                width: 180,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                    color: const Color(0xffeabfff),
+                                    border: Border.all(
+                                        color: Colors.grey, width: 1)),
+                                child: const Text(
+                                  "Car Management",
                                   style: TextStyle(
                                       fontSize: 15, color: Colors.black),
                                 ),

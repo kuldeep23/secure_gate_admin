@@ -4,6 +4,7 @@ import 'package:secure_gates_admin/pages/staff_management/widget/inside_staff_ca
 
 import '../../entities/staff.dart';
 import '../../services/staff_services.dart';
+import '../visitor_management/widget/visitor_loading_widget.dart';
 
 final allInsideStaffDataProvider =
     FutureProvider.autoDispose<List<Staff>>((ref) async {
@@ -53,7 +54,16 @@ class StaffOut extends HookConsumerWidget {
                 ),
               );
             },
-            loading: () => const Center(child: CircularProgressIndicator()),
+            loading: () => const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 5),
+                  child: Column(
+                    children: [
+                      CurrentVisitorLoadingWidget(),
+                      CurrentVisitorLoadingWidget(),
+                      CurrentVisitorLoadingWidget(),
+                    ],
+                  ),
+                ),
             error: (e, s) {
               return Text(e.toString());
             }),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:secure_gates_admin/pages/visitor_management/widget/visitor_loading_widget.dart';
 import 'package:secure_gates_admin/pages/visitor_management/widget/wrong_visitor_card_widget.dart';
 import '../../entities/wrongvisitor.dart';
 import '../../services/visitor_service.dart';
@@ -49,7 +50,19 @@ class WrongVisitor extends HookConsumerWidget {
                     .toList(),
               );
             },
-            loading: () => const Center(child: CircularProgressIndicator()),
+            loading: () => const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 5),
+                  child: Column(
+                    children: [
+                      CurrentVisitorLoadingWidget(),
+                      CurrentVisitorLoadingWidget(),
+                      CurrentVisitorLoadingWidget(),
+                      CurrentVisitorLoadingWidget(),
+                      CurrentVisitorLoadingWidget(),
+                      CurrentVisitorLoadingWidget(),
+                    ],
+                  ),
+                ),
             error: (e, s) {
               return Text(e.toString());
             }),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:secure_gates_admin/entities/visitor.dart';
 import 'package:secure_gates_admin/pages/visitor_management/widget/visitor_card_widget.dart';
+import 'package:secure_gates_admin/pages/visitor_management/widget/visitor_loading_widget.dart';
 import 'package:secure_gates_admin/services/visitor_service.dart';
 
 final insideVisitorDataProvider =
@@ -46,7 +47,16 @@ class VisitorOut extends HookConsumerWidget {
                     .toList(),
               );
             },
-            loading: () => const Center(child: CircularProgressIndicator()),
+            loading: () => const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 5),
+                  child: Column(
+                    children: [
+                      CurrentVisitorLoadingWidget(),
+                      CurrentVisitorLoadingWidget(),
+                      CurrentVisitorLoadingWidget(),
+                    ],
+                  ),
+                ),
             error: (e, s) {
               return Text(e.toString());
             }),

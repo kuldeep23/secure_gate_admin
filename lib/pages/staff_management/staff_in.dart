@@ -4,6 +4,8 @@ import 'package:secure_gates_admin/entities/staff.dart';
 import 'package:secure_gates_admin/pages/staff_management/widget/outside_staff_card_widget.dart';
 import 'package:secure_gates_admin/services/staff_services.dart';
 
+import '../visitor_management/widget/visitor_loading_widget.dart';
+
 final allOutsideStaffDataProvider =
     FutureProvider.autoDispose<List<Staff>>((ref) async {
   final staff = ref.read(staffServiceProvider).getOutsideStaff();
@@ -55,7 +57,16 @@ class StaffIn extends HookConsumerWidget {
                 ),
               );
             },
-            loading: () => const Center(child: CircularProgressIndicator()),
+            loading: () => const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 5),
+                  child: Column(
+                    children: [
+                      CurrentVisitorLoadingWidget(),
+                      CurrentVisitorLoadingWidget(),
+                      CurrentVisitorLoadingWidget(),
+                    ],
+                  ),
+                ),
             error: (e, s) {
               return Text(e.toString());
             }),

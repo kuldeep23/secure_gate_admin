@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:secure_gates_admin/pages/car_management/car_in.dart';
 import 'package:secure_gates_admin/pages/car_management/car_out.dart';
-import 'package:secure_gates_admin/pages/homepage/admin_home_page.dart';
 import 'package:secure_gates_admin/pages/staff_management/add_staff.dart';
 import 'package:secure_gates_admin/pages/staff_management/staff_in.dart';
 import 'package:secure_gates_admin/pages/staff_management/staff_out.dart';
@@ -16,8 +15,8 @@ import 'package:secure_gates_admin/services/authentication_service.dart';
 import '../../controllers/user_controller.dart';
 import '../car_management/add_car.dart';
 
-class HomePage extends HookConsumerWidget {
-  const HomePage({super.key});
+class AdminPage extends HookConsumerWidget {
+  const AdminPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -92,28 +91,11 @@ class HomePage extends HookConsumerWidget {
                                 children: [
                                   GestureDetector(
                                     onTap: () => context.pushNamed(
-                                      MyAppRoutes.visitorInScreen,
-                                    ),
-                                    child: const FeatureItems(
-                                      imageURL: 'assets/icons/visitor1.png',
-                                      featureName: 'Visitor-In',
-                                    ),
-                                  ),
-                                  const Padding(
-                                    padding: EdgeInsets.only(
-                                        top: 45.0, bottom: 45.0),
-                                    child: VerticalDivider(
-                                      color: Colors.grey,
-                                      thickness: 0.35,
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () => context.pushNamed(
                                       MyAppRoutes.visitorOutScreen,
                                     ),
                                     child: const FeatureItems(
                                       imageURL: 'assets/icons/visitor-out.png',
-                                      featureName: 'Visitor-Out',
+                                      featureName: 'Activate User',
                                     ),
                                   ),
                                   const Padding(
@@ -133,7 +115,27 @@ class HomePage extends HookConsumerWidget {
                                     child: const FeatureItems(
                                       imageURL:
                                           'assets/icons/wrong-visitors.png',
-                                      featureName: 'Wrong-Visitor',
+                                      featureName: 'Remove User',
+                                    ),
+                                  ),
+                                  const Padding(
+                                    padding: EdgeInsets.only(
+                                        top: 45.0, bottom: 45.0),
+                                    child: VerticalDivider(
+                                      color: Colors.grey,
+                                      thickness: 0.35,
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const WrongVisitor())),
+                                    child: const FeatureItems(
+                                      imageURL:
+                                          'assets/icons/wrong-visitors.png',
+                                      featureName: 'User List',
                                     ),
                                   ),
                                 ],
@@ -152,7 +154,7 @@ class HomePage extends HookConsumerWidget {
                                     border: Border.all(
                                         color: Colors.grey, width: 1)),
                                 child: const Text(
-                                  "Visitor Management",
+                                  "User Management",
                                   style: TextStyle(
                                       fontSize: 15, color: Colors.black),
                                 ),
@@ -199,7 +201,7 @@ class HomePage extends HookConsumerWidget {
                                                 const StaffIn())),
                                     child: const FeatureItems(
                                       imageURL: 'assets/icons/staff-in.png',
-                                      featureName: 'Staff-In',
+                                      featureName: 'Add Staff',
                                     ),
                                   ),
                                   const Padding(
@@ -218,7 +220,7 @@ class HomePage extends HookConsumerWidget {
                                                 const StaffOut())),
                                     child: const FeatureItems(
                                       imageURL: 'assets/icons/staff-out.png',
-                                      featureName: 'Staff-Out',
+                                      featureName: 'Remove Staff',
                                     ),
                                   ),
                                   const Padding(
@@ -237,7 +239,7 @@ class HomePage extends HookConsumerWidget {
                                                 const AddStaff())),
                                     child: const FeatureItems(
                                       imageURL: 'assets/icons/add-staff.png',
-                                      featureName: 'Add Staff',
+                                      featureName: 'Staff List',
                                     ),
                                   ),
                                 ],
@@ -300,10 +302,10 @@ class HomePage extends HookConsumerWidget {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const AdminPage())),
+                                                const CarIn())),
                                     child: const FeatureItems(
                                       imageURL: 'assets/icons/car-in.png',
-                                      featureName: 'Car-In',
+                                      featureName: 'Add Guard',
                                     ),
                                   ),
                                   const Padding(
@@ -322,7 +324,7 @@ class HomePage extends HookConsumerWidget {
                                                 const CarOut())),
                                     child: const FeatureItems(
                                       imageURL: 'assets/icons/car-out.png',
-                                      featureName: 'Car-Out',
+                                      featureName: 'Remove Guard',
                                     ),
                                   ),
                                   const Padding(
@@ -341,7 +343,7 @@ class HomePage extends HookConsumerWidget {
                                                 const AddCar())),
                                     child: const FeatureItems(
                                       imageURL: 'assets/icons/add-car.png',
-                                      featureName: 'Add Car',
+                                      featureName: 'Guard List',
                                     ),
                                   ),
                                 ],
@@ -360,7 +362,7 @@ class HomePage extends HookConsumerWidget {
                                     border: Border.all(
                                         color: Colors.grey, width: 1)),
                                 child: const Text(
-                                  "Car Management",
+                                  "Guard Management",
                                   style: TextStyle(
                                       fontSize: 15, color: Colors.black),
                                 ),

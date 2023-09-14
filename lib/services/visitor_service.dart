@@ -257,6 +257,7 @@ class VisitorService implements BaseVisitorService {
       );
       if (userResponse.data["status"] == 1) {
 
+         // ignore: unused_result
          ref.refresh(wrongVisitorDataProvider.future);
          
         Fluttertoast.showToast(

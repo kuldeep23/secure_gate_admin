@@ -126,8 +126,8 @@ class WrongVisitorCard extends HookConsumerWidget {
                                   horizontal: 3,
                                 ),
                                 decoration: BoxDecoration(
-                                  color:
-                                      const Color.fromARGB(255, 102, 102, 216),
+                                  color: const Color.fromARGB(
+                                      255, 102, 102, 216),
                                   borderRadius: BorderRadius.circular(
                                     10,
                                   ),

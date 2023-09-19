@@ -1,10 +1,7 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:dio/dio.dart';
-import 'package:secure_gates_admin/pages/homepage/admin_home_page.dart';
-import 'package:secure_gates_admin/pages/homepage/home_page.dart';
 import '../auth_exception_handler.dart';
 import '../controllers/user_controller.dart';
 import 'login_presistence_service.dart';
@@ -45,24 +42,6 @@ class AuthenticationSerivce implements BaseAuthenticationService {
             .setUserInPrefs(passingData);
 
         await ref.read(userControllerProvider).configCurrentUser();
-       
-        String userType = userResponse.data["data"]["Soc_Role"];
-        switch (userType) {
-          case "Guard":
-            {
-              MaterialPageRoute(builder: (context) => const HomePage());
-            
-            }
-            break; // The switch statement must be told to exit, or it will execute every case.
-          case "Admin":
-            {
-              MaterialPageRoute(builder: (context) => const AdminPage());
-           
-            }
-            break;
-          default:
-            print(userResponse.data["data"]["Soc_Role"]);
-        }
       } else if (userResponse.data["code"] == "101") {
         return ErrorHandler.errorDialog(userResponse.data["message"]);
       }

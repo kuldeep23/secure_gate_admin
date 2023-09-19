@@ -28,28 +28,40 @@ class VisitorOut extends HookConsumerWidget {
       ),
       body: Center(
         child: visitorData.when(
-            data: (data) {
-              return ListView(
-                children: data
-                    .map((item) => VisitorCard(
-                          visitorid: item.visitorId,
-                          visitorApproveBy: item.visitorApproveBy,
-                          visitorEnterTime: item.visitorEnterTime,
-                          visitorImage: item.visitorImage,
-                          visitorName: item.visitorName,
-                          visitorEnterDate: item.visitorEnterDate,
-                          visitorStatus: item.visitorStatus,
-                          visitorType: item.visitorType,
-                          visitorTypeDetail: item.visitorTypeDetail,
-                          visitormobile: item.visitorMobile,
-                          visitorFlatNo: item.visitorFlatNo,
-                        ))
-                    .toList(),
-              );
-            },
+            skipLoadingOnRefresh: false,
+            data: (data) => data.isEmpty
+                ? const Center(
+                    child: Column(
+                      children: [
+                        Text("This is an empty list"),
+                      ],
+                    ),
+                  )
+                : RefreshIndicator(
+                    onRefresh: () async {
+                      ref.refresh(insideVisitorDataProvider.future);
+                    },
+                    child: ListView(
+                      children: data
+                          .map((item) => VisitorCard(
+                                visitorid: item.visitorId,
+                                visitorApproveBy: item.visitorApproveBy,
+                                visitorEnterTime: item.visitorEnterTime,
+                                visitorImage: item.visitorImage,
+                                visitorName: item.visitorName,
+                                visitorEnterDate: item.visitorEnterDate,
+                                visitorStatus: item.visitorStatus,
+                                visitorType: item.visitorType,
+                                visitorTypeDetail: item.visitorTypeDetail,
+                                visitormobile: item.visitorMobile,
+                                visitorFlatNo: item.visitorFlatNo,
+                              ))
+                          .toList(),
+                    ),
+                  ),
             loading: () => const SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Padding(
+                  scrollDirection: Axis.vertical,
+                  child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 5),
                     child: Column(
                       children: [
@@ -62,7 +74,7 @@ class VisitorOut extends HookConsumerWidget {
                       ],
                     ),
                   ),
-            ),
+                ),
             error: (e, s) {
               return Text(e.toString());
             }),

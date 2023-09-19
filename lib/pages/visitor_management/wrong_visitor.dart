@@ -27,29 +27,35 @@ class WrongVisitor extends HookConsumerWidget {
       ),
       body: Center(
         child: wrongvisitorData.when(
-            data: (data) {
-              return ListView(
-                children: data
-                    .map((item) => WrongVisitorCard(
-                          visitorimage: item.visitorName,
-                          visitorsoccode: item.socCode,
-                          visitorid: item.visitorId,
-                          visitorApproveBy: item.visitorApproveBy,
-                          visitorEnterTime: item.visitorEnterTime,
-                          visitorImage: item.visitorImage,
-                          visitorName: item.visitorName,
-                          visitorEnterDate: item.visitorEnterDate,
-                          visitorStatus: item.visitorStatus,
-                          visitorType: item.visitorType,
-                          visitorTypeDetail: item.visitorTypeDetail,
-                          visitormobile: item.visitorMobile,
-                          visitorReview: item.visitorReview,
-                          visitorId: item.visitorId,
-                          visitorFlatNo: item.visitorFlatNo,
-                        ))
-                    .toList(),
-              );
-            },
+            data: (data) => data.isEmpty
+                ? const Center(
+                    child: Column(
+                      children: [
+                        Text("This is an empty list"),
+                      ],
+                    ),
+                  )
+                : ListView(
+                    children: data
+                        .map((item) => WrongVisitorCard(
+                              visitorimage: item.visitorName,
+                              visitorsoccode: item.socCode,
+                              visitorid: item.visitorId,
+                              visitorApproveBy: item.visitorApproveBy,
+                              visitorEnterTime: item.visitorEnterTime,
+                              visitorImage: item.visitorImage,
+                              visitorName: item.visitorName,
+                              visitorEnterDate: item.visitorEnterDate,
+                              visitorStatus: item.visitorStatus,
+                              visitorType: item.visitorType,
+                              visitorTypeDetail: item.visitorTypeDetail,
+                              visitormobile: item.visitorMobile,
+                              visitorReview: item.visitorReview,
+                              visitorId: item.visitorId,
+                              visitorFlatNo: item.visitorFlatNo,
+                            ))
+                        .toList(),
+                  ),
             loading: () => const SingleChildScrollView(
                   scrollDirection: Axis.vertical,
                   child: Padding(

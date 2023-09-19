@@ -102,7 +102,20 @@ class SplashScreen extends HookConsumerWidget {
     }, []);
 
     if (loginStatus != null) {
-      return const HomePage();
+      final userType = loginStatus.socRole;
+      switch (userType) {
+        case "Guard":
+          {
+            return const HomePage();
+          } // The switch statement must be told to exit, or it will execute every case.
+        case "Admin":
+          {
+            return const AdminPage();
+          }
+        default:
+          print(userType);
+          return const HomePage();
+      }
     } else {
       return const LoginPage();
     }

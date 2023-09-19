@@ -91,7 +91,7 @@ class AdminPage extends HookConsumerWidget {
                                 children: [
                                   GestureDetector(
                                     onTap: () => context.pushNamed(
-                                      MyAppRoutes.visitorOutScreen,
+                                      MyAppRoutes.activateUser,
                                     ),
                                     child: const FeatureItems(
                                       imageURL:

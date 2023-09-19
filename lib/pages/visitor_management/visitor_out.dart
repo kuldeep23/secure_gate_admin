@@ -47,16 +47,22 @@ class VisitorOut extends HookConsumerWidget {
                     .toList(),
               );
             },
-            loading: () => const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 5),
-                  child: Column(
-                    children: [
-                      CurrentVisitorLoadingWidget(),
-                      CurrentVisitorLoadingWidget(),
-                      CurrentVisitorLoadingWidget(),
-                    ],
+            loading: () => const SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 5),
+                    child: Column(
+                      children: [
+                        CurrentVisitorLoadingWidget(),
+                        CurrentVisitorLoadingWidget(),
+                        CurrentVisitorLoadingWidget(),
+                        CurrentVisitorLoadingWidget(),
+                        CurrentVisitorLoadingWidget(),
+                        CurrentVisitorLoadingWidget(),
+                      ],
+                    ),
                   ),
-                ),
+            ),
             error: (e, s) {
               return Text(e.toString());
             }),

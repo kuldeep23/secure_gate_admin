@@ -1,54 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:secure_gates_admin/pages/staff_management/widget/inside_staff_card_widget.dart';
+import 'package:secure_gates_admin/entities/society_user.dart';
+import 'package:secure_gates_admin/pages/user_management/widget/activate_user_card_wigdet.dart';
 
-import '../../entities/staff.dart';
-import '../../services/staff_services.dart';
+import 'package:secure_gates_admin/services/user_services.dart';
+
 import '../visitor_management/widget/visitor_loading_widget.dart';
 
-final allInsideStaffDataProvider =
-    FutureProvider.autoDispose<List<Staff>>((ref) async {
-  final staff = ref.read(staffServiceProvider).getInsideStaff();
+final allSocietyUserDataProvider =
+    FutureProvider.autoDispose<List<SocietyUser>>((ref) async {
+  final staff = ref.read(societyUserProvider).getActivateUser();
   return staff;
 });
 
-class StaffOut extends HookConsumerWidget {
-  const StaffOut({Key? key}) : super(key: key);
+class ActivateUser extends HookConsumerWidget {
+  const ActivateUser({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final outsideStaffData = ref.watch(allInsideStaffDataProvider);
+    final societyUserData = ref.watch(allSocietyUserDataProvider);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Staff-Out", style: TextStyle(color: Colors.white)),
+        title: const Text(
+          "Staff-In",
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: Center(
-        child: outsideStaffData.when(
+        child: societyUserData.when(
             data: (data) {
               return RefreshIndicator(
                 onRefresh: () async {
                   // ignore: unused_result
-                  ref.refresh(allInsideStaffDataProvider.future);
+                  ref.refresh(allSocietyUserDataProvider);
                 },
                 child: ListView(
                   children: data
-                      .map((item) => StaffCard(
+                      .map((item) => SocietyUserCard(
                             uid: item.uid,
                             socCode: item.socCode,
-                            staffName: item.staffName,
-                            staffType: item.staffType,
-                            staffFlatNo: item.staffFlatNo,
-                            staffIcon: item.staffIcon,
-                            staffStatus: item.staffStatus,
-                            lastEnterDate: item.lastEnterDate,
-                            lastEnterTime: item.lastEnterTime,
-                            lastEnterBy: item.lastEnterBy,
-                            staffMobileNo: item.staffMobileNo,
-                            staffRating: item.staffRating,
-                            staffCreationDate: item.staffCreationDate,
-                            staffDeactivateDate: item.staffDeactivateDate,
-                            staffIsActive: item.staffIsActive,
+                            ownerTenant: item.ownerTenant,
+                            ownerFirstName: item.ownerFirstName,
+                            ownerLastName: item.ownerLastName,
+                            ownerImage: item.ownerImage,
+                            contactNumber: item.contactNumber,
+                            flatNumber: item.flatNumber,
+                            creationDate: item.creationDate,
                           ))
                       .toList(),
                 ),

@@ -6,4 +6,5 @@ class MyAppRoutes {
   static const splashScreen = 'splashScreen';
   static const visitorInScreen = 'visitorInScreen';
   static const visitorOutScreen = 'visitorOutScreen';
+  static const activateUser = 'activateUser';
 }

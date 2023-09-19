@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:secure_gates_admin/pages/homepage/admin_home_page.dart';
+import 'package:secure_gates_admin/pages/user_management/activate_user.dart';
 import 'package:secure_gates_admin/pages/visitor_management/visitor_in.dart';
 import 'package:secure_gates_admin/pages/visitor_management/visitor_out.dart';
 
@@ -70,6 +71,11 @@ class MyAppRouterConfig {
         name: MyAppRoutes.visitorOutScreen,
         path: "/visitor-out-screen",
         builder: (context, state) => const VisitorOut(),
+      ),
+      GoRoute(
+        name: MyAppRoutes.activateUser,
+        path: "/activate-user",
+        builder: (context, state) => const ActivateUser(),
       ),
     ],
     errorBuilder: (BuildContext context, GoRouterState state) =>

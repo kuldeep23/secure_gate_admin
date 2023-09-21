@@ -104,14 +104,18 @@ class VisitorService implements BaseVisitorService {
         "https://gatesadmin.000webhostapp.com/all_visitors_list.php",
         data: formData,
       );
+      if (dataResponse.data["code"] == "100") {
+        final results =
+            List<Map<String, dynamic>>.from(dataResponse.data["data"]);
 
-      final results = List<Map<String, dynamic>>.from(dataResponse.data);
+        List<Visitor> visitors = results
+            .map((visitorData) => Visitor.fromMap(visitorData))
+            .toList(growable: false);
 
-      List<Visitor> visitors = results
-          .map((visitorData) => Visitor.fromMap(visitorData))
-          .toList(growable: false);
-
-      return visitors;
+        return visitors;
+      } else {
+        return [];
+      }
     } catch (e) {
       throw ErrorHandler.errorDialog(e);
     }
@@ -129,15 +133,19 @@ class VisitorService implements BaseVisitorService {
         "https://gatesadmin.000webhostapp.com/get_wrong_visitors.php",
         data: formData,
       );
+      if (dataResponse.data["code"] == "100") {
+        final results =
+            List<Map<String, dynamic>>.from(dataResponse.data["data"]);
 
-      final results =
-          List<Map<String, dynamic>>.from(dataResponse.data["data"]);
+        List<Wrongvisitor> wrongvisitors = results
+            .map((visitorData) => Wrongvisitor.fromMap(visitorData))
+            .toList(growable: false);
 
-      List<Wrongvisitor> wrongvisitors = results
-          .map((visitorData) => Wrongvisitor.fromMap(visitorData))
-          .toList(growable: false);
-
-      return wrongvisitors;
+        return wrongvisitors;
+      }
+      else {
+        return [];
+      }
     } catch (e) {
       throw ErrorHandler.errorDialog(e);
     }
@@ -256,10 +264,9 @@ class VisitorService implements BaseVisitorService {
         data: formData,
       );
       if (userResponse.data["status"] == 1) {
+        // ignore: unused_result
+        ref.refresh(wrongVisitorDataProvider.future);
 
-         // ignore: unused_result
-         ref.refresh(wrongVisitorDataProvider.future);
-         
         Fluttertoast.showToast(
             msg: "Visitor Updates successfully !!!",
             toastLength: Toast.LENGTH_LONG,

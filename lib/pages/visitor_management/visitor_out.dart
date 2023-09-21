@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:lottie/lottie.dart';
 import 'package:secure_gates_admin/entities/visitor.dart';
 import 'package:secure_gates_admin/pages/visitor_management/widget/visitor_card_widget.dart';
 import 'package:secure_gates_admin/pages/visitor_management/widget/visitor_loading_widget.dart';
@@ -30,10 +31,10 @@ class VisitorOut extends HookConsumerWidget {
         child: visitorData.when(
             skipLoadingOnRefresh: false,
             data: (data) => data.isEmpty
-                ? const Center(
+                ?  Center(
                     child: Column(
                       children: [
-                        Text("This is an empty list"),
+                        Lottie.asset("assets/mt_list.json"),
                       ],
                     ),
                   )

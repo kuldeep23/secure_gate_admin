@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -108,15 +110,21 @@ class VisitorService implements BaseVisitorService {
         final results =
             List<Map<String, dynamic>>.from(dataResponse.data["data"]);
 
+
+      final results =
+          List<Map<String, dynamic>>.from(dataResponse.data["data"]);
+
         List<Visitor> visitors = results
             .map((visitorData) => Visitor.fromMap(visitorData))
             .toList(growable: false);
+
 
         return visitors;
       } else {
         return [];
       }
     } catch (e) {
+      log(e.toString());
       throw ErrorHandler.errorDialog(e);
     }
   }

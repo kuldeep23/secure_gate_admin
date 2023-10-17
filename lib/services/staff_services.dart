@@ -35,15 +35,18 @@ class StaffServices implements BaseStaffService {
         "https://gatesadmin.000webhostapp.com/get_all_outside_staff.php",
         data: formData,
       );
+      if (dataResponse.data["code"] == "100") {
+        final results =
+            List<Map<String, dynamic>>.from(dataResponse.data["data"]);
 
-      final results =
-          List<Map<String, dynamic>>.from(dataResponse.data["data"]);
+        List<Staff> staff = results
+            .map((staffData) => Staff.fromMap(staffData))
+            .toList(growable: false);
 
-      List<Staff> staff = results
-          .map((staffData) => Staff.fromMap(staffData))
-          .toList(growable: false);
-
-      return staff;
+        return staff;
+      } else {
+        return [];
+      }
     } catch (e) {
       throw ErrorHandler.errorDialog(e);
     }
@@ -100,15 +103,18 @@ class StaffServices implements BaseStaffService {
         "https://gatesadmin.000webhostapp.com/get_all_inside_staff.php",
         data: formData,
       );
+      if (dataResponse.data["code"] == "100") {
+        final results =
+            List<Map<String, dynamic>>.from(dataResponse.data["data"]);
 
-      final results =
-          List<Map<String, dynamic>>.from(dataResponse.data["data"]);
+        List<Staff> staff = results
+            .map((staffData) => Staff.fromMap(staffData))
+            .toList(growable: false);
 
-      List<Staff> staff = results
-          .map((staffData) => Staff.fromMap(staffData))
-          .toList(growable: false);
-
-      return staff;
+        return staff;
+      } else {
+        return [];
+      }
     } catch (e) {
       throw ErrorHandler.errorDialog(e);
     }

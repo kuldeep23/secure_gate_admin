@@ -1,12 +1,10 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:secure_gates_admin/pages/user_management/widget/update_user_card_widget.dart';
 import 'package:secure_gates_admin/pages/visitor_management/widget/vertical_divider_widget.dart';
-import 'package:secure_gates_admin/services/staff_services.dart';
 
 class SocietyUserCard extends HookConsumerWidget {
   SocietyUserCard({
@@ -252,10 +250,13 @@ class SocietyUserCard extends HookConsumerWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) => UpdateUserCard(
-                                  ownerFirstName: ownerFirstName,
-                                  ownerLastName: ownerLastName,
-                                  ownerTenant: ownerTenant,
-                                  ownerImage: ownerImage,)));
+                                    id: uid,
+                                    ownerFirstName: ownerFirstName,
+                                    ownerLastName: ownerLastName,
+                                    ownerTenant: ownerTenant,
+                                    ownerImage: ownerImage,
+                                    flatNumber: flatNumber,
+                                  )));
                     },
                     btnOkText: "Yes",
                   ).show(),

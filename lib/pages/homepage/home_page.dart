@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:secure_gates_admin/pages/car_management/car_in.dart';
 import 'package:secure_gates_admin/pages/car_management/car_out.dart';
-import 'package:secure_gates_admin/pages/homepage/admin_home_page.dart';
 import 'package:secure_gates_admin/pages/staff_management/add_staff.dart';
 import 'package:secure_gates_admin/pages/staff_management/staff_in.dart';
 import 'package:secure_gates_admin/pages/staff_management/staff_out.dart';
@@ -300,7 +299,7 @@ class HomePage extends HookConsumerWidget {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const AdminPage())),
+                                                const CarIn())),
                                     child: const FeatureItems(
                                       imageURL: 'assets/icons/car-in.png',
                                       featureName: 'Car-In',

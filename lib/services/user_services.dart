@@ -4,7 +4,6 @@ import 'package:secure_gates_admin/controllers/user_controller.dart';
 import 'package:secure_gates_admin/entities/society_user.dart';
 import '../auth_exception_handler.dart';
 
-
 final societyUserProvider = Provider<SocietyUserServices>((ref) {
   return SocietyUserServices(ref);
 });
@@ -29,15 +28,18 @@ class SocietyUserServices implements BaseSocietyUserService {
         "https://gatesadmin.000webhostapp.com/activate_user.php",
         data: formData,
       );
+      if (dataResponse.data["code"] == "100") {
+        final results =
+            List<Map<String, dynamic>>.from(dataResponse.data["data"]);
 
-      final results =
-          List<Map<String, dynamic>>.from(dataResponse.data["data"]);
+        List<SocietyUser> societyUser = results
+            .map((societyData) => SocietyUser.fromMap(societyData))
+            .toList(growable: false);
 
-      List<SocietyUser> societyUser = results
-          .map((societyData) => SocietyUser.fromMap(societyData))
-          .toList(growable: false);
-
-      return societyUser;
+        return societyUser;
+      } else {
+        return [];
+      }
     } catch (e) {
       throw ErrorHandler.errorDialog(e);
     }

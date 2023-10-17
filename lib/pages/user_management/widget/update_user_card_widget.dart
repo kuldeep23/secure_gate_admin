@@ -6,22 +6,26 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:secure_gates_admin/pages/auth_exception_handler.dart';
 import 'package:secure_gates_admin/widgets/rounded_button.dart';
-import 'package:secure_gates_admin/widgets/rounded_text_field.dart';
-
 
 class UpdateUserCard extends HookConsumerWidget {
   const UpdateUserCard({
     super.key,
+    required this.id,
     required this.ownerTenant,
     required this.ownerFirstName,
     required this.ownerLastName,
     required this.ownerImage,
+    required this.flatNumber,
   });
 
-  final String ownerTenant, ownerFirstName, ownerLastName, ownerImage;
+  final String id,
+      ownerTenant,
+      ownerFirstName,
+      ownerLastName,
+      ownerImage,
+      flatNumber;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -36,7 +40,10 @@ class UpdateUserCard extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Visitor-In"),
+        title: const Text(
+          "Activate User",
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: SizedBox(
         width: size.width,
@@ -59,18 +66,351 @@ class UpdateUserCard extends HookConsumerWidget {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        const Text(
-                          "MAIN GATE ENTRY",
-                          style: TextStyle(fontSize: 35),
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
                         CircleAvatar(
-                          radius: 70,
+                          radius: 60,
                           backgroundImage: NetworkImage(
                             ownerImage,
                           ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 3,
+                            vertical: 2,
+                          ),
+                          decoration: BoxDecoration(
+                            color: const Color(0xffFF6663),
+                            borderRadius: BorderRadius.circular(
+                              5,
+                            ),
+                          ),
+                          child: Text(
+                            ownerTenant,
+                            style: const TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w300,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.apartment,
+                              size: 16,
+                              color: Colors.grey[600],
+                            ),
+                            const SizedBox(
+                              width: 2,
+                            ),
+                            Text(
+                              "$flatNumber, $ownerFirstName $ownerLastName",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.grey[600],
+                                height: 1.2,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Padding(
+                          padding: const EdgeInsetsDirectional.symmetric(
+                              horizontal: 30),
+                          child: Divider(
+                            color: Colors.grey[400],
+                            thickness: 0.50,
+                          ),
+                        ),
+                        const Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "User Information",
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextField(
+                          controller: nameTextController,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                              labelText: "Email",
+                              labelStyle: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400),
+                              prefixIcon: const Icon(
+                                Icons.email,
+                                color: Colors.black,
+                                size: 18,
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 0, horizontal: 10),
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.grey.shade200, width: 2),
+                                  borderRadius: BorderRadius.circular(10)),
+                              floatingLabelStyle: const TextStyle(
+                                  color: Color(0xffFF6663), fontSize: 18),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Color(0xffFF6663), width: 1.5),
+                                  borderRadius: BorderRadius.circular(10))),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextField(
+                          controller: nameTextController,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                              labelText: "Date of Birth",
+                              labelStyle: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400),
+                              prefixIcon: const Icon(
+                                Icons.date_range,
+                                color: Colors.black,
+                                size: 18,
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 0, horizontal: 10),
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.grey.shade200, width: 2),
+                                  borderRadius: BorderRadius.circular(10)),
+                              floatingLabelStyle: const TextStyle(
+                                  color: Color(0xffFF6663), fontSize: 18),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Color(0xffFF6663), width: 1.5),
+                                  borderRadius: BorderRadius.circular(10))),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        TextField(
+                          controller: nameTextController,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                              labelText: "Home Town Address",
+                              labelStyle: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400),
+                              prefixIcon: const Icon(
+                                Icons.contact_mail,
+                                color: Colors.black,
+                                size: 18,
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 0, horizontal: 10),
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.grey.shade200, width: 2),
+                                  borderRadius: BorderRadius.circular(10)),
+                              floatingLabelStyle: const TextStyle(
+                                  color: Color(0xffFF6663), fontSize: 18),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Color(0xffFF6663), width: 1.5),
+                                  borderRadius: BorderRadius.circular(10))),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Flexible(
+                              child: TextField(
+                                controller: nameTextController,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                    labelText: "Member",
+                                    labelStyle: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400),
+                                    prefixIcon: const Icon(
+                                      Icons.group,
+                                      color: Colors.black,
+                                      size: 18,
+                                    ),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 0, horizontal: 10),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.grey.shade200,
+                                            width: 2),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    floatingLabelStyle: const TextStyle(
+                                        color: Color(0xffFF6663), fontSize: 18),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: Color(0xffFF6663),
+                                            width: 1.5),
+                                        borderRadius:
+                                            BorderRadius.circular(10))),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Flexible(
+                              child: TextField(
+                                controller: nameTextController,
+                                keyboardType: TextInputType.text,
+                                decoration: InputDecoration(
+                                    labelText: "Gender",
+                                    labelStyle: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400),
+                                    prefixIcon: const Icon(
+                                      Icons.person,
+                                      color: Colors.black,
+                                      size: 18,
+                                    ),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 0, horizontal: 10),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.grey.shade200,
+                                            width: 2),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    floatingLabelStyle: const TextStyle(
+                                        color: Color(0xffFF6663), fontSize: 18),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: Color(0xffFF6663),
+                                            width: 1.5),
+                                        borderRadius:
+                                            BorderRadius.circular(10))),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Flexible(
+                              child: TextField(
+                                controller: nameTextController,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                    labelText: "Blood Group",
+                                    labelStyle: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400),
+                                    prefixIcon: const Icon(
+                                      Icons.bloodtype,
+                                      color: Colors.black,
+                                      size: 18,
+                                    ),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 0, horizontal: 10),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.grey.shade200,
+                                            width: 2),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    floatingLabelStyle: const TextStyle(
+                                        color: Color(0xffFF6663), fontSize: 18),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: Color(0xffFF6663),
+                                            width: 1.5),
+                                        borderRadius:
+                                            BorderRadius.circular(10))),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Flexible(
+                              child: TextField(
+                                controller: nameTextController,
+                                keyboardType: TextInputType.text,
+                                decoration: InputDecoration(
+                                    labelText: "Profession",
+                                    labelStyle: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400),
+                                    prefixIcon: const Icon(
+                                      Icons.work,
+                                      color: Colors.black,
+                                      size: 18,
+                                    ),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 0, horizontal: 10),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.grey.shade200,
+                                            width: 2),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    floatingLabelStyle: const TextStyle(
+                                        color: Color(0xffFF6663), fontSize: 18),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: Color(0xffFF6663),
+                                            width: 1.5),
+                                        borderRadius:
+                                            BorderRadius.circular(10))),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        TextField(
+                          controller: nameTextController,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                              labelText: "Profession Details",
+                              labelStyle: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400),
+                              prefixIcon: const Icon(
+                                Icons.work_outline,
+                                color: Colors.black,
+                                size: 18,
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 0, horizontal: 10),
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.grey.shade200, width: 2),
+                                  borderRadius: BorderRadius.circular(10)),
+                              floatingLabelStyle: const TextStyle(
+                                  color: Color(0xffFF6663), fontSize: 18),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Color(0xffFF6663), width: 1.5),
+                                  borderRadius: BorderRadius.circular(10))),
                         ),
                         const SizedBox(
                           height: 20,
@@ -78,72 +418,439 @@ class UpdateUserCard extends HookConsumerWidget {
                         const Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            "Fill the details:",
-                            style: TextStyle(fontSize: 25),
+                            "Flat Information",
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.bold),
                           ),
                         ),
-                        TextField(
-                          controller: nameTextController,
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                              labelText: "Staff Name",
-                              labelStyle: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400),
-                              prefixIcon: const Icon(
-                                Icons.person,
-                                color: Colors.black,
-                                size: 18,
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 0, horizontal: 10),
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Colors.grey.shade200, width: 2),
-                                  borderRadius: BorderRadius.circular(10)),
-                              floatingLabelStyle: const TextStyle(
-                                  color: Color(0xffFF6663), fontSize: 18),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                      color: Color(0xffFF6663), width: 1.5),
-                                  borderRadius: BorderRadius.circular(10))),
+                        const SizedBox(
+                          height: 10,
                         ),
-                        TextField(
-                          controller: nameTextController,
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                              labelText: "Staff Name",
-                              labelStyle: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400),
-                              prefixIcon: const Icon(
-                                Icons.person,
-                                color: Colors.black,
-                                size: 18,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Flexible(
+                              child: TextField(
+                                controller: nameTextController,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                    labelText: "Flat Block",
+                                    labelStyle: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400),
+                                    prefixIcon: const Icon(
+                                      Icons.apartment,
+                                      color: Colors.black,
+                                      size: 18,
+                                    ),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 0, horizontal: 10),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.grey.shade200,
+                                            width: 2),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    floatingLabelStyle: const TextStyle(
+                                        color: Color(0xffFF6663), fontSize: 18),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: Color(0xffFF6663),
+                                            width: 1.5),
+                                        borderRadius:
+                                            BorderRadius.circular(10))),
                               ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 0, horizontal: 10),
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Colors.grey.shade200, width: 2),
-                                  borderRadius: BorderRadius.circular(10)),
-                              floatingLabelStyle: const TextStyle(
-                                  color: Color(0xffFF6663), fontSize: 18),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                      color: Color(0xffFF6663), width: 1.5),
-                                  borderRadius: BorderRadius.circular(10))),
-                        ),
-                        RoundedInputField(
-                          hintText: "Flat Number",
-                          leadingIcon: Iconsax.building,
-                          isMobile: false,
-                          fieldController: flatNumberTextController,
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Flexible(
+                              child: TextField(
+                                controller: nameTextController,
+                                keyboardType: TextInputType.text,
+                                decoration: InputDecoration(
+                                    labelText: "Flat Floor",
+                                    labelStyle: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400),
+                                    prefixIcon: const Icon(
+                                      Icons.home,
+                                      color: Colors.black,
+                                      size: 18,
+                                    ),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 0, horizontal: 10),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.grey.shade200,
+                                            width: 2),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    floatingLabelStyle: const TextStyle(
+                                        color: Color(0xffFF6663), fontSize: 18),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: Color(0xffFF6663),
+                                            width: 1.5),
+                                        borderRadius:
+                                            BorderRadius.circular(10))),
+                              ),
+                            ),
+                          ],
                         ),
                         const SizedBox(
-                          height: 15,
+                          height: 10,
+                        ),
+                        TextField(
+                          controller: nameTextController,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                              labelText: "Flat Type",
+                              labelStyle: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400),
+                              prefixIcon: const Icon(
+                                Icons.other_houses,
+                                color: Colors.black,
+                                size: 18,
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 0, horizontal: 10),
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.grey.shade200, width: 2),
+                                  borderRadius: BorderRadius.circular(10)),
+                              floatingLabelStyle: const TextStyle(
+                                  color: Color(0xffFF6663), fontSize: 18),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Color(0xffFF6663), width: 1.5),
+                                  borderRadius: BorderRadius.circular(10))),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Flexible(
+                              child: TextField(
+                                controller: nameTextController,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                    labelText: "Parking Type",
+                                    labelStyle: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400),
+                                    prefixIcon: const Icon(
+                                      Icons.local_parking,
+                                      color: Colors.black,
+                                      size: 18,
+                                    ),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 0, horizontal: 10),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.grey.shade200,
+                                            width: 2),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    floatingLabelStyle: const TextStyle(
+                                        color: Color(0xffFF6663), fontSize: 18),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: Color(0xffFF6663),
+                                            width: 1.5),
+                                        borderRadius:
+                                            BorderRadius.circular(10))),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Flexible(
+                              child: TextField(
+                                controller: nameTextController,
+                                keyboardType: TextInputType.text,
+                                decoration: InputDecoration(
+                                    labelText: "Parking Number",
+                                    labelStyle: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400),
+                                    prefixIcon: const Icon(
+                                      Icons.local_parking,
+                                      color: Colors.black,
+                                      size: 18,
+                                    ),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 0, horizontal: 10),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.grey.shade200,
+                                            width: 2),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    floatingLabelStyle: const TextStyle(
+                                        color: Color(0xffFF6663), fontSize: 18),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: Color(0xffFF6663),
+                                            width: 1.5),
+                                        borderRadius:
+                                            BorderRadius.circular(10))),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Flexible(
+                              child: TextField(
+                                controller: nameTextController,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                    labelText: "Pet Type",
+                                    labelStyle: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400),
+                                    prefixIcon: const Icon(
+                                      Icons.pets,
+                                      color: Colors.black,
+                                      size: 18,
+                                    ),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 0, horizontal: 10),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.grey.shade200,
+                                            width: 2),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    floatingLabelStyle: const TextStyle(
+                                        color: Color(0xffFF6663), fontSize: 18),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: Color(0xffFF6663),
+                                            width: 1.5),
+                                        borderRadius:
+                                            BorderRadius.circular(10))),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Flexible(
+                              child: TextField(
+                                controller: nameTextController,
+                                keyboardType: TextInputType.text,
+                                decoration: InputDecoration(
+                                    labelText: "Pet Name",
+                                    labelStyle: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400),
+                                    prefixIcon: const Icon(
+                                      Icons.pets,
+                                      color: Colors.black,
+                                      size: 18,
+                                    ),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 0, horizontal: 10),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.grey.shade200,
+                                            width: 2),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    floatingLabelStyle: const TextStyle(
+                                        color: Color(0xffFF6663), fontSize: 18),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: Color(0xffFF6663),
+                                            width: 1.5),
+                                        borderRadius:
+                                            BorderRadius.circular(10))),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        const Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Vehicle Information",
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Flexible(
+                              child: TextField(
+                                controller: nameTextController,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                    labelText: "2 Wheeler Type",
+                                    labelStyle: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400),
+                                    prefixIcon: const Icon(
+                                      Icons.two_wheeler,
+                                      color: Colors.black,
+                                      size: 18,
+                                    ),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 0, horizontal: 10),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.grey.shade200,
+                                            width: 2),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    floatingLabelStyle: const TextStyle(
+                                        color: Color(0xffFF6663), fontSize: 18),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: Color(0xffFF6663),
+                                            width: 1.5),
+                                        borderRadius:
+                                            BorderRadius.circular(10))),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Flexible(
+                              child: TextField(
+                                controller: nameTextController,
+                                keyboardType: TextInputType.text,
+                                decoration: InputDecoration(
+                                    labelText: "2 Wheeler No.",
+                                    labelStyle: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400),
+                                    prefixIcon: const Icon(
+                                      Icons.two_wheeler,
+                                      color: Colors.black,
+                                      size: 18,
+                                    ),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 0, horizontal: 10),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.grey.shade200,
+                                            width: 2),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    floatingLabelStyle: const TextStyle(
+                                        color: Color(0xffFF6663), fontSize: 18),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: Color(0xffFF6663),
+                                            width: 1.5),
+                                        borderRadius:
+                                            BorderRadius.circular(10))),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Flexible(
+                              child: TextField(
+                                controller: nameTextController,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                    labelText: "4 Wheeler Brand",
+                                    labelStyle: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400),
+                                    prefixIcon: const Icon(
+                                      Icons.directions_car,
+                                      color: Colors.black,
+                                      size: 18,
+                                    ),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 0, horizontal: 10),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.grey.shade200,
+                                            width: 2),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    floatingLabelStyle: const TextStyle(
+                                        color: Color(0xffFF6663), fontSize: 18),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: Color(0xffFF6663),
+                                            width: 1.5),
+                                        borderRadius:
+                                            BorderRadius.circular(10))),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Flexible(
+                              child: TextField(
+                                controller: nameTextController,
+                                keyboardType: TextInputType.text,
+                                decoration: InputDecoration(
+                                    labelText: "4 Wheeler No.",
+                                    labelStyle: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400),
+                                    prefixIcon: const Icon(
+                                      Icons.directions_car,
+                                      color: Colors.black,
+                                      size: 16,
+                                    ),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 0, horizontal: 10),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.grey.shade200,
+                                            width: 2),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    floatingLabelStyle: const TextStyle(
+                                        color: Color(0xffFF6663), fontSize: 18),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: Color(0xffFF6663),
+                                            width: 1.5),
+                                        borderRadius:
+                                            BorderRadius.circular(10))),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
                         ),
                         Row(
                           children: [

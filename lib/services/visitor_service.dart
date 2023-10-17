@@ -106,15 +106,23 @@ class VisitorService implements BaseVisitorService {
         "https://gatesadmin.000webhostapp.com/all_visitors_list.php",
         data: formData,
       );
+      if (dataResponse.data["code"] == "100") {
+        final results =
+            List<Map<String, dynamic>>.from(dataResponse.data["data"]);
+
 
       final results =
           List<Map<String, dynamic>>.from(dataResponse.data["data"]);
 
-      List<Visitor> visitors = results
-          .map((visitorData) => Visitor.fromMap(visitorData))
-          .toList(growable: false);
+        List<Visitor> visitors = results
+            .map((visitorData) => Visitor.fromMap(visitorData))
+            .toList(growable: false);
 
-      return visitors;
+
+        return visitors;
+      } else {
+        return [];
+      }
     } catch (e) {
       log(e.toString());
       throw ErrorHandler.errorDialog(e);
@@ -133,15 +141,19 @@ class VisitorService implements BaseVisitorService {
         "https://gatesadmin.000webhostapp.com/get_wrong_visitors.php",
         data: formData,
       );
+      if (dataResponse.data["code"] == "100") {
+        final results =
+            List<Map<String, dynamic>>.from(dataResponse.data["data"]);
 
-      final results =
-          List<Map<String, dynamic>>.from(dataResponse.data["data"]);
+        List<Wrongvisitor> wrongvisitors = results
+            .map((visitorData) => Wrongvisitor.fromMap(visitorData))
+            .toList(growable: false);
 
-      List<Wrongvisitor> wrongvisitors = results
-          .map((visitorData) => Wrongvisitor.fromMap(visitorData))
-          .toList(growable: false);
-
-      return wrongvisitors;
+        return wrongvisitors;
+      }
+      else {
+        return [];
+      }
     } catch (e) {
       throw ErrorHandler.errorDialog(e);
     }

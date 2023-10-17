@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -105,7 +107,8 @@ class VisitorService implements BaseVisitorService {
         data: formData,
       );
 
-      final results = List<Map<String, dynamic>>.from(dataResponse.data);
+      final results =
+          List<Map<String, dynamic>>.from(dataResponse.data["data"]);
 
       List<Visitor> visitors = results
           .map((visitorData) => Visitor.fromMap(visitorData))
@@ -113,6 +116,7 @@ class VisitorService implements BaseVisitorService {
 
       return visitors;
     } catch (e) {
+      log(e.toString());
       throw ErrorHandler.errorDialog(e);
     }
   }
@@ -256,10 +260,9 @@ class VisitorService implements BaseVisitorService {
         data: formData,
       );
       if (userResponse.data["status"] == 1) {
+        // ignore: unused_result
+        ref.refresh(wrongVisitorDataProvider.future);
 
-         // ignore: unused_result
-         ref.refresh(wrongVisitorDataProvider.future);
-         
         Fluttertoast.showToast(
             msg: "Visitor Updates successfully !!!",
             toastLength: Toast.LENGTH_LONG,

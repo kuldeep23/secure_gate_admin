@@ -27,7 +27,7 @@ class AddStaff extends HookConsumerWidget {
       data = jsonDecode(res.body);
     }
 
-    //final imagePath = useState("");
+    final imageCode = useState("");
     final size = MediaQuery.of(context).size;
     final nameTextController = useTextEditingController();
     final mobileTextController = useTextEditingController();
@@ -76,7 +76,10 @@ class AddStaff extends HookConsumerWidget {
                           height: 10,
                         ),
                         RoundedSquareButton(
-                            icon: Icons.image,
+                            icon: const Icon(
+                              Icons.image,
+                              size: 50,
+                            ),
                             onPress: () {
                               getData();
                             }),

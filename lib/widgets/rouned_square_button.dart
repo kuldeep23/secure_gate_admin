@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class RoundedSquareButton extends StatelessWidget {
   final Function onPress;
-  final IconData icon;
+  final Widget icon;
 
   const RoundedSquareButton({
     super.key,
@@ -13,20 +13,16 @@ class RoundedSquareButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {
-        onPress();
-      },
-      style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20), // Half of 100px
+        onPressed: () {
+          onPress();
+        },
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20), // Half of 100px
+          ),
+          padding: const EdgeInsets.all(0),
+          minimumSize: const Size(100, 100),
         ),
-        padding: const EdgeInsets.all(0),
-        minimumSize: const Size(100, 100),
-      ),
-      child: Icon(
-        icon,
-        size: 50,
-      ),
-    );
+        child: icon);
   }
 }

@@ -11,7 +11,7 @@ class ActivateUserLoadingWidget extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.symmetric(
         horizontal: 5,
-        vertical: 10,
+        vertical: 5,
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(

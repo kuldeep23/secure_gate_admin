@@ -34,6 +34,7 @@ class SocietyUser {
   final String fourWheelerBrand;
   final String fourWheelerNumber;
   final String creationDate;
+  final String updationDate;
   final String isActive;
   SocietyUser({
     required this.uid,
@@ -68,6 +69,7 @@ class SocietyUser {
     required this.fourWheelerBrand,
     required this.fourWheelerNumber,
     required this.creationDate,
+    required this.updationDate,
     required this.isActive,
   });
 
@@ -104,6 +106,7 @@ class SocietyUser {
     String? fourWheelerBrand,
     String? fourWheelerNumber,
     String? creationDate,
+    String? updationDate,
     String? isActive,
   }) {
     return SocietyUser(
@@ -139,6 +142,7 @@ class SocietyUser {
       fourWheelerBrand: fourWheelerBrand ?? this.fourWheelerBrand,
       fourWheelerNumber: fourWheelerNumber ?? this.fourWheelerNumber,
       creationDate: creationDate ?? this.creationDate,
+      updationDate: updationDate ?? this.updationDate,
       isActive: isActive ?? this.isActive,
     );
   }
@@ -177,6 +181,7 @@ class SocietyUser {
       'fourWheelerBrand': fourWheelerBrand,
       'fourWheelerNumber': fourWheelerNumber,
       'creationDate': creationDate,
+      'updationDate': updationDate,
       'isActive': isActive,
     };
   }
@@ -215,6 +220,7 @@ class SocietyUser {
       fourWheelerBrand: map['Four_Wheeler_Brand'] as String,
       fourWheelerNumber: map['Four_Wheeler_Number'] as String,
       creationDate: map['Creation_Date'] as String,
+      updationDate: map['Updation_Date'] as String,
       isActive: map['Is_Active'] as String,
     );
   }
@@ -226,7 +232,7 @@ class SocietyUser {
 
   @override
   String toString() {
-    return 'Staff(uid: $uid, socCode: $socCode, socName: $socName, ownerTenant: $ownerTenant, ownerFirstName: $ownerFirstName, ownerLastName "$ownerLastName, ownerImage: $ownerImage, contactNumber: $contactNumber, email: $email, password: $password, oTPCode: $oTPCode, homeTownAddress: $homeTownAddress, member: $member, gender: $gender, fBId: $fBId, dob: $dob, bloodGroup: $bloodGroup, profession: $profession, professionDetails: $professionDetails, flatNumber: $flatNumber, flatBlock: $flatBlock, flatFloor: $flatFloor, flatType: $flatType, parkingType: $parkingType, parkingNumber: $parkingNumber, petType: $petType, petName: $petName, twoWheelerType: $twoWheelerType, twoWheelerNumber: $twoWheelerNumber, fourWheelerBrand: $fourWheelerBrand, fourWheelerNumber: $fourWheelerNumber, creationDate: $creationDate, isActive: $isActive)';
+    return 'Staff(uid: $uid, socCode: $socCode, socName: $socName, ownerTenant: $ownerTenant, ownerFirstName: $ownerFirstName, ownerLastName "$ownerLastName, ownerImage: $ownerImage, contactNumber: $contactNumber, email: $email, password: $password, oTPCode: $oTPCode, homeTownAddress: $homeTownAddress, member: $member, gender: $gender, fBId: $fBId, dob: $dob, bloodGroup: $bloodGroup, profession: $profession, professionDetails: $professionDetails, flatNumber: $flatNumber, flatBlock: $flatBlock, flatFloor: $flatFloor, flatType: $flatType, parkingType: $parkingType, parkingNumber: $parkingNumber, petType: $petType, petName: $petName, twoWheelerType: $twoWheelerType, twoWheelerNumber: $twoWheelerNumber, fourWheelerBrand: $fourWheelerBrand, fourWheelerNumber: $fourWheelerNumber, creationDate: $creationDate, updationDate: $updationDate, isActive: $isActive)';
   }
 
   @override
@@ -265,6 +271,7 @@ class SocietyUser {
         other.fourWheelerBrand == fourWheelerBrand &&
         other.fourWheelerNumber == fourWheelerNumber &&
         other.creationDate == creationDate &&
+        other.updationDate == updationDate &&
         other.isActive == isActive;
   }
 
@@ -302,6 +309,7 @@ class SocietyUser {
         fourWheelerBrand.hashCode ^
         fourWheelerNumber.hashCode ^
         creationDate.hashCode ^
+        updationDate.hashCode ^
         isActive.hashCode;
   }
 }

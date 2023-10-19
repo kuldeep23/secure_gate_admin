@@ -110,10 +110,6 @@ class VisitorService implements BaseVisitorService {
         final results =
             List<Map<String, dynamic>>.from(dataResponse.data["data"]);
 
-
-      final results =
-          List<Map<String, dynamic>>.from(dataResponse.data["data"]);
-
         List<Visitor> visitors = results
             .map((visitorData) => Visitor.fromMap(visitorData))
             .toList(growable: false);

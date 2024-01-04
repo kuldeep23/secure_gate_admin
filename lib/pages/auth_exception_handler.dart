@@ -22,7 +22,7 @@ class ErrorHandlers {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.0)),
                     child: Center(
-                      child: Text(e),
+                      child: Text(e.toString()),
                     ),
                   ),
                   SizedBox(

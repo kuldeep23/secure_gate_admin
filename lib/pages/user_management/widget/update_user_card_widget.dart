@@ -8,7 +8,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:secure_gates_admin/pages/auth_exception_handler.dart';
 import 'package:secure_gates_admin/pages/user_management/activate_user.dart';
-import 'package:secure_gates_admin/services/user_services.dart';
 import 'package:secure_gates_admin/widgets/rounded_button.dart';
 
 class UpdateUserCard extends HookConsumerWidget {
@@ -31,29 +30,28 @@ class UpdateUserCard extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final email_TextController  = useTextEditingController();
-    final dob_TextController = useTextEditingController();
-    final homeTownAddress_TextController = useTextEditingController();
-    final mobile_TextController = useTextEditingController();
-    final member_TextController = useTextEditingController();
-    final gender_TextController = useTextEditingController();
-    final bloodGroup_TextController = useTextEditingController();
-    final profession_TextController = useTextEditingController();
-    final professionDetails_TextController  = useTextEditingController();
-    final flatBlock_TextController = useTextEditingController();
-    final flatfloor_TextController = useTextEditingController();
-    final flatType_TextController = useTextEditingController();
-    final parkingType_TextController = useTextEditingController();
-    final parkingNumber_TextController = useTextEditingController();
-    final petType_TextController = useTextEditingController();
-    final petName_TextController = useTextEditingController();
-    final twowheeletype_TextController = useTextEditingController();
-    final twowheelernumber_TextController = useTextEditingController();
-    final fourwheelerbrand_TextController = useTextEditingController();
-    final fourwheelernumber_TextController = useTextEditingController();
+    
+    final emailTextcontroller = useTextEditingController();
+    final dobTextcontroller = useTextEditingController();
+    final hometownaddressTextcontroller = useTextEditingController();
+    final memberTextcontroller = useTextEditingController();
+    final genderTextcontroller = useTextEditingController();
+    final bloodgroupTextcontroller = useTextEditingController();
+    final professionTextcontroller = useTextEditingController();
+    final professiondetailsTextcontroller = useTextEditingController();
+    final flatblockTextcontroller = useTextEditingController();
+    final flatfloorTextcontroller = useTextEditingController();
+    final flattypeTextcontroller = useTextEditingController();
+    final parkingtypeTextcontroller = useTextEditingController();
+    final parkingnumberTextcontroller = useTextEditingController();
+    final pettypeTextcontroller = useTextEditingController();
+    final petnameTextcontroller = useTextEditingController();
+    final twowheeletypeTextcontroller = useTextEditingController();
+    final twowheelernumberTextcontroller = useTextEditingController();
+    final fourwheelerbrandTextcontroller = useTextEditingController();
+    final fourwheelernumberTextcontroller = useTextEditingController();
 
 
-    final imagePath = useState("");
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -160,7 +158,7 @@ class UpdateUserCard extends HookConsumerWidget {
                           height: 10,
                         ),
                         TextField(
-                          controller: email_TextController,
+                          controller: emailTextcontroller,
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
                               labelText: "Email",
@@ -190,7 +188,7 @@ class UpdateUserCard extends HookConsumerWidget {
                           height: 10,
                         ),
                         TextField(
-                          controller: dob_TextController,
+                          controller: dobTextcontroller,
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
                               labelText: "Date of Birth",
@@ -220,7 +218,7 @@ class UpdateUserCard extends HookConsumerWidget {
                           height: 8,
                         ),
                         TextField(
-                          controller: homeTownAddress_TextController,
+                          controller: hometownaddressTextcontroller,
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
                               labelText: "Home Town Address",
@@ -254,7 +252,7 @@ class UpdateUserCard extends HookConsumerWidget {
                           children: <Widget>[
                             Flexible(
                               child: TextField(
-                                controller: member_TextController,
+                                controller: memberTextcontroller,
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
                                     labelText: "Member",
@@ -290,7 +288,7 @@ class UpdateUserCard extends HookConsumerWidget {
                             ),
                             Flexible(
                               child: TextField(
-                                controller: gender_TextController,
+                                controller: genderTextcontroller,
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
                                     labelText: "Gender",
@@ -331,7 +329,7 @@ class UpdateUserCard extends HookConsumerWidget {
                           children: <Widget>[
                             Flexible(
                               child: TextField(
-                                controller: bloodGroup_TextController,
+                                controller: bloodgroupTextcontroller,
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
                                     labelText: "Blood Group",
@@ -367,7 +365,7 @@ class UpdateUserCard extends HookConsumerWidget {
                             ),
                             Flexible(
                               child: TextField(
-                                controller: profession_TextController,
+                                controller: professionTextcontroller,
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
                                     labelText: "Profession",
@@ -404,7 +402,7 @@ class UpdateUserCard extends HookConsumerWidget {
                           height: 8,
                         ),
                         TextField(
-                          controller: professionDetails_TextController,
+                          controller: professiondetailsTextcontroller,
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
                               labelText: "Profession Details",
@@ -449,7 +447,7 @@ class UpdateUserCard extends HookConsumerWidget {
                           children: <Widget>[
                             Flexible(
                               child: TextField(
-                                controller: flatBlock_TextController,
+                                controller: flatblockTextcontroller,
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
                                     labelText: "Flat Block",
@@ -485,7 +483,7 @@ class UpdateUserCard extends HookConsumerWidget {
                             ),
                             Flexible(
                               child: TextField(
-                                controller: flatfloor_TextController,
+                                controller: flatfloorTextcontroller,
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
                                     labelText: "Flat Floor",
@@ -522,7 +520,7 @@ class UpdateUserCard extends HookConsumerWidget {
                           height: 10,
                         ),
                         TextField(
-                          controller: flatType_TextController,
+                          controller: flattypeTextcontroller,
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
                               labelText: "Flat Type",
@@ -556,7 +554,7 @@ class UpdateUserCard extends HookConsumerWidget {
                           children: <Widget>[
                             Flexible(
                               child: TextField(
-                                controller: parkingType_TextController,
+                                controller: parkingtypeTextcontroller,
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
                                     labelText: "Parking Type",
@@ -592,7 +590,7 @@ class UpdateUserCard extends HookConsumerWidget {
                             ),
                             Flexible(
                               child: TextField(
-                                controller: parkingNumber_TextController,
+                                controller: parkingnumberTextcontroller,
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
                                     labelText: "Parking Number",
@@ -633,7 +631,7 @@ class UpdateUserCard extends HookConsumerWidget {
                           children: <Widget>[
                             Flexible(
                               child: TextField(
-                                controller: petType_TextController,
+                                controller: pettypeTextcontroller,
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
                                     labelText: "Pet Type",
@@ -669,7 +667,7 @@ class UpdateUserCard extends HookConsumerWidget {
                             ),
                             Flexible(
                               child: TextField(
-                                controller: petName_TextController,
+                                controller: petnameTextcontroller,
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
                                     labelText: "Pet Name",
@@ -721,7 +719,7 @@ class UpdateUserCard extends HookConsumerWidget {
                           children: <Widget>[
                             Flexible(
                               child: TextField(
-                                controller: twowheeletype_TextController,
+                                controller: twowheeletypeTextcontroller,
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
                                     labelText: "2 Wheeler Type",
@@ -757,7 +755,7 @@ class UpdateUserCard extends HookConsumerWidget {
                             ),
                             Flexible(
                               child: TextField(
-                                controller: twowheelernumber_TextController,
+                                controller: twowheelernumberTextcontroller,
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
                                     labelText: "2 Wheeler No.",
@@ -798,7 +796,7 @@ class UpdateUserCard extends HookConsumerWidget {
                           children: <Widget>[
                             Flexible(
                               child: TextField(
-                                controller: fourwheelerbrand_TextController,
+                                controller: fourwheelerbrandTextcontroller,
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
                                     labelText: "4 Wheeler Brand",
@@ -834,7 +832,7 @@ class UpdateUserCard extends HookConsumerWidget {
                             ),
                             Flexible(
                               child: TextField(
-                                controller: fourwheelernumber_TextController,
+                                controller: fourwheelernumberTextcontroller,
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
                                     labelText: "4 Wheeler No.",
@@ -877,28 +875,52 @@ class UpdateUserCard extends HookConsumerWidget {
                                 onPress: () async {
                                   try {
                                     final formData = FormData.fromMap({
-                                      "UID": id, 
-                                      "Owner_Tenant": "Tenant", 
-                                      "Email": email_TextController.text.trim(),
-                                      "DOB": dob_TextController..text.trim(), 
-                                      "HomeTown_Address": homeTownAddress_TextController.text.trim(), 
-                                      "Member": member_TextController.text.trim(),
-                                      "Gender": gender_TextController.text.trim(), 
-                                      "Blood_Group": bloodGroup_TextController.text.trim(), 
-                                      "Profession": profession_TextController.text.trim(),
-                                      "Profession_Details": professionDetails_TextController.text.trim(), 
-                                      "Flat_Block": flatBlock_TextController.text.trim(), 
-                                      "Flat_Floor": flatfloor_TextController.text.trim(),
-                                      "Flat_Type": flatType_TextController.text.trim(), 
-                                      "Parking_Type": parkingType_TextController.text.trim(), 
-                                      "Parking_Number": parkingNumber_TextController.text.trim(),
-                                      "Pet_Type": petType_TextController.text.trim(),
-                                      "Pet_Name": petName_TextController.text.trim(), 
-                                      "Two_Wheeler_Type": twowheeletype_TextController.text.trim(), 
-                                      "Two_Wheeler_Number": twowheelernumber_TextController.text.trim(),
-                                      "Four_Wheeler_Brand": fourwheelerbrand_TextController.text.trim(), 
-                                      "Four_Wheeler_Number": fourwheelernumber_TextController.text.trim() 
-                                                                          
+                                      "UID": id,
+                                      "Owner_Tenant": "Tenant",
+                                      "Email": emailTextcontroller.text.trim(),
+                                      "DOB": dobTextcontroller..text.trim(),
+                                      "HomeTown_Address":
+                                          hometownaddressTextcontroller.text
+                                              .trim(),
+                                      "Member":
+                                          memberTextcontroller.text.trim(),
+                                      "Gender":
+                                          genderTextcontroller.text.trim(),
+                                      "Blood_Group":
+                                          bloodgroupTextcontroller.text.trim(),
+                                      "Profession":
+                                          professionTextcontroller.text.trim(),
+                                      "Profession_Details":
+                                          professiondetailsTextcontroller.text
+                                              .trim(),
+                                      "Flat_Block":
+                                          flatblockTextcontroller.text.trim(),
+                                      "Flat_Floor":
+                                          flatfloorTextcontroller.text.trim(),
+                                      "Flat_Type":
+                                          flattypeTextcontroller.text.trim(),
+                                      "Parking_Type": parkingtypeTextcontroller
+                                          .text
+                                          .trim(),
+                                      "Parking_Number":
+                                          parkingnumberTextcontroller.text
+                                              .trim(),
+                                      "Pet_Type":
+                                          pettypeTextcontroller.text.trim(),
+                                      "Pet_Name":
+                                          petnameTextcontroller.text.trim(),
+                                      "Two_Wheeler_Type":
+                                          twowheeletypeTextcontroller.text
+                                              .trim(),
+                                      "Two_Wheeler_Number":
+                                          twowheelernumberTextcontroller.text
+                                              .trim(),
+                                      "Four_Wheeler_Brand":
+                                          fourwheelerbrandTextcontroller.text
+                                              .trim(),
+                                      "Four_Wheeler_Number":
+                                          fourwheelernumberTextcontroller.text
+                                              .trim()
                                     });
                                     final Dio dio = Dio();
                                     final userResponse = await dio.post(
@@ -910,8 +932,8 @@ class UpdateUserCard extends HookConsumerWidget {
                                       await FlutterTts().setVolume(1.0);
                                       await FlutterTts().setSpeechRate(0.5);
                                       await FlutterTts().setPitch(1.0);
-                                      await FlutterTts()
-                                          .speak("User Acitivated Successfully");
+                                      await FlutterTts().speak(
+                                          "User Acitivated Successfully");
                                       // ignore: use_build_context_synchronously
                                       AwesomeDialog(
                                         context: context,
@@ -927,7 +949,8 @@ class UpdateUserCard extends HookConsumerWidget {
                                         },
                                         btnCancelText: "No",
                                         btnOkOnPress: () {
-                                         ref.refresh(allSocietyUserDataProvider.future);
+                                          ref.refresh(allSocietyUserDataProvider
+                                              .future);
                                         },
                                         btnOkText: "Yes",
                                       ).show();

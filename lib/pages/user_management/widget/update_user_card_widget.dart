@@ -1,10 +1,10 @@
-import 'dart:io';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:secure_gates_admin/pages/auth_exception_handler.dart';
 import 'package:secure_gates_admin/pages/user_management/activate_user.dart';
@@ -30,7 +30,6 @@ class UpdateUserCard extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    
     final emailTextcontroller = useTextEditingController();
     final dobTextcontroller = useTextEditingController();
     final hometownaddressTextcontroller = useTextEditingController();
@@ -50,7 +49,6 @@ class UpdateUserCard extends HookConsumerWidget {
     final twowheelernumberTextcontroller = useTextEditingController();
     final fourwheelerbrandTextcontroller = useTextEditingController();
     final fourwheelernumberTextcontroller = useTextEditingController();
-
 
     final size = MediaQuery.of(context).size;
 
@@ -878,7 +876,7 @@ class UpdateUserCard extends HookConsumerWidget {
                                       "UID": id,
                                       "Owner_Tenant": "Tenant",
                                       "Email": emailTextcontroller.text.trim(),
-                                      "DOB": dobTextcontroller..text.trim(),
+                                      "DOB": dobTextcontroller.text.trim(),
                                       "HomeTown_Address":
                                           hometownaddressTextcontroller.text
                                               .trim(),
@@ -899,9 +897,8 @@ class UpdateUserCard extends HookConsumerWidget {
                                           flatfloorTextcontroller.text.trim(),
                                       "Flat_Type":
                                           flattypeTextcontroller.text.trim(),
-                                      "Parking_Type": parkingtypeTextcontroller
-                                          .text
-                                          .trim(),
+                                      "Parking_Type":
+                                          parkingtypeTextcontroller.text.trim(),
                                       "Parking_Number":
                                           parkingnumberTextcontroller.text
                                               .trim(),
@@ -922,11 +919,14 @@ class UpdateUserCard extends HookConsumerWidget {
                                           fourwheelernumberTextcontroller.text
                                               .trim()
                                     });
-                                    final Dio dio = Dio();
-                                    final userResponse = await dio.post(
+                                    print("lululul");
+
+                                    final userResponse = await Dio().post(
                                       "https://gatesadmin.000webhostapp.com/update_flat_user.php",
                                       data: formData,
                                     );
+                                    print(userResponse.data.toString());
+
                                     if (userResponse.data["status"] == 1) {
                                       await FlutterTts().setLanguage("en-Us");
                                       await FlutterTts().setVolume(1.0);
@@ -970,6 +970,7 @@ class UpdateUserCard extends HookConsumerWidget {
                                   } catch (e) {
                                     throw ErrorHandlers.errorDialog(e);
                                   }
+                                  context.pop();
                                 },
                                 buttonText: "Submit",
                               ),

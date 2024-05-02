@@ -108,11 +108,9 @@ class AdminPage extends HookConsumerWidget {
                                     ),
                                   ),
                                   GestureDetector(
-                                    onTap: () => Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const WrongVisitor())),
+                                    onTap: () => context.pushNamed(
+                                      MyAppRoutes.deactivateUser,
+                                    ),
                                     child: const FeatureItems(
                                       imageURL: 'assets/icons/remove-user.png',
                                       featureName: 'Remove User',
@@ -127,11 +125,9 @@ class AdminPage extends HookConsumerWidget {
                                     ),
                                   ),
                                   GestureDetector(
-                                    onTap: () => Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const WrongVisitor())),
+                                    onTap: () => context.pushNamed(
+                                      MyAppRoutes.deactivateUser,
+                                    ),
                                     child: const FeatureItems(
                                       imageURL: 'assets/icons/user-list.png',
                                       featureName: 'User List',

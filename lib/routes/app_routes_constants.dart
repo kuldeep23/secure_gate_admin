@@ -7,4 +7,5 @@ class MyAppRoutes {
   static const visitorInScreen = 'visitorInScreen';
   static const visitorOutScreen = 'visitorOutScreen';
   static const activateUser = 'activateUser';
+  static const deactivateUser = 'deactivateUser';
 }

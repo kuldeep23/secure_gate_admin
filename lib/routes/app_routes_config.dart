@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:secure_gates_admin/pages/homepage/admin_home_page.dart';
 import 'package:secure_gates_admin/pages/user_management/activate_user.dart';
+import 'package:secure_gates_admin/pages/user_management/deactivate_user.dart';
 import 'package:secure_gates_admin/pages/visitor_management/visitor_in.dart';
 import 'package:secure_gates_admin/pages/visitor_management/visitor_out.dart';
 
@@ -76,6 +77,11 @@ class MyAppRouterConfig {
         name: MyAppRoutes.activateUser,
         path: "/activate-user",
         builder: (context, state) => const ActivateUser(),
+      ),
+      GoRoute(
+        name: MyAppRoutes.deactivateUser,
+        path: "/deactivate-user",
+        builder: (context, state) => const DeActivateUser(),
       ),
     ],
     errorBuilder: (BuildContext context, GoRouterState state) =>

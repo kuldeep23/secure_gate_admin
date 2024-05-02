@@ -10,6 +10,7 @@ final societyUserProvider = Provider<SocietyUserServices>((ref) {
 
 abstract class BaseSocietyUserService {
   Future<List<SocietyUser>> getActivateUser();
+  Future<List<SocietyUser>> getdeActivateUser();
 }
 
 class SocietyUserServices implements BaseSocietyUserService {
@@ -26,6 +27,34 @@ class SocietyUserServices implements BaseSocietyUserService {
 
       final dataResponse = await _dio.post(
         "https://gatesadmin.000webhostapp.com/activate_user.php",
+        data: formData,
+      );
+      if (dataResponse.data["code"] == "100") {
+        final results =
+            List<Map<String, dynamic>>.from(dataResponse.data["data"]);
+
+        List<SocietyUser> societyUser = results
+            .map((societyData) => SocietyUser.fromMap(societyData))
+            .toList(growable: false);
+
+        return societyUser;
+      } else {
+        return [];
+      }
+    } catch (e) {
+      throw ErrorHandler.errorDialog(e);
+    }
+  }
+
+
+    @override
+  Future<List<SocietyUser>> getdeActivateUser() async {
+    try {
+      final socCode = ref.watch(userControllerProvider).currentUser!.socCode;
+      final formData = FormData.fromMap({"soc": socCode});
+
+      final dataResponse = await _dio.post(
+        "https://gatesadmin.000webhostapp.com/deactivate_user.php",
         data: formData,
       );
       if (dataResponse.data["code"] == "100") {

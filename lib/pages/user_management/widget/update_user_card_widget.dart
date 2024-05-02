@@ -10,6 +10,8 @@ import 'package:secure_gates_admin/pages/auth_exception_handler.dart';
 import 'package:secure_gates_admin/pages/user_management/activate_user.dart';
 import 'package:secure_gates_admin/widgets/rounded_button.dart';
 
+import '../../../routes/app_routes_constants.dart';
+
 class UpdateUserCard extends HookConsumerWidget {
   const UpdateUserCard({
     super.key,
@@ -919,14 +921,10 @@ class UpdateUserCard extends HookConsumerWidget {
                                           fourwheelernumberTextcontroller.text
                                               .trim()
                                     });
-                                    print("lululul");
-
                                     final userResponse = await Dio().post(
                                       "https://gatesadmin.000webhostapp.com/update_flat_user.php",
                                       data: formData,
                                     );
-                                    print(userResponse.data.toString());
-
                                     if (userResponse.data["status"] == 1) {
                                       await FlutterTts().setLanguage("en-Us");
                                       await FlutterTts().setVolume(1.0);
@@ -945,10 +943,13 @@ class UpdateUserCard extends HookConsumerWidget {
                                         desc:
                                             "Do you want to activate more users ?",
                                         btnCancelOnPress: () {
-                                          Navigator.of(context).pop();
+                                          context.pushNamed(
+                                            MyAppRoutes.adminPage,
+                                          );
                                         },
                                         btnCancelText: "No",
                                         btnOkOnPress: () {
+                                          Navigator.of(context).pop();
                                           ref.refresh(allSocietyUserDataProvider
                                               .future);
                                         },
@@ -970,7 +971,7 @@ class UpdateUserCard extends HookConsumerWidget {
                                   } catch (e) {
                                     throw ErrorHandlers.errorDialog(e);
                                   }
-                                  context.pop();
+                                  // context.pop();
                                 },
                                 buttonText: "Submit",
                               ),

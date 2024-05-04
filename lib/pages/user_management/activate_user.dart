@@ -4,10 +4,8 @@ import 'package:lottie/lottie.dart';
 import 'package:secure_gates_admin/entities/society_user.dart';
 import 'package:secure_gates_admin/pages/user_management/widget/activate_user_card_wigdet.dart';
 import 'package:secure_gates_admin/pages/user_management/widget/activate_user_loading_widget.dart';
-
 import 'package:secure_gates_admin/services/user_services.dart';
 
-import '../visitor_management/widget/visitor_loading_widget.dart';
 
 final allSocietyUserDataProvider =
     FutureProvider.autoDispose<List<SocietyUser>>((ref) async {

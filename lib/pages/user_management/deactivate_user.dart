@@ -2,12 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:secure_gates_admin/entities/society_user.dart';
-import 'package:secure_gates_admin/pages/user_management/widget/activate_user_card_wigdet.dart';
-import 'package:secure_gates_admin/pages/user_management/widget/activate_user_loading_widget.dart';
-
+import 'package:secure_gates_admin/pages/user_management/widget/deactivate_user_loading_widget.dart';
+import 'package:secure_gates_admin/pages/user_management/widget/deativate_user_card_widget.dart';
 import 'package:secure_gates_admin/services/user_services.dart';
-
-import '../visitor_management/widget/visitor_loading_widget.dart';
 
 final allSocietyUserDataProvider =
     FutureProvider.autoDispose<List<SocietyUser>>((ref) async {
@@ -47,7 +44,7 @@ class DeActivateUser extends HookConsumerWidget {
                     },
                     child: ListView(
                       children: data
-                          .map((item) => SocietyUserCard(
+                          .map((item) => DeactivateUserCard(
                                 uid: item.uid,
                                 socCode: item.socCode,
                                 ownerTenant: item.ownerTenant,
@@ -67,13 +64,12 @@ class DeActivateUser extends HookConsumerWidget {
                     padding: EdgeInsets.symmetric(horizontal: 5),
                     child: Column(
                       children: [
-                        ActivateUserLoadingWidget(),
-                        ActivateUserLoadingWidget(),
-                        ActivateUserLoadingWidget(),
-                        ActivateUserLoadingWidget(),
-                        ActivateUserLoadingWidget(),
-                        ActivateUserLoadingWidget(),
-                        ActivateUserLoadingWidget(),
+                        DeActivateUserLoadingWidget(),
+                        DeActivateUserLoadingWidget(),
+                        DeActivateUserLoadingWidget(),
+                        DeActivateUserLoadingWidget(),
+                        DeActivateUserLoadingWidget(),
+                        DeActivateUserLoadingWidget(),
                       ],
                     ),
                   ),

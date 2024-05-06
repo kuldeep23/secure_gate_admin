@@ -18,7 +18,7 @@ class DeactivateUserCard extends HookConsumerWidget {
     required this.ownerImage,
     required this.contactNumber,
     required this.flatNumber,
-    required this.creationDate,
+    required this.updationDate,
   });
 
   final String uid,
@@ -29,7 +29,7 @@ class DeactivateUserCard extends HookConsumerWidget {
       ownerImage,
       contactNumber,
       flatNumber,
-      creationDate;
+      updationDate;
 
   final TextEditingController feedbackController = TextEditingController();
 
@@ -146,7 +146,7 @@ class DeactivateUserCard extends HookConsumerWidget {
                                 width: 2,
                               ),
                               Text(
-                                "Apply on $creationDate",
+                                "Activated on $updationDate",
                                 style: TextStyle(
                                   fontSize: 13,
                                   color: Colors.grey[600],
@@ -253,8 +253,6 @@ class DeactivateUserCard extends HookConsumerWidget {
                             uid,
                           )
                           .catchError((e, st) {});
-                          
-                     
 
                       await FlutterTts().setLanguage("en-Us");
                       await FlutterTts().setVolume(1.0);

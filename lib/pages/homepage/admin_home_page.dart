@@ -126,7 +126,7 @@ class AdminPage extends HookConsumerWidget {
                                   ),
                                   GestureDetector(
                                     onTap: () => context.pushNamed(
-                                      MyAppRoutes.deactivateUser,
+                                      MyAppRoutes.userList,
                                     ),
                                     child: const FeatureItems(
                                       imageURL: 'assets/icons/user-list.png',

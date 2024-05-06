@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:secure_gates_admin/pages/homepage/admin_home_page.dart';
 import 'package:secure_gates_admin/pages/user_management/activate_user.dart';
 import 'package:secure_gates_admin/pages/user_management/deactivate_user.dart';
+import 'package:secure_gates_admin/pages/user_management/user_list.dart';
 import 'package:secure_gates_admin/pages/visitor_management/visitor_in.dart';
 import 'package:secure_gates_admin/pages/visitor_management/visitor_out.dart';
 
@@ -50,7 +51,7 @@ class MyAppRouterConfig {
       ),
       GoRoute(
         name: MyAppRoutes.adminPage,
-        path: "/home-screen",
+        path: "/admin-Page",
         builder: (context, state) => const AdminPage(),
       ),
       GoRoute(
@@ -82,6 +83,11 @@ class MyAppRouterConfig {
         name: MyAppRoutes.deactivateUser,
         path: "/deactivate-user",
         builder: (context, state) => const DeActivateUser(),
+      ),
+      GoRoute(
+        name: MyAppRoutes.userList,
+        path: "/user-list",
+        builder: (context, state) => const UserList (),
       ),
     ],
     errorBuilder: (BuildContext context, GoRouterState state) =>

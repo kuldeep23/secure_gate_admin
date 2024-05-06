@@ -943,6 +943,8 @@ class UpdateUserCard extends HookConsumerWidget {
                                         desc:
                                             "Do you want to activate more users ?",
                                         btnCancelOnPress: () {
+                                           ref.refresh(allSocietyUserDataProvider
+                                              .future);
                                           context.pushNamed(
                                             MyAppRoutes.adminPage,
                                           );

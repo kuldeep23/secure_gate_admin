@@ -53,7 +53,7 @@ class DeActivateUser extends HookConsumerWidget {
                                 ownerImage: item.ownerImage,
                                 contactNumber: item.contactNumber,
                                 flatNumber: item.flatNumber,
-                                creationDate: item.creationDate,
+                                updationDate: item.updationDate,
                               ))
                           .toList(),
                     ),

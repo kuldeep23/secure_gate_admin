@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:secure_gates_admin/pages/homepage/admin_home_page.dart';
+import 'package:secure_gates_admin/pages/staff_management/remove_staff_list.dart';
 import 'package:secure_gates_admin/pages/user_management/activate_user.dart';
 import 'package:secure_gates_admin/pages/user_management/deactivate_user.dart';
 import 'package:secure_gates_admin/pages/user_management/user_list.dart';
@@ -88,6 +89,11 @@ class MyAppRouterConfig {
         name: MyAppRoutes.userList,
         path: "/user-list",
         builder: (context, state) => const UserList (),
+      ),
+      GoRoute(
+        name: MyAppRoutes.staffList,
+        path: "/staff-list",
+        builder: (context, state) => const RemoveStaffList (),
       ),
     ],
     errorBuilder: (BuildContext context, GoRouterState state) =>

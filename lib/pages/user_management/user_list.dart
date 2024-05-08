@@ -22,7 +22,35 @@ final allActivateUserProvider =
     final formData = FormData.fromMap({"soc": socCode});
 
     final dataResponse = await dio.post(
-      "https://gatesadmin.000webhostapp.com/activate_user.php",
+      "https://gatesadmin.000webhostapp.com/activate_user_list.php",
+      data: formData,
+    );
+
+    if (dataResponse.data["code"] == "100") {
+      final results =
+          List<Map<String, dynamic>>.from(dataResponse.data["data"]);
+
+      List<SocietyUser> societyUser = results
+          .map((societyData) => SocietyUser.fromMap(societyData))
+          .toList(growable: false);
+
+      return societyUser;
+    } else {
+      return [];
+    }
+  } catch (e) {
+    throw ErrorHandler.errorDialog(e);
+  }
+});
+
+final allDeActivateUserProvider =
+    FutureProvider.autoDispose<List<SocietyUser>>((ref) async {
+  try {
+    final socCode = ref.watch(userControllerProvider).currentUser!.socCode;
+    final formData = FormData.fromMap({"soc": socCode});
+
+    final dataResponse = await dio.post(
+      "https://gatesadmin.000webhostapp.com/deactivate_user_list.php",
       data: formData,
     );
 
@@ -48,10 +76,10 @@ class UserList extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    
     final tabController = useTabController(initialLength: 2);
     final currentTabName = useState("Activated User");
     final allActivateUsers = ref.watch(allActivateUserProvider);
+    final allDeActivateUsers = ref.watch(allDeActivateUserProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -150,12 +178,12 @@ class UserList extends HookConsumerWidget {
           ),
           RefreshIndicator(
             onRefresh: () async {
-              ref.refresh(allActivateUserProvider.future);
+              ref.refresh(allDeActivateUserProvider.future);
             },
             child: ListView(
               padding: EdgeInsets.zero,
               children: [
-                allActivateUsers.when(
+                allDeActivateUsers.when(
                     skipLoadingOnRefresh: false,
                     data: (data) => data.isEmpty
                         ? Center(

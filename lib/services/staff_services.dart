@@ -17,6 +17,8 @@ abstract class BaseStaffService {
   Future<void> staffEnter(String staffId, String socCode);
   Future<List<Staff>> getInsideStaff();
   Future<void> staffExist(String staffuid, String staffsoccode);
+  Future<List<Staff>> getAllStaff();
+
 }
 
 class StaffServices implements BaseStaffService {
@@ -155,6 +157,33 @@ class StaffServices implements BaseStaffService {
             timeInSecForIosWeb: 1,
             fontSize: 15.0);
         return ErrorHandler.errorDialog(userResponse.data["status"]);
+      }
+    } catch (e) {
+      throw ErrorHandler.errorDialog(e);
+    }
+  }
+
+  @override
+  Future<List<Staff>> getAllStaff() async {
+    try {
+      final socCode = ref.watch(userControllerProvider).currentUser!.socCode;
+      final formData = FormData.fromMap({"soc": socCode});
+
+      final dataResponse = await _dio.post(
+        "https://gatesadmin.000webhostapp.com/staff_all_member_list.php",
+        data: formData,
+      );
+      if (dataResponse.data["code"] == "100") {
+        final results =
+            List<Map<String, dynamic>>.from(dataResponse.data["data"]);
+
+        List<Staff> staff = results
+            .map((staffData) => Staff.fromMap(staffData))
+            .toList(growable: false);
+
+        return staff;
+      } else {
+        return [];
       }
     } catch (e) {
       throw ErrorHandler.errorDialog(e);

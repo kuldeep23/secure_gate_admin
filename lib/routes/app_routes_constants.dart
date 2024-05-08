@@ -9,4 +9,5 @@ class MyAppRoutes {
   static const activateUser = 'activateUser';
   static const deactivateUser = 'deactivateUser';
   static const userList = 'userList';
+  static const staffList = 'staffList';
 }

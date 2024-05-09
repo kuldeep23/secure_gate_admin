@@ -367,18 +367,93 @@ class RemoveStaffListCard extends HookConsumerWidget {
                   color: Colors.grey,
                 ),
                 GestureDetector(
-                  // ignore: avoid_print
-                  onTap: () => AwesomeDialog(
+                  onTap: () {
+                    if (staffStatus == "Inside") {
+                      AwesomeDialog(
+                        context: context,
+                        transitionAnimationDuration:
+                            const Duration(milliseconds: 400),
+                        dialogType: DialogType.warning,
+                        animType: AnimType.scale,
+                        title: "Staff Inside",
+                        desc: "Please let $staffName leave the society first",
+                        btnCancelOnPress: () {},
+                        btnCancelText: "No",
+                        btnOkOnPress: () async {
+                          await ref
+                              .read(staffServiceProvider)
+                              .staffExist(
+                                uid,
+                                socCode,
+                              )
+                              .catchError((e, st) {});
+
+                          await FlutterTts().setLanguage("en-Us");
+                          await FlutterTts().setVolume(1.0);
+                          await FlutterTts().setSpeechRate(0.5);
+                          await FlutterTts().setPitch(1.0);
+                          await FlutterTts().speak("Staff Exit Successfully");
+                        },
+                        btnOkText: "Yes",
+                      ).show();
+                    } else if (staffStatus == "Outside") {
+                      AwesomeDialog(
+                        context: context,
+                        transitionAnimationDuration:
+                            const Duration(milliseconds: 400),
+                        dialogType: DialogType.question,
+                        animType: AnimType.scale,
+                        title: "Remove Staff",
+                        desc: "Do you want to remove the staff ?",
+                        btnCancelOnPress: () {},
+                        btnCancelText: "No",
+                        btnOkOnPress: () async {
+                          await ref
+                              .read(staffServiceProvider)
+                              .staffRemove(uid)
+                              .catchError((e, st) {});
+
+                          await FlutterTts().setLanguage("en-Us");
+                          await FlutterTts().setVolume(1.0);
+                          await FlutterTts().setSpeechRate(0.5);
+                          await FlutterTts().setPitch(1.0);
+                          await FlutterTts()
+                              .speak("Staff Removed Successfully");
+                        },
+                        
+                        btnOkText: "Yes",
+                      ).show();
+                    }
+                  },
+
+                  /* AwesomeDialog(
                     context: context,
                     transitionAnimationDuration:
                         const Duration(milliseconds: 400),
                     dialogType: DialogType.question,
                     animType: AnimType.scale,
-                    title: "Exit Staff",
-                    desc: "Do you want to exit the staff ?",
+                    title: "Remove Staff",
+                    desc: "Do you want to remove the staff ?",
                     btnCancelOnPress: () {},
                     btnCancelText: "No",
-                    btnOkOnPress: () async {
+                    btnOkOnPress: () {
+                      if (staffStatus == "Inside") {
+                        AwesomeDialog(
+                          context: context,
+                          transitionAnimationDuration:
+                              const Duration(milliseconds: 400),
+                          dialogType: DialogType.question,
+                          animType: AnimType.scale,
+                          title: "Staff Inside",
+                          desc: "Do you want to remove $staffName the staff ?",
+                          btnCancelOnPress: () {},
+                          btnCancelText: "No",
+                          btnOkOnPress: () {},
+                          btnOkText: "Yes",
+                        ).show();
+                      }
+                    },
+                    /* async {
                       await ref
                           .read(staffServiceProvider)
                           .staffExist(
@@ -392,9 +467,10 @@ class RemoveStaffListCard extends HookConsumerWidget {
                       await FlutterTts().setSpeechRate(0.5);
                       await FlutterTts().setPitch(1.0);
                       await FlutterTts().speak("Staff Exit Successfully");
-                    },
+                    } */
+
                     btnOkText: "Yes",
-                  ).show(),
+                  ).show(), */
                   child: SizedBox(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,

@@ -6,6 +6,7 @@ import 'package:secure_gates_admin/controllers/user_controller.dart';
 import 'package:secure_gates_admin/entities/staff.dart';
 import 'package:secure_gates_admin/pages/staff_management/staff_out.dart';
 import '../auth_exception_handler.dart';
+import '../pages/staff_management/remove_staff_list.dart';
 import '../pages/staff_management/staff_in.dart';
 
 final staffServiceProvider = Provider<StaffServices>((ref) {
@@ -18,7 +19,7 @@ abstract class BaseStaffService {
   Future<List<Staff>> getInsideStaff();
   Future<void> staffExist(String staffuid, String staffsoccode);
   Future<List<Staff>> getAllStaff();
-
+  Future<void> staffRemove(String staffuid);
 }
 
 class StaffServices implements BaseStaffService {
@@ -140,6 +141,7 @@ class StaffServices implements BaseStaffService {
       if (userResponse.data["status"] == 1) {
         // ignore: unused_result
         ref.refresh(allInsideStaffDataProvider.future);
+        ref.refresh(allStaffListDataProvider.future);
 
         Fluttertoast.showToast(
             msg: "Staff Exist Successfully !!!",
@@ -189,4 +191,49 @@ class StaffServices implements BaseStaffService {
       throw ErrorHandler.errorDialog(e);
     }
   }
+
+  
+@override
+  Future<void> staffRemove(String staffuid) async {
+    try {
+      final userfName = ref.watch(userControllerProvider).currentUser!.ownerFirstName;
+      final userlName = ref.watch(userControllerProvider).currentUser!.ownerLastName;
+      final formData = FormData.fromMap({
+        "uid": staffuid,
+        "name_remove": "$userfName $userlName"
+
+      });
+
+      final userResponse = await _dio.post(
+        "https://gatesadmin.000webhostapp.com/staff_removed_update.php",
+        data: formData,
+      );
+      if (userResponse.data["status"] == 1) {
+
+      // ignore: unused_result
+      ref.refresh(allStaffListDataProvider.future);
+
+        Fluttertoast.showToast(
+            msg: "Staff Removed Successfully !!!",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            textColor: Colors.white,
+            backgroundColor: const Color(0xffFF6663),
+            fontSize: 15.0);
+      } else if (userResponse.data["status"] == 0) {
+        Fluttertoast.showToast(
+            msg: "Staff Removed Failed !!!",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            fontSize: 15.0);
+        return ErrorHandler.errorDialog(userResponse.data["status"]);
+      }
+    } catch (e) {
+      throw ErrorHandler.errorDialog(e);
+    }
+  }
+
+  
 }

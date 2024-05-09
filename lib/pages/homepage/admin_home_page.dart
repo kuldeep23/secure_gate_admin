@@ -194,7 +194,7 @@ class AdminPage extends HookConsumerWidget {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const StaffIn())),
+                                                const AddStaff())),
                                     child: const FeatureItems(
                                       imageURL: 'assets/icons/add-staff.png',
                                       featureName: 'Add Staff',

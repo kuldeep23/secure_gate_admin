@@ -18,6 +18,7 @@ class Staff {
   final String staffMobileNo;
   final String staffRating;
   final String staffCreationDate;
+  final String staffCreatedBy;
   final String staffDeactivateDate;
   final String staffIsActive;
   Staff({
@@ -37,6 +38,7 @@ class Staff {
     required this.staffMobileNo,
     required this.staffRating,
     required this.staffCreationDate,
+    required this.staffCreatedBy,
     required this.staffDeactivateDate,
     required this.staffIsActive,
   });
@@ -58,6 +60,7 @@ class Staff {
     String? staffMobileNo,
     String? staffRating,
     String? staffCreationDate,
+    String? staffCreatedBy,
     String? staffDeactivateDate,
     String? staffIsActive,
   }) {
@@ -78,6 +81,7 @@ class Staff {
       staffMobileNo: staffMobileNo ?? this.staffMobileNo,
       staffRating: staffRating ?? this.staffRating,
       staffCreationDate: staffCreationDate ?? this.staffCreationDate,
+      staffCreatedBy : staffCreatedBy ?? this.staffCreatedBy,
       staffDeactivateDate: staffDeactivateDate ?? this.staffDeactivateDate,
       staffIsActive: staffIsActive ?? this.staffIsActive,
     );
@@ -101,6 +105,7 @@ class Staff {
       'staffMobileNo': staffMobileNo,
       'staffRating': staffRating,
       'staffCreationDate': staffCreationDate,
+      'staffCreatedBy': staffCreatedBy,
       'staffDeactivateDate': staffDeactivateDate,
       'staffIsActive': staffIsActive,
     };
@@ -124,6 +129,7 @@ class Staff {
       staffMobileNo: map['staff_mobile_no'] as String,
       staffRating: map['staff_rating'] as String,
       staffCreationDate: map['staff_creation_date'] as String,
+      staffCreatedBy: map['staff_created_by'] as String,
       staffDeactivateDate: map['staff_deactivate_date'] as String,
       staffIsActive: map['staff_is_active'] as String,
     );
@@ -136,53 +142,54 @@ class Staff {
 
   @override
   String toString() {
-    return 'Staff(uid: $uid, socCode: $socCode, staffName: $staffName, staffType: $staffType, staffFlatNo: $staffFlatNo, staffIcon: $staffIcon, staffStatus: $staffStatus, lastEnterDate: $lastEnterDate, lastEnterTime: $lastEnterTime, lastEnterBy: $lastEnterBy, lastExistDate: $lastExistDate, lastExistTime: $lastExistTime, lastExistBy: $lastExistBy, staffMobileNo: $staffMobileNo, staffRating: $staffRating, staffCreationDate: $staffCreationDate, staffDeactivateDate: $staffDeactivateDate, staffIsActive: $staffIsActive)';
+    return 'Staff(uid: $uid, socCode: $socCode, staffName: $staffName, staffType: $staffType, staffFlatNo: $staffFlatNo, staffIcon: $staffIcon, staffStatus: $staffStatus, lastEnterDate: $lastEnterDate, lastEnterTime: $lastEnterTime, lastEnterBy: $lastEnterBy, lastExistDate: $lastExistDate, lastExistTime: $lastExistTime, lastExistBy: $lastExistBy, staffMobileNo: $staffMobileNo, staffRating: $staffRating, staffCreationDate: $staffCreationDate, staffCreatedBy :$staffCreatedBy, staffDeactivateDate: $staffDeactivateDate, staffIsActive: $staffIsActive)';
   }
 
   @override
   bool operator ==(covariant Staff other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.uid == uid &&
-      other.socCode == socCode &&
-      other.staffName == staffName &&
-      other.staffType == staffType &&
-      other.staffFlatNo == staffFlatNo &&
-      other.staffIcon == staffIcon &&
-      other.staffStatus == staffStatus &&
-      other.lastEnterDate == lastEnterDate &&
-      other.lastEnterTime == lastEnterTime &&
-      other.lastEnterBy == lastEnterBy &&
-      other.lastExistDate == lastExistDate &&
-      other.lastExistTime == lastExistTime &&
-      other.lastExistBy == lastExistBy &&
-      other.staffMobileNo == staffMobileNo &&
-      other.staffRating == staffRating &&
-      other.staffCreationDate == staffCreationDate &&
-      other.staffDeactivateDate == staffDeactivateDate &&
-      other.staffIsActive == staffIsActive;
+
+    return other.uid == uid &&
+        other.socCode == socCode &&
+        other.staffName == staffName &&
+        other.staffType == staffType &&
+        other.staffFlatNo == staffFlatNo &&
+        other.staffIcon == staffIcon &&
+        other.staffStatus == staffStatus &&
+        other.lastEnterDate == lastEnterDate &&
+        other.lastEnterTime == lastEnterTime &&
+        other.lastEnterBy == lastEnterBy &&
+        other.lastExistDate == lastExistDate &&
+        other.lastExistTime == lastExistTime &&
+        other.lastExistBy == lastExistBy &&
+        other.staffMobileNo == staffMobileNo &&
+        other.staffRating == staffRating &&
+        other.staffCreationDate == staffCreationDate &&
+        other.staffCreatedBy == staffCreatedBy &&
+        other.staffDeactivateDate == staffDeactivateDate &&
+        other.staffIsActive == staffIsActive;
   }
 
   @override
   int get hashCode {
     return uid.hashCode ^
-      socCode.hashCode ^
-      staffName.hashCode ^
-      staffType.hashCode ^
-      staffFlatNo.hashCode ^
-      staffIcon.hashCode ^
-      staffStatus.hashCode ^
-      lastEnterDate.hashCode ^
-      lastEnterTime.hashCode ^
-      lastEnterBy.hashCode ^
-      lastExistDate.hashCode ^
-      lastExistTime.hashCode ^
-      lastExistBy.hashCode ^
-      staffMobileNo.hashCode ^
-      staffRating.hashCode ^
-      staffCreationDate.hashCode ^
-      staffDeactivateDate.hashCode ^
-      staffIsActive.hashCode;
+        socCode.hashCode ^
+        staffName.hashCode ^
+        staffType.hashCode ^
+        staffFlatNo.hashCode ^
+        staffIcon.hashCode ^
+        staffStatus.hashCode ^
+        lastEnterDate.hashCode ^
+        lastEnterTime.hashCode ^
+        lastEnterBy.hashCode ^
+        lastExistDate.hashCode ^
+        lastExistTime.hashCode ^
+        lastExistBy.hashCode ^
+        staffMobileNo.hashCode ^
+        staffRating.hashCode ^
+        staffCreationDate.hashCode ^
+        staffCreatedBy.hashCode^
+        staffDeactivateDate.hashCode ^
+        staffIsActive.hashCode;
   }
 }

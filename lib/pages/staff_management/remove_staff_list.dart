@@ -62,6 +62,7 @@ class RemoveStaffList extends HookConsumerWidget {
                                 staffMobileNo: item.staffMobileNo,
                                 staffRating: item.staffRating,
                                 staffCreationDate: item.staffCreationDate,
+                                staffCreatedBy: item.staffCreatedBy,
                                 staffDeactivateDate: item.staffDeactivateDate,
                                 staffIsActive: item.staffIsActive,
                               ))

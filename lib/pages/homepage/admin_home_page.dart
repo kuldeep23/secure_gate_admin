@@ -8,6 +8,7 @@ import 'package:secure_gates_admin/pages/car_management/car_out.dart';
 import 'package:secure_gates_admin/pages/staff_management/add_staff.dart';
 import 'package:secure_gates_admin/pages/staff_management/staff_in.dart';
 import 'package:secure_gates_admin/pages/staff_management/remove_staff_list.dart';
+import 'package:secure_gates_admin/pages/staff_management/staff_list.dart';
 import 'package:secure_gates_admin/pages/staff_management/staff_out.dart';
 import 'package:secure_gates_admin/pages/visitor_management/wrong_visitor.dart';
 import 'package:secure_gates_admin/routes/app_routes_constants.dart';
@@ -232,12 +233,13 @@ class AdminPage extends HookConsumerWidget {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const AddStaff())),
+                                                const StaffListPage())),
                                     child: const FeatureItems(
                                       imageURL: 'assets/icons/staff-list.png',
                                       featureName: 'Staff List',
                                     ),
                                   ),
+                                  
                                 ],
                               ),
                             ),

@@ -26,6 +26,7 @@ class RemoveStaffListCard extends HookConsumerWidget {
     required this.staffMobileNo,
     required this.staffRating,
     required this.staffCreationDate,
+    required this.staffCreatedBy,
     required this.staffDeactivateDate,
     required this.staffIsActive,
   });
@@ -46,6 +47,7 @@ class RemoveStaffListCard extends HookConsumerWidget {
       staffMobileNo,
       staffRating,
       staffCreationDate,
+      staffCreatedBy,
       staffDeactivateDate,
       staffIsActive;
 
@@ -187,6 +189,29 @@ class RemoveStaffListCard extends HookConsumerWidget {
                               ),
                               Text(
                                 "Added on $staffCreationDate",
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  color: Colors.grey[600],
+                                  height: 1.0,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 2,
+                          ),
+                          Row(
+                            children: [
+                              Icon(
+                                Iconsax.user_add,
+                                size: 13,
+                                color: Colors.grey[600],
+                              ),
+                              const SizedBox(
+                                width: 2,
+                              ),
+                              Text(
+                                "Added by $staffCreatedBy ",
                                 style: TextStyle(
                                   fontSize: 13,
                                   color: Colors.grey[600],
@@ -420,7 +445,6 @@ class RemoveStaffListCard extends HookConsumerWidget {
                           await FlutterTts()
                               .speak("Staff Removed Successfully");
                         },
-                        
                         btnOkText: "Yes",
                       ).show();
                     }

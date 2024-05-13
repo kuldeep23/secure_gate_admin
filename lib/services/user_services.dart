@@ -88,6 +88,7 @@ class SocietyUserServices implements BaseSocietyUserService {
       );
       if (userResponse.data["status"] == 1) {
 
+        // ignore: unused_result
         ref.refresh(allSocietyUserDataProvider.future);
         
         //print(value1);

@@ -943,6 +943,7 @@ class UpdateUserCard extends HookConsumerWidget {
                                         desc:
                                             "Do you want to activate more users ?",
                                         btnCancelOnPress: () {
+                                           // ignore: unused_result
                                            ref.refresh(allSocietyUserDataProvider
                                               .future);
                                           context.pushNamed(
@@ -952,6 +953,7 @@ class UpdateUserCard extends HookConsumerWidget {
                                         btnCancelText: "No",
                                         btnOkOnPress: () {
                                           Navigator.of(context).pop();
+                                          // ignore: unused_result
                                           ref.refresh(allSocietyUserDataProvider
                                               .future);
                                         },

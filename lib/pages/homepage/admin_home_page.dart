@@ -6,11 +6,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:secure_gates_admin/pages/car_management/car_in.dart';
 import 'package:secure_gates_admin/pages/car_management/car_out.dart';
 import 'package:secure_gates_admin/pages/staff_management/add_staff.dart';
-import 'package:secure_gates_admin/pages/staff_management/staff_in.dart';
 import 'package:secure_gates_admin/pages/staff_management/remove_staff_list.dart';
 import 'package:secure_gates_admin/pages/staff_management/staff_list.dart';
-import 'package:secure_gates_admin/pages/staff_management/staff_out.dart';
-import 'package:secure_gates_admin/pages/visitor_management/wrong_visitor.dart';
 import 'package:secure_gates_admin/routes/app_routes_constants.dart';
 import 'package:secure_gates_admin/services/authentication_service.dart';
 
@@ -239,7 +236,6 @@ class AdminPage extends HookConsumerWidget {
                                       featureName: 'Staff List',
                                     ),
                                   ),
-                                  
                                 ],
                               ),
                             ),

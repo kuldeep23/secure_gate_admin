@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:secure_gates_admin/entities/society_user.dart';
@@ -119,6 +118,7 @@ class UserList extends HookConsumerWidget {
         children: [
           RefreshIndicator(
             onRefresh: () async {
+              // ignore: unused_result
               ref.refresh(allActivateUserProvider.future);
             },
             child: ListView(
@@ -178,6 +178,7 @@ class UserList extends HookConsumerWidget {
           ),
           RefreshIndicator(
             onRefresh: () async {
+              // ignore: unused_result
               ref.refresh(allDeActivateUserProvider.future);
             },
             child: ListView(

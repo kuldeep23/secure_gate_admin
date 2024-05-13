@@ -141,6 +141,7 @@ class StaffServices implements BaseStaffService {
       if (userResponse.data["status"] == 1) {
         // ignore: unused_result
         ref.refresh(allInsideStaffDataProvider.future);
+        // ignore: unused_result
         ref.refresh(allStaffListDataProvider.future);
 
         Fluttertoast.showToast(

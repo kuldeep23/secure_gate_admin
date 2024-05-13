@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:secure_gates_admin/widgets/responsive_wrap.dart';
 import 'package:secure_gates_admin/widgets/skelton_widget.dart';
-import 'package:secure_gates_admin/widgets/vertical_divider_widget.dart';
 
 class StaffListLoading extends StatelessWidget {
   const StaffListLoading({super.key});

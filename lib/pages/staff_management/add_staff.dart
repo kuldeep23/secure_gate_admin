@@ -18,13 +18,11 @@ class AddStaff extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    List data = [];
     String? dropdownValue;
 
     getData() async {
       final res = await http.get(Uri.parse(
           "https://gatesadmin.000webhostapp.com/society_details.php"));
-      data = jsonDecode(res.body);
     }
 
     final imageCode = useState("");

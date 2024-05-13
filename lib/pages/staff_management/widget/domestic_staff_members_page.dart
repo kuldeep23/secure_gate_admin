@@ -65,7 +65,7 @@ class DomesticStaffMembersPage extends HookConsumerWidget {
               data: (data) => Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 10,
-                      vertical: 10,
+                      vertical: 4,
                     ),
                     child: Column(
                       children: data
@@ -83,99 +83,126 @@ class DomesticStaffMembersPage extends HookConsumerWidget {
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.symmetric(
-                                          horizontal: 15, vertical: 5),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            item.staffName,
-                                            style: const TextStyle(
-                                              fontSize: 22,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                          Container(
-                                            padding: const EdgeInsets.symmetric(
-                                              vertical: 1,
-                                              horizontal: 5,
-                                            ),
-                                            decoration: BoxDecoration(
-                                              color:
-                                                  item.staffStatus == "Inside"
-                                                      ? const Color.fromARGB(
-                                                          255, 19, 240, 82)
-                                                      : Colors.redAccent,
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                10,
-                                              ),
-                                            ),
-                                            child: Text(
-                                              item.staffStatus.toUpperCase(),
-                                              style: const TextStyle(
-                                                  fontSize: 10,
-                                                  color: Colors.white),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    const Divider(),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
                                         horizontal: 15,
                                         vertical: 10,
                                       ),
                                       child: Row(
                                         children: [
-                                          ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(50),
-                                            child: Image.network(
-                                              item.staffIcon,
-                                              fit: BoxFit.cover,
-                                              height: 65,
-                                              width: 65,
-                                            ),
+                                          Column(
+                                            children: [
+                                              ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    CircleAvatar(
+                                                      radius: 32,
+                                                      backgroundImage:
+                                                          NetworkImage(
+                                                        item.staffIcon,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                height: 5,
+                                              ),
+                                              Container(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                  vertical: 1,
+                                                  horizontal: 5,
+                                                ),
+                                                decoration: BoxDecoration(
+                                                  color: item.staffStatus ==
+                                                          "Inside"
+                                                      ? const Color(0xffFF6663)
+                                                      : Colors.green[600],
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                    10,
+                                                  ),
+                                                ),
+                                                child: Text(
+                                                  item.staffStatus
+                                                      .toUpperCase(),
+                                                  style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 12),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                           const SizedBox(
-                                            width: 10,
+                                            width: 15,
                                           ),
                                           Expanded(
                                             child: Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      item.staffName,
+                                                      style: const TextStyle(
+                                                        fontSize: 22,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    Container(
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
+                                                        vertical: 1,
+                                                        horizontal: 5,
+                                                      ),
+                                                      decoration: BoxDecoration(
+                                                        color: const Color
+                                                                .fromARGB(
+                                                            255, 102, 102, 216),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                          5,
+                                                        ),
+                                                      ),
+                                                      child: Text(
+                                                        "ID : ${item.uid}",
+                                                        style: const TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 13,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
                                                 Text(
-                                                  "⭐️${item.staffRating}",
+                                                  "Rating ⭐️${item.staffRating}",
                                                   style: const TextStyle(
                                                     fontSize: 14,
-                                                    fontWeight: FontWeight.w300,
-                                                  ),
-                                                ),
-                                                const Text(
-                                                  "No. of houses",
-                                                  style: TextStyle(
-                                                    fontSize: 18,
                                                     fontWeight: FontWeight.w400,
                                                   ),
                                                 ),
                                                 Text(
-                                                  item.staffIsActive == "1"
-                                                      ? "Staff active"
-                                                      : "Staff not active",
+                                                  "Works in H.No. ${item.staffFlatNo}",
                                                   style: const TextStyle(
                                                     fontSize: 14,
-                                                    fontWeight: FontWeight.w300,
+                                                    fontWeight: FontWeight.w400,
                                                   ),
                                                 ),
                                               ],
                                             ),
                                           ),
-                                          const Icon(
-                                            Icons.chevron_right,
-                                          )
                                         ],
                                       ),
                                     ),

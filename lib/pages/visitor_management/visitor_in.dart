@@ -263,7 +263,7 @@ class VisitorIn extends HookConsumerWidget {
                                         "https://gatesadmin.000webhostapp.com/visitor_enter_result.php",
                                         data: formData,
                                       );
-                                      print(userResponse.data["status"]);
+                                    //  print(userResponse.data["status"]);
                                       if (userResponse.data["status"] == "1") {
                                         final flatMateData =
                                             userResponse.data["User-data"][0];
@@ -335,7 +335,7 @@ class VisitorIn extends HookConsumerWidget {
                                             userResponse.data["status"]);
                                       }
                                     } catch (e) {
-                                      print(e.toString());
+                            
                                       throw ErrorHandlers.errorDialog(e);
                                     }
                                   } else {
@@ -617,7 +617,7 @@ Future<void> quickDialogue({
                     data: data,
                   );
 
-                  print(response.data["eventData"]);
+                //  print(response.data["eventData"]);
                 },
                 child: Container(
                   padding: const EdgeInsets.symmetric(vertical: 10),

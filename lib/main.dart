@@ -7,4 +7,5 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await LoginPresistenceService.init();
   runApp(const ProviderScope(child: MyApp()));
+  
 }

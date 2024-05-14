@@ -337,7 +337,9 @@ class VisitorCard extends HookConsumerWidget {
                     animType: AnimType.scale,
                     title: "Exist Visitor",
                     desc: "Do you really want to exit visitor ?",
-                    btnCancelOnPress: () {},
+                    btnCancelOnPress: () {
+                      Navigator.of(context).pop();
+                    },
                     btnCancelText: "No",
                     btnOkOnPress: () async {
                       await ref

@@ -319,7 +319,9 @@ class StaffCard extends HookConsumerWidget {
                     animType: AnimType.scale,
                     title: "Exit Staff",
                     desc: "Do you want to exit the staff ?",
-                    btnCancelOnPress: () {},
+                    btnCancelOnPress: () {
+                      Navigator.of(context).pop();
+                    },
                     btnCancelText: "No",
                     btnOkOnPress: () async {
                       await ref

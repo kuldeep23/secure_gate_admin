@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:secure_gates_admin/controllers/user_controller.dart';
@@ -114,7 +115,6 @@ class VisitorService implements BaseVisitorService {
             .map((visitorData) => Visitor.fromMap(visitorData))
             .toList(growable: false);
 
-
         return visitors;
       } else {
         return [];
@@ -146,8 +146,7 @@ class VisitorService implements BaseVisitorService {
             .toList(growable: false);
 
         return wrongvisitors;
-      }
-      else {
+      } else {
         return [];
       }
     } catch (e) {
@@ -157,6 +156,7 @@ class VisitorService implements BaseVisitorService {
 
   @override
   Future<void> visitorreview(String reviewid, String review) async {
+    EasyLoading.show();
     try {
       final formData =
           FormData.fromMap({"visitor_id": reviewid, "visitor_review": review});
@@ -166,6 +166,7 @@ class VisitorService implements BaseVisitorService {
         data: formData,
       );
       if (userResponse.data["status"] == 1) {
+        EasyLoading.dismiss();
         //print(value1);
         Fluttertoast.showToast(
             msg: "Feedback sent successfully !!!",
@@ -175,6 +176,7 @@ class VisitorService implements BaseVisitorService {
             textColor: Colors.black,
             fontSize: 30.0);
       } else if (userResponse.data["status"] == 0) {
+        EasyLoading.dismiss();
         Fluttertoast.showToast(
             msg: "Feedback sent faied !!!",
             toastLength: Toast.LENGTH_LONG,
@@ -186,12 +188,14 @@ class VisitorService implements BaseVisitorService {
         return ErrorHandler.errorDialog(userResponse.data["status"]);
       }
     } catch (e) {
+      EasyLoading.dismiss();
       throw ErrorHandler.errorDialog(e);
     }
   }
 
   @override
   Future<void> visitorout(String visitorid) async {
+    EasyLoading.show();
     try {
       final formData = FormData.fromMap({"visitor_id": visitorid});
 
@@ -200,6 +204,7 @@ class VisitorService implements BaseVisitorService {
         data: formData,
       );
       if (userResponse.data["status"] == 1) {
+        EasyLoading.dismiss();
         // ignore: unused_result
         ref.refresh(insideVisitorDataProvider.future);
 
@@ -212,6 +217,7 @@ class VisitorService implements BaseVisitorService {
             backgroundColor: Colors.red,
             fontSize: 15.0);
       } else if (userResponse.data["status"] == 0) {
+        EasyLoading.dismiss();
         Fluttertoast.showToast(
             msg: "Visitor out Falied !!!",
             toastLength: Toast.LENGTH_LONG,
@@ -223,6 +229,7 @@ class VisitorService implements BaseVisitorService {
         return ErrorHandler.errorDialog(userResponse.data["status"]);
       }
     } catch (e) {
+      EasyLoading.dismiss();
       throw ErrorHandler.errorDialog(e);
     }
   }

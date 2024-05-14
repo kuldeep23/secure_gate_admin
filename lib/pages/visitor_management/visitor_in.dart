@@ -17,6 +17,8 @@ import 'package:secure_gates_admin/widgets/rounded_button.dart';
 import 'package:secure_gates_admin/widgets/rounded_text_field.dart';
 import 'package:secure_gates_admin/widgets/rouned_square_button.dart';
 
+import '../../entities/visitor.dart';
+
 final visitorType = [
   "Delivery",
   "Cab",
@@ -268,6 +270,10 @@ class VisitorIn extends HookConsumerWidget {
                                         final flatMateData =
                                             userResponse.data["User-data"][0];
 
+                                        final responseVisitor = Visitor.fromMap(
+                                            userResponse.data["Visitor-data"]
+                                                [0]);
+
                                         // ignore: use_build_context_synchronously
                                         quickDialogue(
                                           callBack: () {},
@@ -280,6 +286,7 @@ class VisitorIn extends HookConsumerWidget {
                                               flatMateData["Owner_First_Name"],
                                           context: context,
                                           token: flatMateData["FB_Id"],
+                                          visitor: responseVisitor,
                                           outTime: flatMateData[
                                                   "Owner_First_Name"] ??
                                               "Still Inside",
@@ -381,6 +388,7 @@ Future<void> quickDialogue({
   String submitTitle = 'Okay',
   required String subtitle,
   bool onlyShow = false,
+  required Visitor visitor,
   required String ownerName,
   required BuildContext context,
   required String imageUrl,
@@ -609,7 +617,17 @@ Future<void> quickDialogue({
                         "title": "NOTIFICATION ALERT",
                         "body": "Visitor Confirmation",
                         "image": imageUrl
-                      }
+                      },
+                      "data": {
+                        "name": visitor.visitorName,
+                        "image": visitor.visitorImage,
+                        "id": visitor.visitorId,
+                        "soc_code": visitor.socCode,
+                        "visitor_type_detail": visitor.visitorTypeDetail,
+                        "visitor_type": visitor.visitorType,
+                        "visitor_mobile": visitor.visitorMobile,
+                        "visitor_flat_no": visitor.visitorFlatNo,
+                      },
                     }
                   };
                   final response = await Dio().post(

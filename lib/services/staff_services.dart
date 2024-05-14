@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:secure_gates_admin/controllers/user_controller.dart';
@@ -57,6 +58,7 @@ class StaffServices implements BaseStaffService {
 
   @override
   Future<void> staffEnter(String staffId, String socCode) async {
+    EasyLoading.show();
     final guardName =
         ref.watch(userControllerProvider).currentUser!.ownerFirstName;
     try {
@@ -68,6 +70,7 @@ class StaffServices implements BaseStaffService {
         data: formData,
       );
       if (userResponse.data["status"] == 1) {
+        EasyLoading.dismiss();
         // ignore: unused_result
         ref.refresh(allOutsideStaffDataProvider.future);
 
@@ -80,6 +83,8 @@ class StaffServices implements BaseStaffService {
             backgroundColor: const Color(0xffFF6663),
             fontSize: 15.0);
       } else if (userResponse.data["status"] == 0) {
+        EasyLoading.dismiss();
+
         Fluttertoast.showToast(
           msg: "Staff Entered Failed !!!",
           toastLength: Toast.LENGTH_LONG,
@@ -92,6 +97,7 @@ class StaffServices implements BaseStaffService {
         return ErrorHandler.errorDialog(userResponse.data["status"]);
       }
     } catch (e) {
+      EasyLoading.dismiss();
       throw ErrorHandler.errorDialog(e);
     }
   }
@@ -125,6 +131,8 @@ class StaffServices implements BaseStaffService {
 
   @override
   Future<void> staffExist(String staffuid, String staffsoccode) async {
+    EasyLoading.show();
+
     final guardName =
         ref.watch(userControllerProvider).currentUser!.ownerFirstName;
     try {
@@ -139,6 +147,7 @@ class StaffServices implements BaseStaffService {
         data: formData,
       );
       if (userResponse.data["status"] == 1) {
+        EasyLoading.dismiss();
         // ignore: unused_result
         ref.refresh(allInsideStaffDataProvider.future);
         // ignore: unused_result
@@ -153,6 +162,7 @@ class StaffServices implements BaseStaffService {
             backgroundColor: const Color(0xffFF6663),
             fontSize: 15.0);
       } else if (userResponse.data["status"] == 0) {
+        EasyLoading.dismiss();
         Fluttertoast.showToast(
             msg: "Staff Exist Failed !!!",
             toastLength: Toast.LENGTH_LONG,
@@ -162,6 +172,7 @@ class StaffServices implements BaseStaffService {
         return ErrorHandler.errorDialog(userResponse.data["status"]);
       }
     } catch (e) {
+      EasyLoading.dismiss();
       throw ErrorHandler.errorDialog(e);
     }
   }
@@ -193,26 +204,23 @@ class StaffServices implements BaseStaffService {
     }
   }
 
-  
-@override
+  @override
   Future<void> staffRemove(String staffuid) async {
     try {
-      final userfName = ref.watch(userControllerProvider).currentUser!.ownerFirstName;
-      final userlName = ref.watch(userControllerProvider).currentUser!.ownerLastName;
-      final formData = FormData.fromMap({
-        "uid": staffuid,
-        "name_remove": "$userfName $userlName"
-
-      });
+      final userfName =
+          ref.watch(userControllerProvider).currentUser!.ownerFirstName;
+      final userlName =
+          ref.watch(userControllerProvider).currentUser!.ownerLastName;
+      final formData = FormData.fromMap(
+          {"uid": staffuid, "name_remove": "$userfName $userlName"});
 
       final userResponse = await _dio.post(
         "https://gatesadmin.000webhostapp.com/staff_removed_update.php",
         data: formData,
       );
       if (userResponse.data["status"] == 1) {
-
-      // ignore: unused_result
-      ref.refresh(allStaffListDataProvider.future);
+        // ignore: unused_result
+        ref.refresh(allStaffListDataProvider.future);
 
         Fluttertoast.showToast(
             msg: "Staff Removed Successfully !!!",
@@ -235,6 +243,4 @@ class StaffServices implements BaseStaffService {
       throw ErrorHandler.errorDialog(e);
     }
   }
-
-  
 }

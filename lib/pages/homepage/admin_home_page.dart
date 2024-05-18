@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:secure_gates_admin/pages/car_management/car_in.dart';
 import 'package:secure_gates_admin/pages/car_management/car_out.dart';
+import 'package:secure_gates_admin/pages/guard_management/add_guard.dart';
+import 'package:secure_gates_admin/pages/guard_management/remove_guard.dart';
 import 'package:secure_gates_admin/pages/staff_management/add_staff.dart';
 import 'package:secure_gates_admin/pages/staff_management/remove_staff_list.dart';
 import 'package:secure_gates_admin/pages/staff_management/staff_list.dart';
@@ -32,7 +34,7 @@ class AdminPage extends HookConsumerWidget {
               },
               child: AnimatedTextKit(animatedTexts: [
                 TypewriterAnimatedText(
-                  "Hello ${ref.watch(userControllerProvider).currentUser!.ownerFirstName}",
+                  "Hello ${ref.watch(userControllerProvider).currentUser!.userFirstName}",
                   speed: const Duration(milliseconds: 200),
                   textStyle: const TextStyle(
                     fontSize: 20,
@@ -296,7 +298,7 @@ class AdminPage extends HookConsumerWidget {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const CarIn())),
+                                                const AddGuard())),
                                     child: const FeatureItems(
                                       imageURL: 'assets/icons/add-guard.png',
                                       featureName: 'Add Guard',
@@ -315,7 +317,7 @@ class AdminPage extends HookConsumerWidget {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const CarOut())),
+                                                const RemoveGuardList())),
                                     child: const FeatureItems(
                                       imageURL: 'assets/icons/remove-guard.png',
                                       featureName: 'Remove Guard',

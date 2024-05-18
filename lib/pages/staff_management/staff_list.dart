@@ -17,7 +17,7 @@ final staffListProvider =
     data: data,
   );
 
-  ref.keepAlive();
+
 
   final results = List<Map<String, dynamic>>.from(response.data);
 
@@ -59,10 +59,10 @@ class StaffListPage extends HookConsumerWidget {
                               children: [
                                 GestureDetector(
                                   onTap: () {
-                                     context.pushNamed(
+                                    context.pushNamed(
                                       MyAppRoutes.domesticStaffMembersPage,
                                       extra: item.staffType,
-                                    ); 
+                                    );
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
@@ -72,15 +72,6 @@ class StaffListPage extends HookConsumerWidget {
                                       focusColor: Colors.grey,
                                       title: Row(
                                         children: [
-                                          CircleAvatar(
-                                            radius: 25,
-                                            backgroundImage: NetworkImage(
-                                              item.staffIcon,
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 10,
-                                          ),
                                           Text(item.staffType),
                                         ],
                                       ),

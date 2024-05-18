@@ -33,7 +33,7 @@ class HomePage extends HookConsumerWidget {
               },
               child: AnimatedTextKit(animatedTexts: [
                 TypewriterAnimatedText(
-                  "Hello ${ref.watch(userControllerProvider).currentUser!.ownerFirstName}",
+                  "Hello ${ref.watch(userControllerProvider).currentUser!.userFirstName}",
                   speed: const Duration(milliseconds: 200),
                   textStyle: const TextStyle(
                     fontSize: 20,

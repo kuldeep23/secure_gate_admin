@@ -14,4 +14,6 @@ class MyAppRoutes {
   static const domesticStaffMembersPage = 'domesticStaffMembers';
   static const domesticStaffMembersDetailsPage =
       'domesticStaffMembersDetailsPage';
+      static const addGuard = 'addGuard';
+      static const removeGuard = 'removeGuard';
 }

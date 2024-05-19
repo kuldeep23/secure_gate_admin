@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:secure_gates_admin/routes/app_routes_config.dart';
 
 class MyApp extends StatelessWidget {
@@ -26,6 +27,9 @@ class MyApp extends StatelessWidget {
         fontFamily: "Ubuntu",
         useMaterial3: true,
       ),
+      
+      builder: EasyLoading.init(),
+      
     );
   }
 }

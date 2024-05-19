@@ -18,6 +18,7 @@ dependencies:
   flutter:
     sdk: flutter
   material_dialogs: ^1.1.4
+  flutter_easyloading: ^3.0.5
   flutter_hooks: ^0.20.0
   flutter_image_compress: ^2.0.4
   flutter_phone_direct_caller: ^2.1.1
@@ -33,6 +34,7 @@ dependencies:
   rive: ^0.13.4
   shared_preferences: ^2.2.0
   shimmer: ^3.0.0
+ 
 
 dev_dependencies:
   flutter_lints: ^4.0.0
@@ -70,4 +72,7 @@ flutter:
     - assets/icons/remove-user.png
     - assets/icons/staff-list.png
     - assets/icons/user-list.png
+    - assets/icons/punctuality.png
+    - assets/icons/schedule.png
+    - assets/icons/behavior.png
     - assets/mt_list.json

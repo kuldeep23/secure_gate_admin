@@ -9,4 +9,11 @@ class MyAppRoutes {
   static const activateUser = 'activateUser';
   static const deactivateUser = 'deactivateUser';
   static const userList = 'userList';
+  static const staffListPage = 'staffListPage';
+  static const removeStaffList = 'removeStaffList';
+  static const domesticStaffMembersPage = 'domesticStaffMembers';
+  static const domesticStaffMembersDetailsPage =
+      'domesticStaffMembersDetailsPage';
+      static const addGuard = 'addGuard';
+      static const removeGuard = 'removeGuard';
 }

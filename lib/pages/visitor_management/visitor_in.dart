@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -241,6 +242,7 @@ class VisitorIn extends HookConsumerWidget {
                             Expanded(
                               child: RoundedButton(
                                 onPress: () async {
+                                  EasyLoading.show();
                                   if (imageBaseCode.value.isNotEmpty) {
                                     try {
                                       final formData = FormData.fromMap({
@@ -264,8 +266,9 @@ class VisitorIn extends HookConsumerWidget {
                                         "https://gatesadmin.000webhostapp.com/visitor_enter_result.php",
                                         data: formData,
                                       );
-                                      print(userResponse.data["status"]);
+                                      //  print(userResponse.data["status"]);
                                       if (userResponse.data["status"] == "1") {
+                                        EasyLoading.dismiss();
                                         final flatMateData =
                                             userResponse.data["User-data"][0];
 
@@ -304,6 +307,7 @@ class VisitorIn extends HookConsumerWidget {
                                         );
                                       } else if (userResponse.data["status"] ==
                                           "0") {
+                                            EasyLoading.dismiss();
                                         Fluttertoast.showToast(
                                             msg: "Visitor Enter faied !!!",
                                             toastLength: Toast.LENGTH_LONG,
@@ -316,10 +320,10 @@ class VisitorIn extends HookConsumerWidget {
                                             userResponse.data["status"]);
                                       }
                                     } catch (e) {
-                                      print(e.toString());
                                       throw ErrorHandlers.errorDialog(e);
                                     }
                                   } else {
+                                    EasyLoading.dismiss();
                                     Fluttertoast.showToast(
                                         msg: "Please capture the image first",
                                         toastLength: Toast.LENGTH_LONG,

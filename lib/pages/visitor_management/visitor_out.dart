@@ -40,6 +40,7 @@ class VisitorOut extends HookConsumerWidget {
                   )
                 : RefreshIndicator(
                     onRefresh: () async {
+                      // ignore: unused_result
                       ref.refresh(insideVisitorDataProvider.future);
                     },
                     child: ListView(

@@ -5,10 +5,11 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:secure_gates_admin/pages/car_management/car_in.dart';
 import 'package:secure_gates_admin/pages/car_management/car_out.dart';
+import 'package:secure_gates_admin/pages/guard_management/add_guard.dart';
+import 'package:secure_gates_admin/pages/guard_management/remove_guard.dart';
 import 'package:secure_gates_admin/pages/staff_management/add_staff.dart';
-import 'package:secure_gates_admin/pages/staff_management/staff_in.dart';
-import 'package:secure_gates_admin/pages/staff_management/staff_out.dart';
-import 'package:secure_gates_admin/pages/visitor_management/wrong_visitor.dart';
+import 'package:secure_gates_admin/pages/staff_management/remove_staff_list.dart';
+import 'package:secure_gates_admin/pages/staff_management/staff_list.dart';
 import 'package:secure_gates_admin/routes/app_routes_constants.dart';
 import 'package:secure_gates_admin/services/authentication_service.dart';
 
@@ -33,7 +34,7 @@ class AdminPage extends HookConsumerWidget {
               },
               child: AnimatedTextKit(animatedTexts: [
                 TypewriterAnimatedText(
-                  "Hello ${ref.watch(userControllerProvider).currentUser!.ownerFirstName}",
+                  "Hello ${ref.watch(userControllerProvider).currentUser!.userFirstName}",
                   speed: const Duration(milliseconds: 200),
                   textStyle: const TextStyle(
                     fontSize: 20,
@@ -193,7 +194,7 @@ class AdminPage extends HookConsumerWidget {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const StaffIn())),
+                                                const AddStaff())),
                                     child: const FeatureItems(
                                       imageURL: 'assets/icons/add-staff.png',
                                       featureName: 'Add Staff',
@@ -212,7 +213,7 @@ class AdminPage extends HookConsumerWidget {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const StaffOut())),
+                                                const RemoveStaffList())),
                                     child: const FeatureItems(
                                       imageURL: 'assets/icons/remove-staff.png',
                                       featureName: 'Remove Staff',
@@ -231,7 +232,7 @@ class AdminPage extends HookConsumerWidget {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const AddStaff())),
+                                                const StaffListPage())),
                                     child: const FeatureItems(
                                       imageURL: 'assets/icons/staff-list.png',
                                       featureName: 'Staff List',
@@ -297,7 +298,7 @@ class AdminPage extends HookConsumerWidget {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const CarIn())),
+                                                const AddGuard())),
                                     child: const FeatureItems(
                                       imageURL: 'assets/icons/add-guard.png',
                                       featureName: 'Add Guard',
@@ -316,7 +317,7 @@ class AdminPage extends HookConsumerWidget {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const CarOut())),
+                                                const RemoveGuardList())),
                                     child: const FeatureItems(
                                       imageURL: 'assets/icons/remove-guard.png',
                                       featureName: 'Remove Guard',

@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:secure_gates_admin/pages/guard_management/add_guard.dart';
 import 'package:secure_gates_admin/pages/homepage/admin_home_page.dart';
+import 'package:secure_gates_admin/pages/staff_management/remove_staff_list.dart';
+import 'package:secure_gates_admin/pages/staff_management/staff_list.dart';
 import 'package:secure_gates_admin/pages/user_management/activate_user.dart';
 import 'package:secure_gates_admin/pages/user_management/deactivate_user.dart';
 import 'package:secure_gates_admin/pages/user_management/user_list.dart';
@@ -10,10 +13,14 @@ import 'package:secure_gates_admin/pages/visitor_management/visitor_in.dart';
 import 'package:secure_gates_admin/pages/visitor_management/visitor_out.dart';
 
 import '../controllers/user_controller.dart';
+import '../entities/staff.dart';
 import '../error/error_page.dart';
 import '../pages/authentication/login_page.dart';
 import '../pages/authentication/signup_page.dart';
+import '../pages/guard_management/remove_guard.dart';
 import '../pages/homepage/home_page.dart';
+import '../pages/staff_management/widget/domestic_staff_member_details_page.dart';
+import '../pages/staff_management/widget/domestic_staff_members_page.dart';
 import 'app_routes_constants.dart';
 
 class MyAppRouterConfig {
@@ -89,6 +96,45 @@ class MyAppRouterConfig {
         path: "/user-list",
         builder: (context, state) => const UserList (),
       ),
+      GoRoute(
+        name: MyAppRoutes.removeStaffList,
+        path: "/remove-staff-list",
+        builder: (context, state) => const RemoveStaffList (),
+      ),
+      GoRoute(
+        name: MyAppRoutes.staffListPage,
+        path: "/staff-list-page",
+        builder: (context, state) => const StaffListPage(),
+      ),
+      GoRoute(
+        name: MyAppRoutes.addGuard,
+        path: "/add-Guard",
+        builder: (context, state) => const AddGuard(),
+      ),
+      GoRoute(
+        name: MyAppRoutes.removeGuard,
+        path: "/remove-Guard",
+        builder: (context, state) => const RemoveGuardList(),
+      ),
+      GoRoute(
+          name: MyAppRoutes.domesticStaffMembersPage,
+          path: "/domestic-staff-members",
+          builder: (context, state) {
+            final staffType = state.extra! as String;
+            return DomesticStaffMembersPage(
+              staffType: staffType,
+            );
+          }),
+          GoRoute(
+        name: MyAppRoutes.domesticStaffMembersDetailsPage,
+        path: "/domestic-staff-members-details",
+        builder: (context, state) {
+          final staffMember = state.extra! as Staff;
+          return DomesticStaffMemberDetailsPage(
+            staffMember: staffMember,
+          );
+        },
+      ),
     ],
     errorBuilder: (BuildContext context, GoRouterState state) =>
         const ErrorPage(),
@@ -114,7 +160,7 @@ class SplashScreen extends HookConsumerWidget {
     }, []);
 
     if (loginStatus != null) {
-      final userType = loginStatus.socRole;
+      final userType = loginStatus.userRole;
       switch (userType) {
         case "Guard":
           {
@@ -125,7 +171,6 @@ class SplashScreen extends HookConsumerWidget {
             return const AdminPage();
           }
         default:
-          print(userType);
           return const HomePage();
       }
     } else {

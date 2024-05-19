@@ -316,7 +316,9 @@ class StaffCard extends HookConsumerWidget {
                     animType: AnimType.scale,
                     title: "Enter Staff",
                     desc: "Do you want to enter the staff ?",
-                    btnCancelOnPress: () {},
+                    btnCancelOnPress: () {
+                      Navigator.of(context).pop();
+                    },
                     btnCancelText: "No",
                     btnOkOnPress: () async {
                       await ref
@@ -331,7 +333,7 @@ class StaffCard extends HookConsumerWidget {
                       await FlutterTts().setVolume(1.0);
                       await FlutterTts().setSpeechRate(0.5);
                       await FlutterTts().setPitch(1.0);
-                      await FlutterTts().speak("Staff Entered Successfully");
+                      await FlutterTts().speak("Staff Enter Successfully");
                     },
                     btnOkText: "Yes",
                   ).show(),

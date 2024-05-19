@@ -14,10 +14,14 @@ class Visitor {
   final String visitorEnterTime;
   final String? visitorExitDate;
   final String? visitorExitTime;
-  final String visitorApproveBy;
   final String visitorStatus;
+  final String visitorIsValidUpdate;
+  final String visitorApprovReject;
+  final String visitorAppRejBy;
+  final String visitorRejByName;
+  final String guardName;
   final String visitorIsValid;
-  final String visitorReview;
+  final String? visitorReview;
   Visitor({
     required this.visitorId,
     required this.socCode,
@@ -31,8 +35,12 @@ class Visitor {
     required this.visitorEnterTime,
     this.visitorExitDate,
     this.visitorExitTime,
-    required this.visitorApproveBy,
     required this.visitorStatus,
+    required this.visitorIsValidUpdate,
+    required this.visitorApprovReject,
+    required this.visitorAppRejBy,
+    required this.visitorRejByName,
+    required this.guardName,
     required this.visitorIsValid,
     required this.visitorReview,
   });
@@ -50,8 +58,12 @@ class Visitor {
     String? visitorEnterTime,
     String? visitorExitDate,
     String? visitorExitTime,
-    String? visitorApproveBy,
     String? visitorStatus,
+    String? visitorIsValidUpdate,
+    String? visitorApprovReject,
+    String? visitorAppRejBy,
+    String? visitorRejByName,
+    String? guardName,
     String? visitorIsValid,
     String? visitorReview,
   }) {
@@ -68,8 +80,12 @@ class Visitor {
       visitorEnterTime: visitorEnterTime ?? this.visitorEnterTime,
       visitorExitDate: visitorExitDate ?? this.visitorExitDate,
       visitorExitTime: visitorExitTime ?? this.visitorExitTime,
-      visitorApproveBy: visitorApproveBy ?? this.visitorApproveBy,
       visitorStatus: visitorStatus ?? this.visitorStatus,
+      visitorIsValidUpdate: visitorIsValidUpdate ?? this.visitorIsValidUpdate,
+      visitorApprovReject: visitorApprovReject ?? this.visitorApprovReject,
+      visitorAppRejBy: visitorAppRejBy ?? this.visitorAppRejBy,
+      visitorRejByName: visitorRejByName ?? this.visitorRejByName,
+      guardName: guardName ?? this.guardName,
       visitorIsValid: visitorIsValid ?? this.visitorIsValid,
       visitorReview: visitorReview ?? this.visitorReview,
     );
@@ -89,8 +105,12 @@ class Visitor {
       'visitorEnterTime': visitorEnterTime,
       'visitorExitDate': visitorExitDate,
       'visitorExitTime': visitorExitTime,
-      'visitorApproveBy': visitorApproveBy,
       'visitorStatus': visitorStatus,
+      'visitorIsValidUpdate': visitorIsValidUpdate,
+      'visitorApprovReject': visitorApprovReject,
+      'visitorAppRejBy': visitorAppRejBy,
+      'visitorRejByName': visitorRejByName,
+      'guardName': guardName,
       'visitorIsValid': visitorIsValid,
       'visitorReview': visitorReview,
     };
@@ -108,16 +128,22 @@ class Visitor {
       visitorImage: map['visitor_image'] as String,
       visitorEnterDate: map['visitor_enter_date'] as String,
       visitorEnterTime: map['visitor_enter_time'] as String,
+      visitorAppRejBy: map['visitor_app_rej_by'] as String,
+      visitorRejByName: map['visitor_app_rej_by_name'] as String,
+      visitorApprovReject: map['visitor_approve_reject'] as String,
+      visitorIsValidUpdate: map['visitor_is_valid_update'] as String,
+      guardName: map['guard_name'] as String,
       visitorExitDate: map['visitor_exit_date'] != null
           ? map['visitor_exit_date'] as String
           : null,
       visitorExitTime: map['visitor_exit_time'] != null
           ? map['visitor_exit_time'] as String
           : null,
-      visitorApproveBy: map['visitor_approve_by'] as String,
       visitorStatus: map['visitor_status'] as String,
       visitorIsValid: map['visitor_is_valid'] as String,
-      visitorReview: map['visitor_review'] as String,
+      visitorReview: map['visitor_review'] != null
+          ? map['visitor_review'] as String
+          : null,
     );
   }
 
@@ -128,7 +154,7 @@ class Visitor {
 
   @override
   String toString() {
-    return 'Visitor(visitorId: $visitorId, socCode: $socCode, visitorType: $visitorType, visitorTypeDetail: $visitorTypeDetail, visitorName: $visitorName, visitorMobile: $visitorMobile, visitorFlatNo: $visitorFlatNo, visitorImage: $visitorImage, visitorEnterDate: $visitorEnterDate, visitorEnterTime: $visitorEnterTime, visitorExitDate: $visitorExitDate, visitorExitTime: $visitorExitTime, visitorApproveBy: $visitorApproveBy, visitorStatus: $visitorStatus, visitorIsValid: $visitorIsValid, visitorReview: $visitorReview)';
+    return 'Visitor(visitorId: $visitorId, socCode: $socCode, visitorType: $visitorType, visitorTypeDetail: $visitorTypeDetail, visitorName: $visitorName, visitorMobile: $visitorMobile, visitorFlatNo: $visitorFlatNo, visitorImage: $visitorImage, visitorEnterDate: $visitorEnterDate, visitorEnterTime: $visitorEnterTime, visitorExitDate: $visitorExitDate, visitorExitTime: $visitorExitTime, visitorStatus: $visitorStatus, visitorIsValidUpdate: $visitorIsValidUpdate, visitorApprovReject: $visitorApprovReject, visitorAppRejBy: $visitorAppRejBy, visitorRejByName: $visitorRejByName, guardName: $guardName, visitorIsValid: $visitorIsValid, visitorReview: $visitorReview)';
   }
 
   @override
@@ -147,8 +173,12 @@ class Visitor {
         other.visitorEnterTime == visitorEnterTime &&
         other.visitorExitDate == visitorExitDate &&
         other.visitorExitTime == visitorExitTime &&
-        other.visitorApproveBy == visitorApproveBy &&
         other.visitorStatus == visitorStatus &&
+        other.visitorIsValidUpdate == visitorIsValidUpdate &&
+        other.visitorApprovReject == visitorApprovReject &&
+        other.visitorAppRejBy == visitorAppRejBy &&
+        other.visitorRejByName == visitorRejByName &&
+        other.guardName == guardName &&
         other.visitorIsValid == visitorIsValid &&
         other.visitorReview == visitorReview;
   }
@@ -167,8 +197,12 @@ class Visitor {
         visitorEnterTime.hashCode ^
         visitorExitDate.hashCode ^
         visitorExitTime.hashCode ^
-        visitorApproveBy.hashCode ^
         visitorStatus.hashCode ^
+        visitorIsValidUpdate.hashCode ^
+        visitorApprovReject.hashCode ^
+        visitorAppRejBy.hashCode ^
+        visitorRejByName.hashCode ^
+        guardName.hashCode ^
         visitorIsValid.hashCode ^
         visitorReview.hashCode;
   }

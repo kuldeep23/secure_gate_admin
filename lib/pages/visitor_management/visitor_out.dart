@@ -14,7 +14,7 @@ final insideVisitorDataProvider =
 });
 
 class VisitorOut extends HookConsumerWidget {
-  const VisitorOut({Key? key}) : super(key: key);
+  const VisitorOut({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -31,7 +31,7 @@ class VisitorOut extends HookConsumerWidget {
         child: visitorData.when(
             skipLoadingOnRefresh: false,
             data: (data) => data.isEmpty
-                ?  Center(
+                ? Center(
                     child: Column(
                       children: [
                         Lottie.asset("assets/mt_list.json"),
@@ -46,7 +46,7 @@ class VisitorOut extends HookConsumerWidget {
                       children: data
                           .map((item) => VisitorCard(
                                 visitorid: item.visitorId,
-                                visitorApproveBy: item.visitorApproveBy,
+                                visitorApproveBy: item.visitorAppRejBy,
                                 visitorEnterTime: item.visitorEnterTime,
                                 visitorImage: item.visitorImage,
                                 visitorName: item.visitorName,

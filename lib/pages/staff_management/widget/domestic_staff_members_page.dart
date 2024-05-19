@@ -1,7 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
+
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -190,7 +190,7 @@ class DomesticStaffMembersPage extends HookConsumerWidget {
                                                       ),
                                                       decoration: BoxDecoration(
                                                         color: const Color
-                                                                .fromARGB(
+                                                            .fromARGB(
                                                             255, 102, 102, 216),
                                                         borderRadius:
                                                             BorderRadius
@@ -265,312 +265,326 @@ class DomesticStaffMembersPage extends HookConsumerWidget {
     required String visitorTypeDetail,
     required String phoneNo,
   }) async {
-    await showAnimatedDialog(
-      duration: const Duration(milliseconds: 600),
+    await showGeneralDialog(
+      transitionDuration: const Duration(milliseconds: 600),
       barrierDismissible: true,
       barrierColor: Colors.black.withOpacity(0.85),
-      animationType: DialogTransitionType.fadeScale,
       context: context,
-      builder: (context) {
-        return Theme(
-          data: Theme.of(context).copyWith(dialogBackgroundColor: Colors.white),
-          child: AlertDialog(
-            contentPadding: const EdgeInsets.all(0.0),
-            //insetPadding: EdgeInsets.all(5),
-            titlePadding: const EdgeInsets.all(10),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            title: SizedBox(
-              width: 800,
-              child: Column(
-                children: [
-                  Transform.translate(
-                    offset: const Offset(0, -50),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Icon(
-                          Icons.close,
-                          color: Colors.white,
-                          size: 25,
-                        ),
-                        Text(
-                          visitorType,
-                          style: const TextStyle(color: Colors.white),
-                        ),
-                        const SizedBox(
-                          width: 25,
-                        ),
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      /* 
-                      Navigator.push(
-                        context,
-                         MaterialPageRoute(
-                        builder: (context) =>
-                            HeroPhotoViewRouteWrapper(imageProvider: image),
-                      ), *
-                      ); */
-                    },
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.all(Radius.circular(50)),
-                      child: Hero(
-                        tag: image,
-                        child: Image(
-                          image: image,
-                          height: 100,
-                          width: 100,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        fontSize: 16,
-                      ),
-                    ),
-                  ],
+      pageBuilder: (context, a1, a2) {
+        return Container();
+      },
+      transitionBuilder: (context, a1, a2, widget) {
+        return ScaleTransition(
+          scale: Tween(begin: 0.5, end: 1.0).animate(a1),
+          child: FadeTransition(
+            opacity: Tween(begin: 0.5, end: 1.0).animate(a1),
+            child: Theme(
+              data: Theme.of(context)
+                  .copyWith(dialogBackgroundColor: Colors.white),
+              child: AlertDialog(
+                contentPadding: const EdgeInsets.all(0.0),
+                //insetPadding: EdgeInsets.all(5),
+                titlePadding: const EdgeInsets.all(10),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
                 ),
-                Column(
+                title: SizedBox(
+                  width: 800,
+                  child: Column(
+                    children: [
+                      Transform.translate(
+                        offset: const Offset(0, -50),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Icon(
+                              Icons.close,
+                              color: Colors.white,
+                              size: 25,
+                            ),
+                            Text(
+                              visitorType,
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                            const SizedBox(
+                              width: 25,
+                            ),
+                          ],
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          /* 
+                          Navigator.push(
+                            context,
+                             MaterialPageRoute(
+                            builder: (context) =>
+                                HeroPhotoViewRouteWrapper(imageProvider: image),
+                          ), *
+                          ); */
+                        },
+                        child: ClipRRect(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(50)),
+                          child: Hero(
+                            tag: image,
+                            child: Image(
+                              image: image,
+                              height: 100,
+                              width: 100,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    const SizedBox(height: 5),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(
-                          Icons.phone_android_outlined,
-                          size: 15,
-                        ),
-                        const SizedBox(
-                          width: 3,
-                        ),
                         Text(
-                          phoneNo,
+                          title,
                           style: const TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey,
+                            fontSize: 16,
                           ),
                         ),
                       ],
                     ),
+                    Column(
+                      children: [
+                        const SizedBox(height: 5),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              Icons.phone_android_outlined,
+                              size: 15,
+                            ),
+                            const SizedBox(
+                              width: 3,
+                            ),
+                            Text(
+                              phoneNo,
+                              style: const TextStyle(
+                                fontSize: 12,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 5),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: Divider(),
+                    ),
+                    const SizedBox(height: 5),
+                    const Text(
+                      "4 Rating",
+                    ),
+                    const SizedBox(height: 5),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Image(
+                            image: AssetImage("assets/icons/punctuality.png"),
+                            height: 50,
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Image(
+                            image: AssetImage("assets/icons/schedule.png"),
+                            height: 50,
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Image(
+                            image: AssetImage("assets/icons/behavior.png"),
+                            height: 50,
+                          )
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 1,
+                              horizontal: 15,
+                            ),
+                            decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 34, 74, 103),
+                              borderRadius: BorderRadius.circular(
+                                10,
+                              ),
+                            ),
+                            child: const Text(
+                              "5",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 15),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 1,
+                              horizontal: 15,
+                            ),
+                            decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 34, 74, 103),
+                              borderRadius: BorderRadius.circular(
+                                10,
+                              ),
+                            ),
+                            child: const Text(
+                              "5",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 15),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 1,
+                              horizontal: 15,
+                            ),
+                            decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 34, 74, 103),
+                              borderRadius: BorderRadius.circular(
+                                10,
+                              ),
+                            ),
+                            child: const Text(
+                              "5",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 15),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            "Punctual",
+                            style: TextStyle(color: Colors.grey, fontSize: 15),
+                          ),
+                          SizedBox(
+                            width: 17,
+                          ),
+                          Text(
+                            "Regular",
+                            style: TextStyle(color: Colors.grey, fontSize: 15),
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Text(
+                            "Service",
+                            style: TextStyle(color: Colors.grey, fontSize: 15),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 7),
+                    InkWell(
+                      onTap: () => AwesomeDialog(
+                        context: context,
+                        transitionAnimationDuration:
+                            const Duration(milliseconds: 400),
+                        dialogType: DialogType.question,
+                        animType: AnimType.scale,
+                        title: "Call Visitor",
+                        desc: "Do you really want to call visitor ?",
+                        btnCancelOnPress: () {},
+                        btnCancelText: "No",
+                        btnOkOnPress: () {
+                          FlutterPhoneDirectCaller.callNumber(
+                              '+91$visitormobile');
+                        },
+                        btnOkText: "Yes",
+                      ).show(),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              decoration: const BoxDecoration(
+                                color: Color(0xffFF6663),
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(
+                                    20,
+                                  ),
+                                ),
+                              ),
+                              child: const Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.phone,
+                                    color: Colors.white,
+                                  ),
+                                  Text("Call Staff",
+                                      style: TextStyle(color: Colors.white))
+                                ],
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              decoration: const BoxDecoration(
+                                color: Color(0xffFF6663),
+                                borderRadius: BorderRadius.only(
+                                  bottomRight: Radius.circular(
+                                    20,
+                                  ),
+                                ),
+                              ),
+                              child: const Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.phone,
+                                    color: Colors.white,
+                                  ),
+                                  Text(
+                                    "Call User",
+                                    style: TextStyle(color: Colors.white),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
-                const SizedBox(height: 5),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Divider(),
-                ),
-                const SizedBox(height: 5),
-                const Text(
-                  "4 Rating",
-                ),
-                const SizedBox(height: 5),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Image(
-                        image: AssetImage("assets/icons/punctuality.png"),
-                        height: 50,
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Image(
-                        image: AssetImage("assets/icons/schedule.png"),
-                        height: 50,
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Image(
-                        image: AssetImage("assets/icons/behavior.png"),
-                        height: 50,
-                      )
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 1,
-                          horizontal: 15,
-                        ),
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 34, 74, 103),
-                          borderRadius: BorderRadius.circular(
-                            10,
-                          ),
-                        ),
-                        child: const Text(
-                          "5",
-                          style: TextStyle(color: Colors.white, fontSize: 15),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 1,
-                          horizontal: 15,
-                        ),
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 34, 74, 103),
-                          borderRadius: BorderRadius.circular(
-                            10,
-                          ),
-                        ),
-                        child: const Text(
-                          "5",
-                          style: TextStyle(color: Colors.white, fontSize: 15),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 1,
-                          horizontal: 15,
-                        ),
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 34, 74, 103),
-                          borderRadius: BorderRadius.circular(
-                            10,
-                          ),
-                        ),
-                        child: const Text(
-                          "5",
-                          style: TextStyle(color: Colors.white, fontSize: 15),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text(
-                        "Punctual",
-                        style: TextStyle(color: Colors.grey, fontSize: 15),
-                      ),
-                      SizedBox(
-                        width: 17,
-                      ),
-                      Text(
-                        "Regular",
-                        style: TextStyle(color: Colors.grey, fontSize: 15),
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Text(
-                        "Service",
-                        style: TextStyle(color: Colors.grey, fontSize: 15),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 7),
-                InkWell(
-                  onTap: () => AwesomeDialog(
-                    context: context,
-                    transitionAnimationDuration:
-                        const Duration(milliseconds: 400),
-                    dialogType: DialogType.question,
-                    animType: AnimType.scale,
-                    title: "Call Visitor",
-                    desc: "Do you really want to call visitor ?",
-                    btnCancelOnPress: () {},
-                    btnCancelText: "No",
-                    btnOkOnPress: () {
-                      FlutterPhoneDirectCaller.callNumber('+91$visitormobile');
-                    },
-                    btnOkText: "Yes",
-                  ).show(),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          decoration: const BoxDecoration(
-                            color: Color(0xffFF6663),
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(
-                                20,
-                              ),
-                            ),
-                          ),
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.phone,
-                                color: Colors.white,
-                              ),
-                              Text("Call Staff",
-                                  style: TextStyle(color: Colors.white))
-                            ],
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          decoration: const BoxDecoration(
-                            color: Color(0xffFF6663),
-                            borderRadius: BorderRadius.only(
-                              bottomRight: Radius.circular(
-                                20,
-                              ),
-                            ),
-                          ),
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.phone,
-                                color: Colors.white,
-                              ),
-                              Text(
-                                "Call User",
-                                style: TextStyle(color: Colors.white),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
         );

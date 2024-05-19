@@ -9,7 +9,6 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:http/http.dart' as http;
 import '../../controllers/user_controller.dart';
 import '../../utils/pick_new_image.dart';
 import '../../widgets/rounded_button.dart';
@@ -17,50 +16,38 @@ import '../../widgets/rouned_square_button.dart';
 import '../auth_exception_handler.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
-final staffType = [
-  "Maid",
-  "Cook",
-  "Milkman",
-  "Paperboy",
-  "Car Cleaner",
-  "Dance Teacher",
-  "Tution Teacher",
-  "Gym Teacher",
+final userRole = [
+  "Guard",
   "Plumber",
-  "House Cleaning",
-  "Grocery Shop",
-  "Nurse",
-  "Elderly Caretaker",
-  "Laundry",
-  "Beautician",
-  "Flower Delivery",
-  "Staff",
-  "Interior Worker",
-  "Water Supplier",
-  "Tailor",
-  "Vegetable Vendor",
+  "Electrician",
+  "Maintenance",
+  "Secretary",
   "Other",
 ];
 
-class AddStaff extends HookConsumerWidget {
-  const AddStaff({Key? key}) : super(key: key);
+final gender = ["Male", "Female"];
+
+class AddGuard extends HookConsumerWidget {
+  const AddGuard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    String? dropdownValue;
-
-    final imageCode = useState("");
     final imageBaseCode = useState("");
     final pickedImage = useState(XFile(""));
     final size = MediaQuery.of(context).size;
-    final nameTextController = useTextEditingController();
+    final fNameTextController = useTextEditingController();
+    final lNameTextController = useTextEditingController();
     final mobileTextController = useTextEditingController();
-    final flatNumberTextController = useTextEditingController();
-    final staffTypeValue = useState(staffType[0]);
+    final emailTextController = useTextEditingController();
+    final passwordTextController = useTextEditingController();
+    final addressTextController = useTextEditingController();
+    final dobTextController = useTextEditingController();
+    final userRoleValue = useState(userRole[0]);
+    final genderValue = useState(gender[0]);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Add Staff"),
+        title: const Text("Add Admin Users"),
       ),
       body: SizedBox(
         width: size.width,
@@ -94,7 +81,7 @@ class AddStaff extends HookConsumerWidget {
                     child: Column(
                       children: [
                         const Text(
-                          "Click to add staff",
+                          "Click to add admin users",
                           style: TextStyle(fontSize: 20),
                         ),
                         const SizedBox(
@@ -130,7 +117,7 @@ class AddStaff extends HookConsumerWidget {
                         const Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            "Fill the Staff details:",
+                            "Fill the admin details:",
                             style: TextStyle(fontSize: 20),
                           ),
                         ),
@@ -138,10 +125,40 @@ class AddStaff extends HookConsumerWidget {
                           height: 15,
                         ),
                         TextField(
-                          controller: nameTextController,
+                          controller: fNameTextController,
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
-                              labelText: "Staff Name",
+                              labelText: "First Name",
+                              labelStyle: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400),
+                              prefixIcon: const Icon(
+                                Icons.person,
+                                color: Colors.black,
+                                size: 18,
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 0, horizontal: 10),
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.grey.shade200, width: 2),
+                                  borderRadius: BorderRadius.circular(10)),
+                              floatingLabelStyle: const TextStyle(
+                                  color: Color(0xffFF6663), fontSize: 18),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Color(0xffFF6663), width: 1.5),
+                                  borderRadius: BorderRadius.circular(10))),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        TextField(
+                          controller: lNameTextController,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                              labelText: "Last Name",
                               labelStyle: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 14,
@@ -197,11 +214,11 @@ class AddStaff extends HookConsumerWidget {
                         ),
                         InputDecorator(
                           decoration: InputDecoration(
-                              labelText: "Staff Type",
+                              labelText: "User Role",
                               labelStyle: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400),
+                                color: Colors.black,
+                                fontSize: 14,
+                              ),
                               prefixIcon: const Icon(
                                 Iconsax.user,
                                 color: Colors.black,
@@ -221,10 +238,10 @@ class AddStaff extends HookConsumerWidget {
                                   borderRadius: BorderRadius.circular(10))),
                           child: DropdownButtonHideUnderline(
                             child: DropdownButton<String>(
-                                value: staffTypeValue.value,
+                                value: userRoleValue.value,
                                 elevation: 8,
                                 isDense: true,
-                                items: staffType.map((e) {
+                                items: userRole.map((e) {
                                   return DropdownMenuItem<String>(
                                     value: e,
                                     child: Text(e),
@@ -232,7 +249,7 @@ class AddStaff extends HookConsumerWidget {
                                 }).toList(),
                                 onChanged: (value) {
                                   //_valud = value as int;
-                                  staffTypeValue.value = value!;
+                                  userRoleValue.value = value!;
                                 }),
                           ),
                         ),
@@ -240,11 +257,144 @@ class AddStaff extends HookConsumerWidget {
                           height: 15,
                         ),
                         TextField(
-                          controller: flatNumberTextController,
-                          keyboardType: TextInputType.number,
-                          maxLength: 4,
+                          controller: emailTextController,
+                          keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
-                              labelText: "Flat Number",
+                              labelText: "Email",
+                              labelStyle: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400),
+                              prefixIcon: const Icon(
+                                Iconsax.building,
+                                color: Colors.black,
+                                size: 18,
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 0, horizontal: 10),
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.grey.shade200, width: 2),
+                                  borderRadius: BorderRadius.circular(10)),
+                              floatingLabelStyle: const TextStyle(
+                                  color: Color(0xffFF6663), fontSize: 18),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Color(0xffFF6663), width: 1.5),
+                                  borderRadius: BorderRadius.circular(10))),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        TextField(
+                          controller: passwordTextController,
+                          keyboardType: TextInputType.visiblePassword,
+                          decoration: InputDecoration(
+                              labelText: "Password",
+                              labelStyle: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400),
+                              prefixIcon: const Icon(
+                                Iconsax.building,
+                                color: Colors.black,
+                                size: 18,
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 0, horizontal: 10),
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.grey.shade200, width: 2),
+                                  borderRadius: BorderRadius.circular(10)),
+                              floatingLabelStyle: const TextStyle(
+                                  color: Color(0xffFF6663), fontSize: 18),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Color(0xffFF6663), width: 1.5),
+                                  borderRadius: BorderRadius.circular(10))),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        TextField(
+                          controller: addressTextController,
+                          keyboardType: TextInputType.streetAddress,
+                          decoration: InputDecoration(
+                              labelText: "Address",
+                              labelStyle: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400),
+                              prefixIcon: const Icon(
+                                Iconsax.building,
+                                color: Colors.black,
+                                size: 18,
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 0, horizontal: 10),
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.grey.shade200, width: 2),
+                                  borderRadius: BorderRadius.circular(10)),
+                              floatingLabelStyle: const TextStyle(
+                                  color: Color(0xffFF6663), fontSize: 18),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Color(0xffFF6663), width: 1.5),
+                                  borderRadius: BorderRadius.circular(10))),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        InputDecorator(
+                          decoration: InputDecoration(
+                              labelText: "Gender",
+                              labelStyle: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                              ),
+                              prefixIcon: const Icon(
+                                Iconsax.user,
+                                color: Colors.black,
+                                size: 18,
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 0, horizontal: 10),
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.grey.shade200, width: 2),
+                                  borderRadius: BorderRadius.circular(10)),
+                              floatingLabelStyle: const TextStyle(
+                                  color: Color(0xffFF6663), fontSize: 18),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Color(0xffFF6663), width: 1.5),
+                                  borderRadius: BorderRadius.circular(10))),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton<String>(
+                                value: genderValue.value,
+                                elevation: 8,
+                                isDense: true,
+                                items: gender.map((e) {
+                                  return DropdownMenuItem<String>(
+                                    value: e,
+                                    child: Text(e),
+                                  );
+                                }).toList(),
+                                onChanged: (value) {
+                                  //_valudgenderValue= value as int;
+                                  genderValue.value = value!;
+                                }),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextField(
+                          controller: dobTextController,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                              labelText: "D.O.B.",
                               labelStyle: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 14,
@@ -277,33 +427,50 @@ class AddStaff extends HookConsumerWidget {
                                 onPress: () async {
                                   if (imageBaseCode.value.isNotEmpty) {
                                     EasyLoading.show();
+
                                     final socCode = ref
                                         .watch(userControllerProvider)
                                         .currentUser!
                                         .socCode;
-                                    final staffAddedName = ref
+
+                                    final socName = ref
+                                        .watch(userControllerProvider)
+                                        .currentUser!
+                                        .socName;
+
+                                    final addedbyName = ref
                                         .watch(userControllerProvider)
                                         .currentUser!
                                         .userFirstName;
+
                                     try {
                                       final formData = FormData.fromMap({
-                                        "soc_code": socCode,
-                                        "staff_name":
-                                            nameTextController.text.trim(),
-                                        "staff_type": staffTypeValue.value,
-                                        "staff_flat_no":
-                                            flatNumberTextController.text
-                                                .trim(),
-                                        "staff_icon": imageBaseCode.value,
-                                        "staff_mobile_no":
+                                        "socCode": socCode,
+                                        "socName": socName,
+                                        "userRole": userRoleValue.value,
+                                        "userfName":
+                                            fNameTextController.text.trim(),
+                                        "userlName":
+                                            lNameTextController.text.trim(),
+                                        "userImage": imageBaseCode.value,
+                                        "userNumber":
                                             mobileTextController.text.trim(),
-                                        "name_added": staffAddedName
+                                        "email":
+                                            emailTextController.text.trim(),
+                                        "password":
+                                            passwordTextController.text.trim(),
+                                        "address":
+                                            addressTextController.text.trim(),
+                                        "gender": genderValue.value,
+                                        "dob": dobTextController.text.trim(),
+                                        "addedBy": addedbyName
                                       });
                                       final Dio dio = Dio();
                                       final userResponse = await dio.post(
-                                        "https://gatesadmin.000webhostapp.com/add_staff.php",
+                                        "https://gatesadmin.000webhostapp.com/add_admin_user.php",
                                         data: formData,
                                       );
+
                                       if (userResponse.data["status"] == 1) {
                                         EasyLoading.dismiss();
                                         await FlutterTts().setLanguage("en-Us");
@@ -311,7 +478,7 @@ class AddStaff extends HookConsumerWidget {
                                         await FlutterTts().setSpeechRate(0.5);
                                         await FlutterTts().setPitch(1.0);
                                         await FlutterTts()
-                                            .speak("Staff Added Successfully");
+                                            .speak("User Added Successfully");
                                         // ignore: use_build_context_synchronously
                                         AwesomeDialog(
                                           context: context,
@@ -319,17 +486,21 @@ class AddStaff extends HookConsumerWidget {
                                               const Duration(milliseconds: 400),
                                           dialogType: DialogType.question,
                                           animType: AnimType.scale,
-                                          title: "Staff Added Successfully",
+                                          title: "User Added Successfully",
                                           desc:
-                                              "Do you want to add more staff ?",
+                                              "Do you want to add more user ?",
                                           btnCancelOnPress: () {
                                             Navigator.of(context).pop();
                                           },
                                           btnCancelText: "No",
                                           btnOkOnPress: () {
-                                            nameTextController.clear();
-                                            flatNumberTextController.clear();
+                                            fNameTextController.clear();
+                                            lNameTextController.clear();
                                             mobileTextController.clear();
+                                            emailTextController.clear();
+                                            passwordTextController.clear();
+                                            addressTextController.clear();
+                                            dobTextController.clear();
                                           },
                                           btnOkText: "Yes",
                                         ).show();
@@ -337,13 +508,13 @@ class AddStaff extends HookConsumerWidget {
                                           0) {
                                         EasyLoading.dismiss();
                                         Fluttertoast.showToast(
-                                            msg: "Staff Added failed !!!",
+                                            msg: "User Added failed !!!",
                                             toastLength: Toast.LENGTH_LONG,
-                                            gravity: ToastGravity.CENTER,
+                                            gravity: ToastGravity.BOTTOM,
                                             timeInSecForIosWeb: 1,
                                             textColor: Colors.white,
                                             backgroundColor: Colors.red,
-                                            fontSize: 30.0);
+                                            fontSize: 15.0);
                                         return ErrorHandlers.errorDialog(
                                             userResponse.data["status"]);
                                       }

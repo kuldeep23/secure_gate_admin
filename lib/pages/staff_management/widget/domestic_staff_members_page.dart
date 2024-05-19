@@ -8,6 +8,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../controllers/user_controller.dart';
 import '../../../entities/staff.dart';
 import '../../../routes/app_routes_constants.dart';
+import '../../homepage/admin_home_page.dart';
 
 final staffMemberProvider = FutureProvider.autoDispose
     .family<List<Staff>, String>((ref, staffType) async {
@@ -345,36 +346,28 @@ class DomesticStaffMembersPage extends HookConsumerWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 5),
                 Column(
                   children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 3,
-                        horizontal: 3,
-                      ),
-                      decoration: BoxDecoration(
-                        color: subtitle == "Inside"
-                            ? const Color(0xffEA7255)
-                            : Colors.grey.shade400,
-                        borderRadius: BorderRadius.circular(
-                          10,
-                        ),
-                      ),
-                      child: Text(
-                        subtitle.toUpperCase(),
-                        style:
-                            const TextStyle(fontSize: 12, color: Colors.white),
-                      ),
-                    ),
                     const SizedBox(height: 5),
-                    Text(
-                      phoneNo,
-                      style: const TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey,
-                      ),
-                    )
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.phone_android_outlined,
+                          size: 15,
+                        ),
+                        const SizedBox(
+                          width: 3,
+                        ),
+                        Text(
+                          phoneNo,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
                 const SizedBox(height: 5),
@@ -383,93 +376,124 @@ class DomesticStaffMembersPage extends HookConsumerWidget {
                   child: Divider(),
                 ),
                 const SizedBox(height: 5),
+                const Text(
+                  "4 Rating",
+                ),
+                const SizedBox(height: 5),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Image(
+                        image: AssetImage("assets/icons/punctuality.png"),
+                        height: 50,
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Image(
+                        image: AssetImage("assets/icons/schedule.png"),
+                        height: 50,
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Image(
+                        image: AssetImage("assets/icons/behavior.png"),
+                        height: 50,
+                      )
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      const Icon(
-                        Icons.logout,
-                        size: 15,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        "${inTime.toUpperCase()}, ",
-                        style: const TextStyle(
-                          fontSize: 16,
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 1,
+                          horizontal: 15,
+                        ),
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 34, 74, 103),
+                          borderRadius: BorderRadius.circular(
+                            10,
+                          ),
+                        ),
+                        child: const Text(
+                          "5",
+                          style: TextStyle(color: Colors.white, fontSize: 15),
                         ),
                       ),
-                      Text(
-                        inDate,
-                        style: const TextStyle(
-                          fontSize: 16,
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 1,
+                          horizontal: 15,
+                        ),
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 34, 74, 103),
+                          borderRadius: BorderRadius.circular(
+                            10,
+                          ),
+                        ),
+                        child: const Text(
+                          "5",
+                          style: TextStyle(color: Colors.white, fontSize: 15),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 1,
+                          horizontal: 15,
+                        ),
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 34, 74, 103),
+                          borderRadius: BorderRadius.circular(
+                            10,
+                          ),
+                        ),
+                        child: const Text(
+                          "5",
+                          style: TextStyle(color: Colors.white, fontSize: 15),
                         ),
                       ),
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      const RotatedBox(
-                        quarterTurns: 2,
-                        child: Icon(
-                          Icons.logout,
-                          size: 15,
-                        ),
+                      Text(
+                        "Punctual",
+                        style: TextStyle(color: Colors.grey, fontSize: 15),
                       ),
-                      const SizedBox(
-                        width: 5,
+                      SizedBox(
+                        width: 17,
                       ),
                       Text(
-                          outTime.isEmpty
-                              ? "Still Inside"
-                              : "${outTime.toUpperCase()}, ",
-                          style: const TextStyle(
-                            fontSize: 16,
-                          )),
-                      Text(outDate,
-                          style: const TextStyle(
-                            fontSize: 16,
-                          ))
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.person_outline,
-                        size: 15,
+                        "Regular",
+                        style: TextStyle(color: Colors.grey, fontSize: 15),
                       ),
-                      const SizedBox(
-                        width: 5,
+                      SizedBox(
+                        width: 20,
                       ),
-                      Text("Allowed by $allowedBy",
-                          style: const TextStyle(
-                            fontSize: 16,
-                          )),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.store,
-                        size: 15,
+                      Text(
+                        "Service",
+                        style: TextStyle(color: Colors.grey, fontSize: 15),
                       ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(visitorTypeDetail,
-                          style: const TextStyle(
-                            fontSize: 16,
-                          )),
                     ],
                   ),
                 ),
@@ -490,25 +514,60 @@ class DomesticStaffMembersPage extends HookConsumerWidget {
                     },
                     btnOkText: "Yes",
                   ).show(),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    decoration: const BoxDecoration(
-                      color: Color(0xffFF6663),
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(
-                          20,
-                        ),
-                        bottomRight: Radius.circular(
-                          20,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          decoration: const BoxDecoration(
+                            color: Color(0xffFF6663),
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(
+                                20,
+                              ),
+                            ),
+                          ),
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.phone,
+                                color: Colors.white,
+                              ),
+                              Text("Call Staff",
+                                  style: TextStyle(color: Colors.white))
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    child: const Center(
-                      child: Icon(
-                        Icons.phone,
-                        color: Colors.white,
+                      Expanded(
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          decoration: const BoxDecoration(
+                            color: Color(0xffFF6663),
+                            borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(
+                                20,
+                              ),
+                            ),
+                          ),
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.phone,
+                                color: Colors.white,
+                              ),
+                              Text(
+                                "Call User",
+                                style: TextStyle(color: Colors.white),
+                              )
+                            ],
+                          ),
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                 ),
               ],

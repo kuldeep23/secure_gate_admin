@@ -72,4 +72,7 @@ flutter:
     - assets/icons/remove-user.png
     - assets/icons/staff-list.png
     - assets/icons/user-list.png
+    - assets/icons/punctuality.png
+    - assets/icons/schedule.png
+    - assets/icons/behavior.png
     - assets/mt_list.json

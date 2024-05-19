@@ -60,7 +60,7 @@ class StaffServices implements BaseStaffService {
   Future<void> staffEnter(String staffId, String socCode) async {
     EasyLoading.show();
     final guardName =
-        ref.watch(userControllerProvider).currentUser!.ownerFirstName;
+        ref.watch(userControllerProvider).currentUser!.userFirstName;
     try {
       final formData = FormData.fromMap(
           {"staff_id": staffId, "soc_code": socCode, "guard_name": guardName});
@@ -134,7 +134,7 @@ class StaffServices implements BaseStaffService {
     EasyLoading.show();
 
     final guardName =
-        ref.watch(userControllerProvider).currentUser!.ownerFirstName;
+        ref.watch(userControllerProvider).currentUser!.userFirstName;
     try {
       final formData = FormData.fromMap({
         "staff_uid": staffuid,
@@ -208,9 +208,9 @@ class StaffServices implements BaseStaffService {
   Future<void> staffRemove(String staffuid) async {
     try {
       final userfName =
-          ref.watch(userControllerProvider).currentUser!.ownerFirstName;
+          ref.watch(userControllerProvider).currentUser!.userFirstName;
       final userlName =
-          ref.watch(userControllerProvider).currentUser!.ownerLastName;
+          ref.watch(userControllerProvider).currentUser!.userLastName;
       final formData = FormData.fromMap(
           {"uid": staffuid, "name_remove": "$userfName $userlName"});
 

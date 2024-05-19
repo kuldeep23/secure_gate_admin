@@ -28,7 +28,7 @@ class AuthenticationSerivce implements BaseAuthenticationService {
           FormData.fromMap({"mobile_no": mobileNo, "password": password});
 
       final userResponse = await _dio.post(
-        "https://gatesadmin.000webhostapp.com/admin_login.php",
+        "https://gatesadmin.000webhostapp.com/admin_user.php",
         data: formData,
       );
       if (userResponse.data["code"] == "100") {

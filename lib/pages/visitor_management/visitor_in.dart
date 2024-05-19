@@ -1,18 +1,19 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:secure_gates_admin/pages/auth_exception_handler.dart';
+import 'package:secure_gates_admin/pages/visitor_management/widget/vertical_divider_widget.dart';
 import 'package:secure_gates_admin/utils/pick_new_image.dart';
 import 'package:secure_gates_admin/widgets/rounded_button.dart';
 import 'package:secure_gates_admin/widgets/rounded_text_field.dart';
@@ -178,9 +179,7 @@ class VisitorIn extends HookConsumerWidget {
                           height: 10,
                         ),
                         Visibility(
-                          visible: visitorTypeValue.value == "Delivery"
-                              ? true
-                              : false,
+                          visible: visitorTypeValue.value == "Delivery",
                           child: InputDecorator(
                             decoration: InputDecoration(
                                 labelText: "Visitor Detail",
@@ -277,6 +276,9 @@ class VisitorIn extends HookConsumerWidget {
                                             userResponse.data["Visitor-data"]
                                                 [0]);
 
+                                        print(responseVisitor);
+                                        // timerDialog(context);
+
                                         // ignore: use_build_context_synchronously
                                         quickDialogue(
                                           callBack: () {},
@@ -285,52 +287,24 @@ class VisitorIn extends HookConsumerWidget {
                                           ownerName:
                                               flatMateData["Owner_First_Name"],
                                           imageUrl: flatMateData["Owner_Image"],
+                                          userNo:
+                                              flatMateData["Contact_Number"],
                                           visitormobile:
                                               flatMateData["Owner_First_Name"],
+                                          // ignore: use_build_context_synchronously
                                           context: context,
                                           token: flatMateData["FB_Id"],
                                           visitor: responseVisitor,
-                                          outTime: flatMateData[
-                                                  "Owner_First_Name"] ??
-                                              "Still Inside",
-                                          outDate: flatMateData[
-                                                  "Owner_First_Name"] ??
-                                              "Still Inside",
-                                          allowedBy:
-                                              flatMateData["Owner_First_Name"],
-                                          visitorTypeDetail:
-                                              flatMateData["Owner_First_Name"],
-                                          flatNo:
-                                              flatMateData["Owner_First_Name"],
+                                          flatBlock: flatMateData["Flat_Block"],
+                                          ownerType:
+                                              flatMateData["Owner_Tenant"],
+                                          visitorTypeDetail: visitorTypeValue
+                                                      .value ==
+                                                  "Delivery"
+                                              ? flatMateData["Owner_First_Name"]
+                                              : "...",
+                                          flatNo: flatMateData["Flat_Number"],
                                         );
-                                        // await FlutterTts().setLanguage("en-Us");
-                                        // await FlutterTts().setVolume(1.0);
-                                        // await FlutterTts().setSpeechRate(0.5);
-                                        // await FlutterTts().setPitch(1.0);
-                                        // await FlutterTts().speak(
-                                        //     "Visitor Enter Successfully");
-                                        // ignore: use_build_context_synchronously
-
-                                        // AwesomeDialog(
-                                        //   context: context,
-                                        //   transitionAnimationDuration:
-                                        //       const Duration(milliseconds: 400),
-                                        //   dialogType: DialogType.question,
-                                        //   animType: AnimType.scale,
-                                        //   title: "Visitor Entered Successfully",
-                                        //   desc:
-                                        //       "Do you want to enter more visitor ?",
-                                        //   btnCancelOnPress: () {
-                                        //     Navigator.of(context).pop();
-                                        //   },
-                                        //   btnCancelText: "No",
-                                        //   btnOkOnPress: () {
-                                        //     nameTextController.clear();
-                                        //     flatNumberTextController.clear();
-                                        //     mobileTextController.clear();
-                                        //   },
-                                        //   btnOkText: "Yes",
-                                        // ).show();
                                       } else if (userResponse.data["status"] ==
                                           "0") {
                                             EasyLoading.dismiss();
@@ -385,7 +359,7 @@ class VisitorIn extends HookConsumerWidget {
   }
 }
 
-Future<void> quickDialogue({
+void quickDialogue({
   Color dialogueThemeColor = const Color(0xffFF6663),
   required void Function() callBack,
   String discardTitle = 'Cancel',
@@ -397,289 +371,368 @@ Future<void> quickDialogue({
   required BuildContext context,
   required String imageUrl,
   required String token,
-  required String outTime,
   required String visitormobile,
-  required String outDate,
-  required String allowedBy,
+  required String flatBlock,
+  required String ownerType,
   required String visitorTypeDetail,
+  required String userNo,
   required String flatNo,
-}) async {
-  await showAnimatedDialog(
-    duration: const Duration(milliseconds: 600),
-    barrierDismissible: true,
-    barrierColor: Colors.black.withOpacity(0.85),
-    animationType: DialogTransitionType.fadeScale,
-    context: context,
-    builder: (context) {
-      return Theme(
-        data: Theme.of(context).copyWith(dialogBackgroundColor: Colors.white),
-        child: AlertDialog(
-          contentPadding: const EdgeInsets.all(0.0),
-          //insetPadding: EdgeInsets.all(5),
-          titlePadding: const EdgeInsets.all(10),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          title: SizedBox(
-            width: 800,
-            child: Column(
-              children: [
-                Transform.translate(
-                  offset: const Offset(0, -50),
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+}) {
+  showGeneralDialog(
+      transitionDuration: const Duration(milliseconds: 400),
+      barrierDismissible: true,
+      barrierLabel: "Heyyy",
+      barrierColor: Colors.black.withOpacity(0.85),
+      context: context,
+      pageBuilder: (context, anime1, anime2) {
+        return Container();
+      },
+      transitionBuilder: (context, a1, a2, widget) {
+        return ScaleTransition(
+          scale: Tween(begin: 0.5, end: 1.0).animate(a1),
+          child: FadeTransition(
+            opacity: Tween(begin: 0.5, end: 1.0).animate(a1),
+            child: Theme(
+              data: Theme.of(context)
+                  .copyWith(dialogBackgroundColor: Colors.white),
+              child: AlertDialog(
+                contentPadding: const EdgeInsets.all(0.0),
+                //insetPadding: EdgeInsets.all(5),
+                titlePadding: const EdgeInsets.all(10),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                title: SizedBox(
+                  width: 800,
+                  child: Column(
                     children: [
-                      Icon(
-                        Icons.close,
-                        color: Colors.white,
-                        size: 25,
+                      Transform.translate(
+                        offset: const Offset(0, -50),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Icon(
+                              Icons.close,
+                              color: Colors.white,
+                              size: 25,
+                            ),
+                            Text(
+                              "Flat Owner Details",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            SizedBox(
+                              width: 25,
+                            ),
+                          ],
+                        ),
                       ),
-                      Text(
-                        "Flat Owner Details",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      SizedBox(
-                        width: 25,
+                      ClipRRect(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(50)),
+                        child: Image.network(
+                          imageUrl,
+                          height: 100,
+                          width: 100,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ],
                   ),
                 ),
-                ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(50)),
-                  child: Image.network(
-                    imageUrl,
-                    height: 100,
-                    width: 100,
-                    fit: BoxFit.cover,
-                  ),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          ownerName,
+                          style: const TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 5),
+                    Column(
+                      children: [
+                        Text(
+                          userNo,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey,
+                          ),
+                        )
+                      ],
+                    ),
+                    const SizedBox(height: 5),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: Divider(),
+                    ),
+                    const SizedBox(height: 5),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.logout,
+                            size: 15,
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            flatNo,
+                            style: const TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.person_outline,
+                            size: 15,
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Text(ownerType,
+                              style: const TextStyle(
+                                fontSize: 16,
+                              )),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.store,
+                            size: 15,
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Text(flatBlock,
+                              style: const TextStyle(
+                                fontSize: 16,
+                              )),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: InkWell(
+                            onTap: () {
+                              // AwesomeDialog(
+                              //   context: context,
+                              //   transitionAnimationDuration:
+                              //       const Duration(milliseconds: 400),
+                              //   dialogType: DialogType.question,
+                              //   animType: AnimType.scale,
+                              //   title: "Call Visitor",
+                              //   desc: "Do you really want to call visitor ?",
+                              //   btnCancelOnPress: () {},
+                              //   btnCancelText: "No",
+                              //   btnOkOnPress: () {
+                              //     FlutterPhoneDirectCaller.callNumber(
+                              //         '+91$visitormobile');
+                              //   },
+                              //   btnOkText: "Yes",
+                              // ).show();
+                              timerDialog(context);
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              decoration: const BoxDecoration(
+                                color: Color(0xffFF6663),
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(20),
+                                ),
+                                // gradient: gradient.LinearGradient(
+                                //   colors: [
+                                //     Color(0xffFF6663),
+                                //     Color(0xff0083B0),
+                                //   ],
+                                //   begin: Alignment.topCenter, //begin of the gradient color
+                                //   end: Alignment.bottomCenter, //end of the gradient color
+                                //   //stops for individual color
+                                //   //set the stops number equal to numbers of color
+                                // ),
+                              ),
+                              child: const Center(
+                                child: Icon(
+                                  Icons.phone,
+                                  color: Colors.white,
+                                  size: 26,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const VerticallyDivider(),
+                        Expanded(
+                          child: InkWell(
+                            onTap: () async {
+                              final data = {
+                                "message": {
+                                  "token": token,
+                                  "notification": {
+                                    "title": "NOTIFICATION ALERT",
+                                    "body": "Visitor Confirmation",
+                                    "image": visitor.visitorImage
+                                  },
+                                  "data": {
+                                    "name": visitor.visitorName,
+                                    "image": visitor.visitorImage,
+                                    "id": visitor.visitorId,
+                                    "soc_code": visitor.socCode,
+                                    "visitor_type_detail":
+                                        visitor.visitorTypeDetail,
+                                    "visitor_type": visitor.visitorType,
+                                    "visitor_mobile": visitor.visitorMobile,
+                                    "visitor_flat_no": visitor.visitorFlatNo,
+                                  },
+                                }
+                              };
+                              final response = await Dio().post(
+                                "https://te724vu3fz4hwt23vnl4koewhy0pvxxo.lambda-url.ap-south-1.on.aws/",
+                                data: data,
+                              );
+
+                              print(response.data["eventData"]);
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              decoration: const BoxDecoration(
+                                color: Color(0xffFF6663),
+                                // gradient: gradient.LinearGradient(
+                                //   colors: [
+                                //     Color(0xffFF6663),
+                                //     Color(0xff0083B0),
+                                //   ],
+                                //   begin: Alignment.topCenter, //begin of the gradient color
+                                //   end: Alignment.bottomCenter, //end of the gradient color
+                                //   //stops for individual color
+                                //   //set the stops number equal to numbers of color
+                                // ),
+
+                                borderRadius: BorderRadius.only(
+                                  bottomRight: Radius.circular(
+                                    20,
+                                  ),
+                                ),
+                              ),
+                              child: const Center(
+                                child: Text(
+                                  "Notify User",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    ownerName,
-                    style: const TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 5),
-              Column(
-                children: [
-                  Text(
-                    flatNo,
-                    style: const TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey,
-                    ),
-                  )
-                ],
-              ),
-              const SizedBox(height: 5),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Divider(),
-              ),
-              const SizedBox(height: 5),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.logout,
-                      size: 15,
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      "token",
-                      style: TextStyle(
-                        fontSize: 16,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  children: [
-                    const RotatedBox(
-                      quarterTurns: 2,
-                      child: Icon(
-                        Icons.logout,
-                        size: 15,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                        outTime.isEmpty
-                            ? "Still Inside"
-                            : "${outTime.toUpperCase()}, ",
-                        style: const TextStyle(
-                          fontSize: 16,
-                        )),
-                    Text(outDate,
-                        style: const TextStyle(
-                          fontSize: 16,
-                        ))
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.person_outline,
-                      size: 15,
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Text("Allowed by $allowedBy",
-                        style: const TextStyle(
-                          fontSize: 16,
-                        )),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.store,
-                      size: 15,
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Text(visitorTypeDetail,
-                        style: const TextStyle(
-                          fontSize: 16,
-                        )),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 7),
-              InkWell(
-                onTap: () => AwesomeDialog(
-                  context: context,
-                  transitionAnimationDuration:
-                      const Duration(milliseconds: 400),
-                  dialogType: DialogType.question,
-                  animType: AnimType.scale,
-                  title: "Call Visitor",
-                  desc: "Do you really want to call visitor ?",
-                  btnCancelOnPress: () {},
-                  btnCancelText: "No",
-                  btnOkOnPress: () {
-                    FlutterPhoneDirectCaller.callNumber('+91$visitormobile');
-                  },
-                  btnOkText: "Yes",
-                ).show(),
-                child: Container(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  decoration: const BoxDecoration(
-                    color: Color(0xffFF6663),
-                    // gradient: gradient.LinearGradient(
-                    //   colors: [
-                    //     Color(0xffFF6663),
-                    //     Color(0xff0083B0),
-                    //   ],
-                    //   begin: Alignment.topCenter, //begin of the gradient color
-                    //   end: Alignment.bottomCenter, //end of the gradient color
-                    //   //stops for individual color
-                    //   //set the stops number equal to numbers of color
-                    // ),
-                  ),
-                  child: const Center(
-                    child: Icon(
-                      Icons.phone,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-              InkWell(
-                onTap: () async {
-                  final data = {
-                    "message": {
-                      "token": token,
-                      "notification": {
-                        "title": "NOTIFICATION ALERT",
-                        "body": "Visitor Confirmation",
-                        "image": imageUrl
-                      },
-                      "data": {
-                        "name": visitor.visitorName,
-                        "image": visitor.visitorImage,
-                        "id": visitor.visitorId,
-                        "soc_code": visitor.socCode,
-                        "visitor_type_detail": visitor.visitorTypeDetail,
-                        "visitor_type": visitor.visitorType,
-                        "visitor_mobile": visitor.visitorMobile,
-                        "visitor_flat_no": visitor.visitorFlatNo,
-                      },
-                    }
-                  };
-                  final response = await Dio().post(
-                    "https://te724vu3fz4hwt23vnl4koewhy0pvxxo.lambda-url.ap-south-1.on.aws/",
-                    data: data,
-                  );
+        );
+      });
+}
 
-                  //  print(response.data["eventData"]);
-                },
-                child: Container(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  decoration: const BoxDecoration(
-                    color: Color(0xffFF6663),
-                    // gradient: gradient.LinearGradient(
-                    //   colors: [
-                    //     Color(0xffFF6663),
-                    //     Color(0xff0083B0),
-                    //   ],
-                    //   begin: Alignment.topCenter, //begin of the gradient color
-                    //   end: Alignment.bottomCenter, //end of the gradient color
-                    //   //stops for individual color
-                    //   //set the stops number equal to numbers of color
-                    // ),
-
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(
-                        20,
+void timerDialog(BuildContext context) {
+  showGeneralDialog(
+      transitionDuration: const Duration(milliseconds: 400),
+      // barrierDismissible: true,
+      barrierColor: Colors.black.withOpacity(0.85),
+      context: context,
+      pageBuilder: (context, animation1, animation2) {
+        return Container();
+      },
+      transitionBuilder: (context, a1, a2, widget) {
+        return ScaleTransition(
+          scale: Tween(begin: 0.5, end: 1.0).animate(a1),
+          child: FadeTransition(
+            opacity: Tween(begin: 0.5, end: 1.0).animate(a1),
+            child: Theme(
+              data: Theme.of(context)
+                  .copyWith(dialogBackgroundColor: Colors.white),
+              child: AlertDialog(
+                contentPadding: const EdgeInsets.all(0.0),
+                //insetPadding: EdgeInsets.all(5),
+                titlePadding: const EdgeInsets.all(10),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                title: SizedBox(
+                  width: 800,
+                  child: Column(
+                    children: [
+                      CircularCountDownTimer(
+                        duration: 15,
+                        initialDuration: 0,
+                        controller: CountDownController(),
+                        width: MediaQuery.of(context).size.width / 2,
+                        height: MediaQuery.of(context).size.height / 2,
+                        ringColor: Colors.grey[300]!,
+                        ringGradient: null,
+                        fillColor: Colors.purpleAccent[100]!,
+                        fillGradient: null,
+                        backgroundColor: Colors.purple[500],
+                        backgroundGradient: null,
+                        strokeWidth: 20.0,
+                        strokeCap: StrokeCap.round,
+                        textStyle: const TextStyle(
+                            fontSize: 33.0,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                        textFormat: CountdownTextFormat.S,
+                        isReverse: false,
+                        isReverseAnimation: false,
+                        isTimerTextShown: true,
+                        autoStart: true,
+                        onStart: () {
+                          debugPrint('Countdown Started');
+                        },
+                        onComplete: () {
+                          context.pop();
+                        },
+                        onChange: (String timeStamp) {
+                          debugPrint('Countdown Changed $timeStamp');
+                        },
+                        timeFormatterFunction:
+                            (defaultFormatterFunction, duration) {
+                          if (duration.inSeconds == 0) {
+                            return "Wait..";
+                          } else {
+                            return Function.apply(
+                                defaultFormatterFunction, [duration]);
+                          }
+                        },
                       ),
-                      bottomRight: Radius.circular(
-                        20,
-                      ),
-                    ),
-                  ),
-                  child: const Center(
-                    child: Text(
-                      "Send Notification to Verifiy",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                      ),
-                    ),
+                    ],
                   ),
                 ),
               ),
-            ],
+            ),
           ),
-        ),
-      );
-    },
-  );
+        );
+      });
 }

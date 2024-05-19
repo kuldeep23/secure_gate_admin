@@ -1,13 +1,11 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:secure_gates_admin/pages/visitor_management/widget/vertical_divider_widget.dart';
 import 'package:secure_gates_admin/services/staff_services.dart';
-
 
 class UserListCard extends HookConsumerWidget {
   UserListCard({
@@ -239,7 +237,6 @@ class UserListCard extends HookConsumerWidget {
                                 ),
                               ],
                             ),
-                            
                           ],
                         ),
                       ),
@@ -265,8 +262,7 @@ class UserListCard extends HookConsumerWidget {
                       },
                       btnCancelText: "No",
                       btnOkOnPress: () {
-                        FlutterPhoneDirectCaller.callNumber(
-                            '+91$userNumber');
+                        FlutterPhoneDirectCaller.callNumber('+91$userNumber');
                       },
                       btnOkText: "Yes",
                     ).show(),
@@ -460,267 +456,278 @@ class UserListCard extends HookConsumerWidget {
     required String visitorTypeDetail,
     required String phoneNo,
   }) async {
-    await showAnimatedDialog(
-      duration: const Duration(milliseconds: 600),
+    await showGeneralDialog(
+      transitionDuration: const Duration(milliseconds: 600),
       barrierDismissible: true,
       barrierColor: Colors.black.withOpacity(0.85),
-      animationType: DialogTransitionType.fadeScale,
       context: context,
-      builder: (context) {
-        return Theme(
-          data: Theme.of(context).copyWith(dialogBackgroundColor: Colors.white),
-          child: AlertDialog(
-            contentPadding: const EdgeInsets.all(0.0),
-            //insetPadding: EdgeInsets.all(5),
-            titlePadding: const EdgeInsets.all(10),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            title: SizedBox(
-              width: 800,
-              child: Column(
-                children: [
-                  Transform.translate(
-                    offset: const Offset(0, -50),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Icon(
-                          Icons.close,
-                          color: Colors.white,
-                          size: 25,
-                        ),
-                        Text(
-                          visitorType,
-                          style: const TextStyle(color: Colors.white),
-                        ),
-                        const SizedBox(
-                          width: 25,
-                        ),
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      /* Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              HeroPhotoViewRouteWrapper(imageProvider: image),
-                        ),
-                      ); */
-                    },
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.all(Radius.circular(50)),
-                      child: Hero(
-                        tag: image,
-                        child: Image(
-                          image: image,
-                          height: 100,
-                          width: 100,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        fontSize: 16,
-                      ),
-                    ),
-                  ],
+      pageBuilder: (context, a1, a2) {
+        return Container();
+      },
+      transitionBuilder: (context, a1, a2, widget) {
+        return ScaleTransition(
+          scale: Tween(begin: 0.5, end: 1.0).animate(a1),
+          child: FadeTransition(
+            opacity: Tween(begin: 0.5, end: 1.0).animate(a1),
+            child: Theme(
+              data: Theme.of(context)
+                  .copyWith(dialogBackgroundColor: Colors.white),
+              child: AlertDialog(
+                contentPadding: const EdgeInsets.all(0.0),
+                //insetPadding: EdgeInsets.all(5),
+                titlePadding: const EdgeInsets.all(10),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
                 ),
-                const SizedBox(height: 5),
-                Column(
+                title: SizedBox(
+                  width: 800,
+                  child: Column(
+                    children: [
+                      Transform.translate(
+                        offset: const Offset(0, -50),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Icon(
+                              Icons.close,
+                              color: Colors.white,
+                              size: 25,
+                            ),
+                            Text(
+                              visitorType,
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                            const SizedBox(
+                              width: 25,
+                            ),
+                          ],
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          /* Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  HeroPhotoViewRouteWrapper(imageProvider: image),
+                            ),
+                          ); */
+                        },
+                        child: ClipRRect(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(50)),
+                          child: Hero(
+                            tag: image,
+                            child: Image(
+                              image: image,
+                              height: 100,
+                              width: 100,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
-                          Icons.phone_android_outlined,
-                          size: 14,
-                          color: Colors.grey[600],
-                        ),
                         Text(
-                          phoneNo,
+                          title,
                           style: const TextStyle(
-                            fontSize: 13,
-                            color: Colors.grey,
+                            fontSize: 16,
                           ),
                         ),
                       ],
-                    )
+                    ),
+                    const SizedBox(height: 5),
+                    Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.phone_android_outlined,
+                              size: 14,
+                              color: Colors.grey[600],
+                            ),
+                            Text(
+                              phoneNo,
+                              style: const TextStyle(
+                                fontSize: 13,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                    const SizedBox(height: 5),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: Divider(),
+                    ),
+                    const SizedBox(height: 5),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.check_circle_outline,
+                            size: 14,
+                            color: Colors.grey[600],
+                          ),
+                          const SizedBox(
+                            width: 2,
+                          ),
+                          Text(
+                            "Last Enter By $userFirstName",
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey[600],
+                              height: 1.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.logout,
+                            size: 14,
+                            color: Colors.grey[600],
+                          ),
+                          const SizedBox(
+                            width: 2,
+                          ),
+                          Text(
+                            "oik",
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey[600],
+                              height: 1.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.check_circle_outline,
+                            size: 14,
+                            color: Colors.grey[600],
+                          ),
+                          const SizedBox(
+                            width: 2,
+                          ),
+                          Text(
+                            "Last Exit By ",
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey[600],
+                              height: 1.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        children: [
+                          RotatedBox(
+                            quarterTurns: 2,
+                            child: Icon(
+                              Icons.logout,
+                              size: 14,
+                              color: Colors.grey[600],
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 2,
+                          ),
+                          Text(
+                            "ok",
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey[600],
+                              height: 1.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 7),
+                    InkWell(
+                      onTap: () => AwesomeDialog(
+                        context: context,
+                        transitionAnimationDuration:
+                            const Duration(milliseconds: 400),
+                        dialogType: DialogType.question,
+                        animType: AnimType.scale,
+                        title: "Call $userRole",
+                        desc: "Do you really want to call $userFirstName ?",
+                        btnCancelOnPress: () {},
+                        btnCancelText: "No",
+                        btnOkOnPress: () {
+                          FlutterPhoneDirectCaller.callNumber(
+                              '+91$visitormobile');
+                        },
+                        btnOkText: "Yes",
+                      ).show(),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        decoration: const BoxDecoration(
+                          color: Color(0xffFF6663),
+                          // gradient: gradient.LinearGradient(
+                          //   colors: [
+                          //     Color(0xffFF6663),
+                          //     Color(0xff0083B0),
+                          //   ],
+                          //   begin: Alignment.topCenter, //begin of the gradient color
+                          //   end: Alignment.bottomCenter, //end of the gradient color
+                          //   //stops for individual color
+                          //   //set the stops number equal to numbers of color
+                          // ),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(
+                              20,
+                            ),
+                            bottomRight: Radius.circular(
+                              20,
+                            ),
+                          ),
+                        ),
+                        child: const Center(
+                          child: Icon(
+                            Icons.phone,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
-                const SizedBox(height: 5),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Divider(),
-                ),
-                const SizedBox(height: 5),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.check_circle_outline,
-                        size: 14,
-                        color: Colors.grey[600],
-                      ),
-                      const SizedBox(
-                        width: 2,
-                      ),
-                      Text(
-                        "Last Enter By $userFirstName",
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey[600],
-                          height: 1.0,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.logout,
-                        size: 14,
-                        color: Colors.grey[600],
-                      ),
-                      const SizedBox(
-                        width: 2,
-                      ),
-                      Text(
-                        "oik",
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey[600],
-                          height: 1.0,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.check_circle_outline,
-                        size: 14,
-                        color: Colors.grey[600],
-                      ),
-                      const SizedBox(
-                        width: 2,
-                      ),
-                      Text(
-                        "Last Exit By ",
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey[600],
-                          height: 1.0,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    children: [
-                      RotatedBox(
-                        quarterTurns: 2,
-                        child: Icon(
-                          Icons.logout,
-                          size: 14,
-                          color: Colors.grey[600],
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 2,
-                      ),
-                      Text(
-                        "ok",
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey[600],
-                          height: 1.0,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 7),
-                InkWell(
-                  onTap: () => AwesomeDialog(
-                    context: context,
-                    transitionAnimationDuration:
-                        const Duration(milliseconds: 400),
-                    dialogType: DialogType.question,
-                    animType: AnimType.scale,
-                    title: "Call $userRole",
-                    desc: "Do you really want to call $userFirstName ?",
-                    btnCancelOnPress: () {},
-                    btnCancelText: "No",
-                    btnOkOnPress: () {
-                      FlutterPhoneDirectCaller.callNumber('+91$visitormobile');
-                    },
-                    btnOkText: "Yes",
-                  ).show(),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    decoration: const BoxDecoration(
-                      color: Color(0xffFF6663),
-                      // gradient: gradient.LinearGradient(
-                      //   colors: [
-                      //     Color(0xffFF6663),
-                      //     Color(0xff0083B0),
-                      //   ],
-                      //   begin: Alignment.topCenter, //begin of the gradient color
-                      //   end: Alignment.bottomCenter, //end of the gradient color
-                      //   //stops for individual color
-                      //   //set the stops number equal to numbers of color
-                      // ),
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(
-                          20,
-                        ),
-                        bottomRight: Radius.circular(
-                          20,
-                        ),
-                      ),
-                    ),
-                    child: const Center(
-                      child: Icon(
-                        Icons.phone,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
         );

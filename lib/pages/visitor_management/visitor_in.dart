@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
@@ -276,38 +278,56 @@ class VisitorIn extends HookConsumerWidget {
                                             userResponse.data["Visitor-data"]
                                                 [0]);
 
-                                        print(responseVisitor);
-                                        // timerDialog(context);
+                                        if (flatMateData[
+                                                "Is_Notification_Active"] ==
+                                            "1") {
+                                          print(responseVisitor);
+                                          // timerDialog(context);
 
-                                        // ignore: use_build_context_synchronously
-                                        quickDialogue(
-                                          callBack: () {},
-                                          subtitle:
-                                              flatMateData["Owner_First_Name"],
-                                          ownerName:
-                                              flatMateData["Owner_First_Name"],
-                                          imageUrl: flatMateData["Owner_Image"],
-                                          userNo:
-                                              flatMateData["Contact_Number"],
-                                          visitormobile:
-                                              flatMateData["Owner_First_Name"],
                                           // ignore: use_build_context_synchronously
-                                          context: context,
-                                          token: flatMateData["FB_Id"],
-                                          visitor: responseVisitor,
-                                          flatBlock: flatMateData["Flat_Block"],
-                                          ownerType:
-                                              flatMateData["Owner_Tenant"],
-                                          visitorTypeDetail: visitorTypeValue
-                                                      .value ==
-                                                  "Delivery"
-                                              ? flatMateData["Owner_First_Name"]
-                                              : "...",
-                                          flatNo: flatMateData["Flat_Number"],
-                                        );
+                                          quickDialogue(
+                                            callBack: () {},
+                                            subtitle: flatMateData[
+                                                "Owner_First_Name"],
+                                            ownerName: flatMateData[
+                                                "Owner_First_Name"],
+                                            imageUrl:
+                                                flatMateData["Owner_Image"],
+                                            userNo:
+                                                flatMateData["Contact_Number"],
+                                            visitormobile: flatMateData[
+                                                "Owner_First_Name"],
+                                            // ignore: use_build_context_synchronously
+                                            context: context,
+                                            token: flatMateData["FB_Id"],
+                                            visitor: responseVisitor,
+                                            flatBlock:
+                                                flatMateData["Flat_Block"],
+                                            ownerType:
+                                                flatMateData["Owner_Tenant"],
+                                            visitorTypeDetail:
+                                                visitorTypeValue.value ==
+                                                        "Delivery"
+                                                    ? flatMateData[
+                                                        "Owner_First_Name"]
+                                                    : "...",
+                                            flatNo: flatMateData["Flat_Number"],
+                                          );
+                                        } else {
+                                          Fluttertoast.showToast(
+                                            msg:
+                                                "Visitor Entered without auth !!!",
+                                            toastLength: Toast.LENGTH_LONG,
+                                            gravity: ToastGravity.BOTTOM,
+                                            timeInSecForIosWeb: 1,
+                                            textColor: Colors.white,
+                                            backgroundColor: Colors.red,
+                                            fontSize: 17,
+                                          );
+                                        }
                                       } else if (userResponse.data["status"] ==
                                           "0") {
-                                            EasyLoading.dismiss();
+                                        EasyLoading.dismiss();
                                         Fluttertoast.showToast(
                                             msg: "Visitor Enter faied !!!",
                                             toastLength: Toast.LENGTH_LONG,
@@ -535,23 +555,23 @@ void quickDialogue({
                         Expanded(
                           child: InkWell(
                             onTap: () {
-                              // AwesomeDialog(
-                              //   context: context,
-                              //   transitionAnimationDuration:
-                              //       const Duration(milliseconds: 400),
-                              //   dialogType: DialogType.question,
-                              //   animType: AnimType.scale,
-                              //   title: "Call Visitor",
-                              //   desc: "Do you really want to call visitor ?",
-                              //   btnCancelOnPress: () {},
-                              //   btnCancelText: "No",
-                              //   btnOkOnPress: () {
-                              //     FlutterPhoneDirectCaller.callNumber(
-                              //         '+91$visitormobile');
-                              //   },
-                              //   btnOkText: "Yes",
-                              // ).show();
-                              timerDialog(context);
+                              AwesomeDialog(
+                                context: context,
+                                transitionAnimationDuration:
+                                    const Duration(milliseconds: 400),
+                                dialogType: DialogType.question,
+                                animType: AnimType.scale,
+                                title: "Call Visitor",
+                                desc: "Do you really want to call visitor ?",
+                                btnCancelOnPress: () {},
+                                btnCancelText: "No",
+                                btnOkOnPress: () {
+                                  FlutterPhoneDirectCaller.callNumber(
+                                      '+91$visitormobile');
+                                },
+                                btnOkText: "Yes",
+                              ).show();
+                              // timerDialog(context);
                             },
                             child: Container(
                               padding: const EdgeInsets.symmetric(vertical: 10),
@@ -585,6 +605,7 @@ void quickDialogue({
                         Expanded(
                           child: InkWell(
                             onTap: () async {
+                              EasyLoading.show();
                               final data = {
                                 "message": {
                                   "token": token,
@@ -610,6 +631,11 @@ void quickDialogue({
                                 "https://te724vu3fz4hwt23vnl4koewhy0pvxxo.lambda-url.ap-south-1.on.aws/",
                                 data: data,
                               );
+
+                              EasyLoading.dismiss();
+                              if (context.mounted) {
+                                timerDialog(context: context, visitor: visitor);
+                              }
 
                               print(response.data["eventData"]);
                             },
@@ -657,11 +683,11 @@ void quickDialogue({
       });
 }
 
-void timerDialog(BuildContext context) {
+void timerDialog({required BuildContext context, required Visitor visitor}) {
   showGeneralDialog(
       transitionDuration: const Duration(milliseconds: 400),
       // barrierDismissible: true,
-      barrierColor: Colors.black.withOpacity(0.85),
+      barrierColor: Colors.black.withOpacity(0.65),
       context: context,
       pageBuilder: (context, animation1, animation2) {
         return Container();
@@ -685,17 +711,24 @@ void timerDialog(BuildContext context) {
                   width: 800,
                   child: Column(
                     children: [
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          "Wait for the user to allow the visitor",
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
                       CircularCountDownTimer(
                         duration: 15,
                         initialDuration: 0,
                         controller: CountDownController(),
-                        width: MediaQuery.of(context).size.width / 2,
-                        height: MediaQuery.of(context).size.height / 2,
+                        width: MediaQuery.of(context).size.width / 2.6,
+                        height: MediaQuery.of(context).size.height / 2.6,
                         ringColor: Colors.grey[300]!,
                         ringGradient: null,
-                        fillColor: Colors.purpleAccent[100]!,
+                        fillColor: Colors.redAccent[100]!,
                         fillGradient: null,
-                        backgroundColor: Colors.purple[500],
+                        backgroundColor: Colors.redAccent,
                         backgroundGradient: null,
                         strokeWidth: 20.0,
                         strokeCap: StrokeCap.round,
@@ -711,8 +744,37 @@ void timerDialog(BuildContext context) {
                         onStart: () {
                           debugPrint('Countdown Started');
                         },
-                        onComplete: () {
+                        onComplete: () async {
                           context.pop();
+                          EasyLoading.show();
+
+                          final data = FormData.fromMap({
+                            "visitor_id": visitor.visitorId,
+                            "soc_code": visitor.socCode,
+                          });
+                          final Dio dio = Dio();
+                          final response = await dio.post(
+                            "https://gatesadmin.000webhostapp.com/visitor_approval_status.php",
+                            data: data,
+                          );
+                          EasyLoading.dismiss();
+                          final visitorAfterVerification =
+                              response.data["data"][0];
+                          if (visitorAfterVerification[
+                                  "visitor_approve_reject"] ==
+                              "NA") {
+                            Fluttertoast.showToast(
+                                msg: "User Didn't Respond ",
+                                toastLength: Toast.LENGTH_LONG);
+                          }
+                          Fluttertoast.showToast(
+                              msg:
+                                  "User ${visitorAfterVerification["visitor_approve_reject"]}",
+                              toastLength: Toast.LENGTH_LONG);
+
+                          if (context.mounted) {
+                            context.pop();
+                          }
                         },
                         onChange: (String timeStamp) {
                           debugPrint('Countdown Changed $timeStamp');

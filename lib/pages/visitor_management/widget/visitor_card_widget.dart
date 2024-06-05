@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:secure_gates_admin/controllers/user_controller.dart';
 import 'package:secure_gates_admin/pages/visitor_management/widget/responsive_wrap.dart';
 import 'package:secure_gates_admin/pages/visitor_management/widget/vertical_divider_widget.dart';
 import 'package:secure_gates_admin/services/visitor_service.dart';
@@ -342,11 +343,17 @@ class VisitorCard extends HookConsumerWidget {
                     },
                     btnCancelText: "No",
                     btnOkOnPress: () async {
+                      final fname = ref
+                          .watch(userControllerProvider)
+                          .currentUser!
+                          .userFirstName;
+                      final lname = ref
+                          .watch(userControllerProvider)
+                          .currentUser!
+                          .userLastName;
                       await ref
                           .read(visitorServiceProvider)
-                          .visitorout(
-                            visitorid,
-                          )
+                          .visitorout(visitorid, "$fname $lname")
                           .catchError((e, st) {});
                       await FlutterTts().setLanguage("en-Us");
                       await FlutterTts().setVolume(1.0);

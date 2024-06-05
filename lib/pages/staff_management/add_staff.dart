@@ -9,7 +9,6 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:http/http.dart' as http;
 import '../../controllers/user_controller.dart';
 import '../../utils/pick_new_image.dart';
 import '../../widgets/rounded_button.dart';
@@ -43,13 +42,12 @@ final staffType = [
 ];
 
 class AddStaff extends HookConsumerWidget {
-  const AddStaff({Key? key}) : super(key: key);
+  const AddStaff({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    String? dropdownValue;
 
-    final imageCode = useState("");
+    useState("");
     final imageBaseCode = useState("");
     final pickedImage = useState(XFile(""));
     final size = MediaQuery.of(context).size;

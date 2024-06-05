@@ -66,8 +66,8 @@ class RemoveStaffListCard extends HookConsumerWidget {
           context: context,
           inTime: staffCreationDate,
           inDate: staffCreationDate,
-          outTime: staffStatus ?? "Still Inside",
-          outDate: staffStatus ?? "Still Inside",
+          outTime: staffStatus,
+          outDate: staffStatus,
           allowedBy: staffStatus,
           visitorTypeDetail: staffType,
           phoneNo: staffMobileNo,
@@ -483,7 +483,7 @@ class RemoveStaffListCard extends HookConsumerWidget {
   }) async {
     await showGeneralDialog(
       transitionDuration: const Duration(milliseconds: 600),
-      barrierDismissible: true,
+      barrierDismissible: false,
       barrierColor: Colors.black.withOpacity(0.85),
       context: context,
       pageBuilder: (context, a1, a2) {

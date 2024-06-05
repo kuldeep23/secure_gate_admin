@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AddCar extends StatelessWidget {
-  const AddCar({Key? key}) : super(key: key);
+  const AddCar({super.key});
 
   @override
   Widget build(BuildContext context) {

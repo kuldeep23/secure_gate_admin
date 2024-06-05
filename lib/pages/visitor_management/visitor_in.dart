@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -281,7 +280,6 @@ class VisitorIn extends HookConsumerWidget {
                                         if (flatMateData[
                                                 "Is_Notification_Active"] ==
                                             "1") {
-                                          print(responseVisitor);
                                           // timerDialog(context);
 
                                           // ignore: use_build_context_synchronously
@@ -637,7 +635,6 @@ void quickDialogue({
                                 timerDialog(context: context, visitor: visitor);
                               }
 
-                              print(response.data["eventData"]);
                             },
                             child: Container(
                               padding: const EdgeInsets.symmetric(vertical: 10),

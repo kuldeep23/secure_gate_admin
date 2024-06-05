@@ -26,6 +26,7 @@ class RoundedInputField extends StatelessWidget {
             ? <TextInputFormatter>[
                 // for below version 2 use this
                 FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                LengthLimitingTextInputFormatter(10),
 // for version 2 and greater youcan also use this
                 FilteringTextInputFormatter.digitsOnly
               ]

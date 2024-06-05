@@ -45,7 +45,6 @@ class VisitorIn extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final imageBaseCode = useState("");
-    final pickedImage = useState(XFile(""));
     final size = MediaQuery.of(context).size;
     final nameTextController = useTextEditingController();
     final mobileTextController = useTextEditingController();
@@ -96,14 +95,27 @@ class VisitorIn extends HookConsumerWidget {
                           height: 15,
                         ),
                         RoundedSquareButton(
-                            icon: const Icon(
-                              Icons.image,
-                              size: 50,
-                            ),
+                            icon: imageBaseCode.value.isNotEmpty
+                                ? ClipRRect(
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(
+                                        20,
+                                      ),
+                                    ),
+                                    child: Image.memory(
+                                      base64.decode(imageBaseCode.value),
+                                      height: 120,
+                                      width: 120,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  )
+                                : const Icon(
+                                    Icons.image,
+                                    size: 50,
+                                  ),
                             onPress: () async {
                               if (!Platform.isIOS) {
                                 final pickedFile = await pickNewImage(false);
-                                pickedImage.value = XFile(pickedFile.path);
 
                                 final pickedImageInBytes =
                                     await pickedFile.readAsBytes();
@@ -605,25 +617,25 @@ void quickDialogue({
                             onTap: () async {
                               EasyLoading.show();
                               final data = {
-                                "message": {
-                                  "token": token,
-                                  "notification": {
-                                    "title": "NOTIFICATION ALERT",
-                                    "body": "Visitor Confirmation",
-                                    "image": visitor.visitorImage
+                                "fb_ids": [token],
+                                "fcm_payload": {
+                                  "message": {
+                                    "token": token,
+                                    "data": {
+                                      "name": visitor.visitorName,
+                                      "image": visitor.visitorImage,
+                                      "title": "NOTIFICATION ALERT",
+                                      "body": "Visitor Confirmation",
+                                      "id": visitor.visitorId,
+                                      "soc_code": visitor.socCode,
+                                      "visitor_type_detail":
+                                          visitor.visitorTypeDetail,
+                                      "visitor_type": visitor.visitorType,
+                                      "visitor_mobile": visitor.visitorMobile,
+                                      "visitor_flat_no": visitor.visitorFlatNo,
+                                    },
                                   },
-                                  "data": {
-                                    "name": visitor.visitorName,
-                                    "image": visitor.visitorImage,
-                                    "id": visitor.visitorId,
-                                    "soc_code": visitor.socCode,
-                                    "visitor_type_detail":
-                                        visitor.visitorTypeDetail,
-                                    "visitor_type": visitor.visitorType,
-                                    "visitor_mobile": visitor.visitorMobile,
-                                    "visitor_flat_no": visitor.visitorFlatNo,
-                                  },
-                                }
+                                },
                               };
                               final response = await Dio().post(
                                 "https://te724vu3fz4hwt23vnl4koewhy0pvxxo.lambda-url.ap-south-1.on.aws/",

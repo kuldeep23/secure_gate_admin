@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
-import 'package:secure_gates_admin/entities/staff.dart';
 import 'package:secure_gates_admin/entities/user.dart';
 import 'package:secure_gates_admin/pages/guard_management/widget/user_list_card_widget.dart';
-import 'package:secure_gates_admin/pages/staff_management/widget/remove_staff_list_card_widget.dart';
 import 'package:secure_gates_admin/services/guard_services.dart';
-import 'package:secure_gates_admin/services/staff_services.dart';
+
 
 import '../visitor_management/widget/visitor_loading_widget.dart';
 
@@ -17,7 +15,7 @@ final allUserfListDataProvider =
 });
 
 class RemoveGuardList extends HookConsumerWidget {
-  const RemoveGuardList({Key? key}) : super(key: key);
+  const RemoveGuardList({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

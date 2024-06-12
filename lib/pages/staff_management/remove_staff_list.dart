@@ -14,7 +14,7 @@ final allStaffListDataProvider =
 });
 
 class RemoveStaffList extends HookConsumerWidget {
-  const RemoveStaffList({Key? key}) : super(key: key);
+  const RemoveStaffList({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

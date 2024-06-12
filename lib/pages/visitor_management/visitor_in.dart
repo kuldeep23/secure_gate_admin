@@ -721,7 +721,6 @@ void quickDialogue({
                                     isAllowedByGuard == "1" ? true : false,
                               );
 
-                              print(response.data["eventData"]);
                             },
                             child: Container(
                               padding: const EdgeInsets.symmetric(vertical: 10),

@@ -13,7 +13,7 @@ final allSocietyUserDataProvider =
 });
 
 class DeActivateUser extends HookConsumerWidget {
-  const DeActivateUser({Key? key}) : super(key: key);
+  const DeActivateUser({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -28,7 +28,7 @@ final userRole = [
 final gender = ["Male", "Female"];
 
 class AddGuard extends HookConsumerWidget {
-  const AddGuard({Key? key}) : super(key: key);
+  const AddGuard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -38,16 +38,19 @@ class AddGuard extends HookConsumerWidget {
     final fNameTextController = useTextEditingController();
     final lNameTextController = useTextEditingController();
     final mobileTextController = useTextEditingController();
-    final emailTextController = useTextEditingController();
+    final userNameTextController = useTextEditingController();
     final passwordTextController = useTextEditingController();
     final addressTextController = useTextEditingController();
     final dobTextController = useTextEditingController();
-    final userRoleValue = useState(userRole[0]);
+    useState(userRole[0]);
     final genderValue = useState(gender[0]);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Add Admin Users"),
+        title: const Text(
+          "Add Guard",
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: SizedBox(
         width: size.width,
@@ -81,7 +84,7 @@ class AddGuard extends HookConsumerWidget {
                     child: Column(
                       children: [
                         const Text(
-                          "Click to add admin users",
+                          "Click Image Button to Add Image",
                           style: TextStyle(fontSize: 20),
                         ),
                         const SizedBox(
@@ -117,7 +120,7 @@ class AddGuard extends HookConsumerWidget {
                         const Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            "Fill the admin details:",
+                            "Fill the guard details:",
                             style: TextStyle(fontSize: 20),
                           ),
                         ),
@@ -212,7 +215,7 @@ class AddGuard extends HookConsumerWidget {
                                       color: Color(0xffFF6663), width: 1.5),
                                   borderRadius: BorderRadius.circular(10))),
                         ),
-                        InputDecorator(
+                        /* InputDecorator(
                           decoration: InputDecoration(
                               labelText: "User Role",
                               labelStyle: const TextStyle(
@@ -252,15 +255,15 @@ class AddGuard extends HookConsumerWidget {
                                   userRoleValue.value = value!;
                                 }),
                           ),
-                        ),
+                        ), 
                         const SizedBox(
                           height: 15,
-                        ),
+                        ),*/
                         TextField(
-                          controller: emailTextController,
-                          keyboardType: TextInputType.emailAddress,
+                          controller: userNameTextController,
+                          keyboardType: TextInputType.text,
                           decoration: InputDecoration(
-                              labelText: "Email",
+                              labelText: "User Name",
                               labelStyle: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 14,
@@ -447,7 +450,7 @@ class AddGuard extends HookConsumerWidget {
                                       final formData = FormData.fromMap({
                                         "socCode": socCode,
                                         "socName": socName,
-                                        "userRole": userRoleValue.value,
+                                        "userRole": "Guard",
                                         "userfName":
                                             fNameTextController.text.trim(),
                                         "userlName":
@@ -456,7 +459,7 @@ class AddGuard extends HookConsumerWidget {
                                         "userNumber":
                                             mobileTextController.text.trim(),
                                         "email":
-                                            emailTextController.text.trim(),
+                                            userNameTextController.text.trim(),
                                         "password":
                                             passwordTextController.text.trim(),
                                         "address":
@@ -497,7 +500,7 @@ class AddGuard extends HookConsumerWidget {
                                             fNameTextController.clear();
                                             lNameTextController.clear();
                                             mobileTextController.clear();
-                                            emailTextController.clear();
+                                            userNameTextController.clear();
                                             passwordTextController.clear();
                                             addressTextController.clear();
                                             dobTextController.clear();

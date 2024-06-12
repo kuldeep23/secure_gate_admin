@@ -14,7 +14,7 @@ final allOutsideStaffDataProvider =
 });
 
 class StaffIn extends HookConsumerWidget {
-  const StaffIn({Key? key}) : super(key: key);
+  const StaffIn({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

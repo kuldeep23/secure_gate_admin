@@ -13,7 +13,7 @@ final wrongVisitorDataProvider =
 });
 
 class WrongVisitor extends HookConsumerWidget {
-  const WrongVisitor({Key? key}) : super(key: key);
+  const WrongVisitor({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

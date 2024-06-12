@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:secure_gates_admin/pages/car_management/car_in.dart';
 import 'package:secure_gates_admin/pages/car_management/car_out.dart';
 import 'package:secure_gates_admin/pages/guard_management/add_guard.dart';
+import 'package:secure_gates_admin/pages/guard_management/guard_list.dart';
 import 'package:secure_gates_admin/pages/guard_management/remove_guard.dart';
 import 'package:secure_gates_admin/pages/staff_management/add_staff.dart';
 import 'package:secure_gates_admin/pages/staff_management/remove_staff_list.dart';
@@ -336,7 +336,7 @@ class AdminPage extends HookConsumerWidget {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const AddCar())),
+                                                const GuardList())),
                                     child: const FeatureItems(
                                       imageURL: 'assets/icons/guard-list.png',
                                       featureName: 'Guard List',

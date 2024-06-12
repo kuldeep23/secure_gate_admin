@@ -27,7 +27,7 @@ abstract class BaseVisitorService {
   );
   Future<List<Wrongvisitor>> getWrongVisitors();
   Future<void> visitorreview(String reviewid, String review);
-  Future<void> visitorout(String visitorid);
+  Future<void> visitorout(String visitorid, String visitorOutByName);
   Future<void> updatevisitorFlat(
     String socCode,
     String visitorType,
@@ -194,10 +194,10 @@ class VisitorService implements BaseVisitorService {
   }
 
   @override
-  Future<void> visitorout(String visitorid) async {
+  Future<void> visitorout(String visitorid,  String visitorOutByName) async {
     EasyLoading.show();
     try {
-      final formData = FormData.fromMap({"visitor_id": visitorid});
+      final formData = FormData.fromMap({"visitor_id": visitorid, "exit_by": visitorOutByName});
 
       final userResponse = await _dio.post(
         "https://gatesadmin.000webhostapp.com/visitor_out.php",

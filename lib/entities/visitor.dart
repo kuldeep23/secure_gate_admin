@@ -19,7 +19,6 @@ class Visitor {
   final String visitorApprovReject;
   final String visitorAppRejBy;
   final String visitorRejByName;
-  final String guardName;
   final String visitorIsValid;
   final String? visitorReview;
   Visitor({
@@ -40,7 +39,6 @@ class Visitor {
     required this.visitorApprovReject,
     required this.visitorAppRejBy,
     required this.visitorRejByName,
-    required this.guardName,
     required this.visitorIsValid,
     required this.visitorReview,
   });
@@ -63,7 +61,6 @@ class Visitor {
     String? visitorApprovReject,
     String? visitorAppRejBy,
     String? visitorRejByName,
-    String? guardName,
     String? visitorIsValid,
     String? visitorReview,
   }) {
@@ -85,7 +82,6 @@ class Visitor {
       visitorApprovReject: visitorApprovReject ?? this.visitorApprovReject,
       visitorAppRejBy: visitorAppRejBy ?? this.visitorAppRejBy,
       visitorRejByName: visitorRejByName ?? this.visitorRejByName,
-      guardName: guardName ?? this.guardName,
       visitorIsValid: visitorIsValid ?? this.visitorIsValid,
       visitorReview: visitorReview ?? this.visitorReview,
     );
@@ -110,7 +106,6 @@ class Visitor {
       'visitorApprovReject': visitorApprovReject,
       'visitorAppRejBy': visitorAppRejBy,
       'visitorRejByName': visitorRejByName,
-      'guardName': guardName,
       'visitorIsValid': visitorIsValid,
       'visitorReview': visitorReview,
     };
@@ -132,7 +127,6 @@ class Visitor {
       visitorRejByName: map['visitor_app_rej_by_name'] as String,
       visitorApprovReject: map['visitor_approve_reject'] as String,
       visitorIsValidUpdate: map['visitor_is_valid_update'] as String,
-      guardName: map['guard_name'] as String,
       visitorExitDate: map['visitor_exit_date'] != null
           ? map['visitor_exit_date'] as String
           : null,
@@ -154,7 +148,7 @@ class Visitor {
 
   @override
   String toString() {
-    return 'Visitor(visitorId: $visitorId, socCode: $socCode, visitorType: $visitorType, visitorTypeDetail: $visitorTypeDetail, visitorName: $visitorName, visitorMobile: $visitorMobile, visitorFlatNo: $visitorFlatNo, visitorImage: $visitorImage, visitorEnterDate: $visitorEnterDate, visitorEnterTime: $visitorEnterTime, visitorExitDate: $visitorExitDate, visitorExitTime: $visitorExitTime, visitorStatus: $visitorStatus, visitorIsValidUpdate: $visitorIsValidUpdate, visitorApprovReject: $visitorApprovReject, visitorAppRejBy: $visitorAppRejBy, visitorRejByName: $visitorRejByName, guardName: $guardName, visitorIsValid: $visitorIsValid, visitorReview: $visitorReview)';
+    return 'Visitor(visitorId: $visitorId, socCode: $socCode, visitorType: $visitorType, visitorTypeDetail: $visitorTypeDetail, visitorName: $visitorName, visitorMobile: $visitorMobile, visitorFlatNo: $visitorFlatNo, visitorImage: $visitorImage, visitorEnterDate: $visitorEnterDate, visitorEnterTime: $visitorEnterTime, visitorExitDate: $visitorExitDate, visitorExitTime: $visitorExitTime, visitorStatus: $visitorStatus, visitorIsValidUpdate: $visitorIsValidUpdate, visitorApprovReject: $visitorApprovReject, visitorAppRejBy: $visitorAppRejBy, visitorRejByName: $visitorRejByName, visitorIsValid: $visitorIsValid, visitorReview: $visitorReview)';
   }
 
   @override
@@ -178,7 +172,6 @@ class Visitor {
         other.visitorApprovReject == visitorApprovReject &&
         other.visitorAppRejBy == visitorAppRejBy &&
         other.visitorRejByName == visitorRejByName &&
-        other.guardName == guardName &&
         other.visitorIsValid == visitorIsValid &&
         other.visitorReview == visitorReview;
   }
@@ -202,7 +195,6 @@ class Visitor {
         visitorApprovReject.hashCode ^
         visitorAppRejBy.hashCode ^
         visitorRejByName.hashCode ^
-        guardName.hashCode ^
         visitorIsValid.hashCode ^
         visitorReview.hashCode;
   }

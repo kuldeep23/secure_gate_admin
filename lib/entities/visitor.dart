@@ -67,7 +67,6 @@ class Visitor {
     String? visitorApprovReject,
     String? visitorAppRejBy,
     String? visitorRejByName,
-    String? guardName,
     String? visitorIsValid,
     String? visitorReview,
   }) {
@@ -165,8 +164,8 @@ class Visitor {
 
   @override
   String toString() {
-    return 'Visitor(visitorId: $visitorId, socCode: $socCode, visitorType: $visitorType, visitorTypeDetail: $visitorTypeDetail, visitorName: $visitorName, visitorMobile: $visitorMobile, visitorFlatNo: $visitorFlatNo, visitorImage: $visitorImage, visitorEnterDate: $visitorEnterDate, visitorEnterTime: $visitorEnterTime, visitorEnterBy: $visitorEnterBy, visitorExitDate: $visitorExitDate, visitorExitBy: $visitorExitBy, visitorExitTime: $visitorExitTime, visitorStatus: $visitorStatus, visitorIsValidUpdate: $visitorIsValidUpdate, visitorApprovReject: $visitorApprovReject, visitorAppRejBy: $visitorAppRejBy, visitorRejByName: $visitorRejByName,  visitorIsValid: $visitorIsValid, visitorReview: $visitorReview)';
-  }
+    return 'Visitor(visitorId: $visitorId, socCode: $socCode, visitorType: $visitorType, visitorTypeDetail: $visitorTypeDetail, visitorName: $visitorName, visitorMobile: $visitorMobile, visitorFlatNo: $visitorFlatNo, visitorImage: $visitorImage, visitorEnterDate: $visitorEnterDate, visitorEnterTime: $visitorEnterTime, visitorExitDate: $visitorExitDate, visitorExitTime: $visitorExitTime, visitorStatus: $visitorStatus, visitorIsValidUpdate: $visitorIsValidUpdate, visitorApprovReject: $visitorApprovReject, visitorAppRejBy: $visitorAppRejBy, visitorRejByName: $visitorRejByName, visitorIsValid: $visitorIsValid, visitorReview: $visitorReview)';
+
 
   @override
   bool operator ==(covariant Visitor other) {

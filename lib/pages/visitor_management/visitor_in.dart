@@ -13,6 +13,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:secure_gates_admin/controllers/user_controller.dart';
 import 'package:secure_gates_admin/pages/auth_exception_handler.dart';
 import 'package:secure_gates_admin/pages/visitor_management/widget/vertical_divider_widget.dart';
 import 'package:secure_gates_admin/utils/pick_new_image.dart';
@@ -49,6 +50,7 @@ class VisitorIn extends HookConsumerWidget {
     final nameTextController = useTextEditingController();
     final mobileTextController = useTextEditingController();
     final flatNumberTextController = useTextEditingController();
+    final currentGuard = ref.watch(userControllerProvider).currentUser!;
     final visitorTypeValue = useState(visitorType[0]);
     final deliveryDetailsTypeValue = useState(deliveryDetailsType[1]);
 
@@ -260,6 +262,8 @@ class VisitorIn extends HookConsumerWidget {
                                     try {
                                       final formData = FormData.fromMap({
                                         "Visitor_Type": visitorTypeValue.value,
+                                        "Visitor_Type_Detail":
+                                            deliveryDetailsTypeValue.value,
                                         "Visitor_Name":
                                             nameTextController.text.trim(),
                                         "Visitor_Mobile":
@@ -268,10 +272,8 @@ class VisitorIn extends HookConsumerWidget {
                                             flatNumberTextController.text
                                                 .trim(),
                                         "Visitor_Approve_By": "Guard",
-                                        "Visitor_Type_Detail":
-                                            deliveryDetailsTypeValue.value,
-                                        "Visitor_Status": 1,
-                                        "Guard_Name": "Sanjay",
+                                        "Visitor_Status": "1",
+                                        "Enter_by": currentGuard.userFirstName,
                                         "Visitor_Image": imageBaseCode.value,
                                       });
                                       final Dio dio = Dio();
@@ -279,7 +281,7 @@ class VisitorIn extends HookConsumerWidget {
                                         "https://gatesadmin.000webhostapp.com/visitor_enter_result.php",
                                         data: formData,
                                       );
-                                      //  print(userResponse.data["status"]);
+                                      print(userResponse.data["status"]);
                                       if (userResponse.data["status"] == "1") {
                                         EasyLoading.dismiss();
                                         final flatMateData =
@@ -301,6 +303,8 @@ class VisitorIn extends HookConsumerWidget {
                                                 "Owner_First_Name"],
                                             ownerName: flatMateData[
                                                 "Owner_First_Name"],
+                                            isAllowedByGuard: flatMateData[
+                                                "Is_Allowed_By_Guard"],
                                             imageUrl:
                                                 flatMateData["Owner_Image"],
                                             userNo:
@@ -324,16 +328,52 @@ class VisitorIn extends HookConsumerWidget {
                                             flatNo: flatMateData["Flat_Number"],
                                           );
                                         } else {
-                                          Fluttertoast.showToast(
-                                            msg:
-                                                "Visitor Entered without auth !!!",
-                                            toastLength: Toast.LENGTH_LONG,
-                                            gravity: ToastGravity.BOTTOM,
-                                            timeInSecForIosWeb: 1,
-                                            textColor: Colors.white,
-                                            backgroundColor: Colors.red,
-                                            fontSize: 17,
+                                          final formData = FormData.fromMap({
+                                            "Visitor_Type":
+                                                visitorTypeValue.value,
+                                            "Visitor_Type_Detail":
+                                                deliveryDetailsTypeValue.value,
+                                            "Visitor_Name":
+                                                nameTextController.text.trim(),
+                                            "Visitor_Mobile":
+                                                mobileTextController.text
+                                                    .trim(),
+                                            "Visitor_Flat_No":
+                                                flatNumberTextController.text
+                                                    .trim(),
+                                            "Visitor_Approve_By": "Guard",
+                                            "Visitor_Status": "1",
+                                            "Guard_Name":
+                                                currentGuard.userFirstName,
+                                            "Enter_by":
+                                                currentGuard.userFirstName,
+                                            "Visitor_Image":
+                                                imageBaseCode.value,
+                                          });
+                                          final visitorAutoAddedResponse =
+                                              await dio.post(
+                                            "https://gatesadmin.000webhostapp.com/visitor_auto_enter.php",
+                                            data: formData,
                                           );
+                                          if (context.mounted) {
+                                            AwesomeDialog(
+                                              context: context,
+                                              animType: AnimType.leftSlide,
+                                              headerAnimationLoop: false,
+                                              dialogType: DialogType.success,
+                                              showCloseIcon: true,
+                                              title: 'Succes',
+                                              desc: 'Visitor Added',
+                                              btnOkOnPress: () {
+                                                debugPrint('OnClcik');
+                                              },
+                                              btnOkIcon: Icons.check_circle,
+                                              onDismissCallback: (type) {
+                                                debugPrint(
+                                                    'Dialog Dissmiss from callback $type');
+                                              },
+                                            ).show();
+                                          }
                                         }
                                       } else if (userResponse.data["status"] ==
                                           "0") {
@@ -350,6 +390,7 @@ class VisitorIn extends HookConsumerWidget {
                                             userResponse.data["status"]);
                                       }
                                     } catch (e) {
+                                      EasyLoading.dismiss();
                                       throw ErrorHandlers.errorDialog(e);
                                     }
                                   } else {
@@ -404,6 +445,7 @@ void quickDialogue({
   required String visitormobile,
   required String flatBlock,
   required String ownerType,
+  required String isAllowedByGuard,
   required String visitorTypeDetail,
   required String userNo,
   required String flatNo,
@@ -564,23 +606,49 @@ void quickDialogue({
                       children: [
                         Expanded(
                           child: InkWell(
-                            onTap: () {
-                              AwesomeDialog(
-                                context: context,
-                                transitionAnimationDuration:
-                                    const Duration(milliseconds: 400),
-                                dialogType: DialogType.question,
-                                animType: AnimType.scale,
-                                title: "Call Visitor",
-                                desc: "Do you really want to call visitor ?",
-                                btnCancelOnPress: () {},
-                                btnCancelText: "No",
-                                btnOkOnPress: () {
-                                  FlutterPhoneDirectCaller.callNumber(
-                                      '+91$visitormobile');
+                            onTap: () async {
+                              final formData = {
+                                "fb_ids": [token],
+                                "fcm_payload": {
+                                  "message": {
+                                    "data": {
+                                      "name": visitor.visitorName,
+                                      "image": visitor.visitorImage,
+                                      "title": "NOTIFICATION ALERT",
+                                      "body": "Visitor Confirmation",
+                                      "id": visitor.visitorId,
+                                      "soc_code": visitor.socCode,
+                                      "visitor_type_detail":
+                                          visitor.visitorTypeDetail,
+                                      "visitor_type": visitor.visitorType,
+                                      "visitor_mobile": visitor.visitorMobile,
+                                      "visitor_flat_no": visitor.visitorFlatNo,
+                                    },
+                                  },
                                 },
-                                btnOkText: "Yes",
-                              ).show();
+                              };
+                              final response = await Dio().post(
+                                "https://te724vu3fz4hwt23vnl4koewhy0pvxxo.lambda-url.ap-south-1.on.aws/",
+                                data: formData,
+                              );
+
+                              print(response.data["res"]["name"]);
+                              // AwesomeDialog(
+                              //   context: context,
+                              //   transitionAnimationDuration:
+                              //       const Duration(milliseconds: 400),
+                              //   dialogType: DialogType.question,
+                              //   animType: AnimType.scale,
+                              //   title: "Call Visitor",
+                              //   desc: "Do you really want to call visitor ?",
+                              //   btnCancelOnPress: () {},
+                              //   btnCancelText: "No",
+                              //   btnOkOnPress: () {
+                              //     FlutterPhoneDirectCaller.callNumber(
+                              //         '+91$visitormobile');
+                              //   },
+                              //   btnOkText: "Yes",
+                              // ).show();
                               // timerDialog(context);
                             },
                             child: Container(
@@ -620,7 +688,6 @@ void quickDialogue({
                                 "fb_ids": [token],
                                 "fcm_payload": {
                                   "message": {
-                                    "token": token,
                                     "data": {
                                       "name": visitor.visitorName,
                                       "image": visitor.visitorImage,
@@ -642,10 +709,17 @@ void quickDialogue({
                                 data: data,
                               );
 
+                              print(response);
+
                               EasyLoading.dismiss();
-                              if (context.mounted) {
-                                timerDialog(context: context, visitor: visitor);
-                              }
+
+                              timerDialog(
+                                context: context,
+                                visitor: visitor,
+                                ownerName: ownerName,
+                                isAllowed:
+                                    isAllowedByGuard == "1" ? true : false,
+                              );
 
                             },
                             child: Container(
@@ -692,7 +766,12 @@ void quickDialogue({
       });
 }
 
-void timerDialog({required BuildContext context, required Visitor visitor}) {
+void timerDialog({
+  required BuildContext context,
+  required Visitor visitor,
+  required String ownerName,
+  required bool isAllowed,
+}) {
   showGeneralDialog(
       transitionDuration: const Duration(milliseconds: 400),
       // barrierDismissible: true,
@@ -754,7 +833,6 @@ void timerDialog({required BuildContext context, required Visitor visitor}) {
                           debugPrint('Countdown Started');
                         },
                         onComplete: () async {
-                          context.pop();
                           EasyLoading.show();
 
                           final data = FormData.fromMap({
@@ -769,21 +847,74 @@ void timerDialog({required BuildContext context, required Visitor visitor}) {
                           EasyLoading.dismiss();
                           final visitorAfterVerification =
                               response.data["data"][0];
+
                           if (visitorAfterVerification[
                                   "visitor_approve_reject"] ==
                               "NA") {
-                            Fluttertoast.showToast(
-                                msg: "User Didn't Respond ",
-                                toastLength: Toast.LENGTH_LONG);
-                          }
-                          Fluttertoast.showToast(
-                              msg:
-                                  "User ${visitorAfterVerification["visitor_approve_reject"]}",
-                              toastLength: Toast.LENGTH_LONG);
+                            if (isAllowed) {
+                              final data = FormData.fromMap({
+                                "uid": visitorAfterVerification["visitor_id"],
+                                "visitor_app_rej": "Denied",
+                                "visitor_app_rej_by": "Owner",
+                                "visitor_app_rej_by_name":
+                                    visitor.visitorRejByName,
+                                "status": "Allowed",
+                              });
 
-                          if (context.mounted) {
-                            context.pop();
+                              final Dio dio = Dio();
+                              final response = await dio.post(
+                                "https://gatesadmin.000webhostapp.com/visitor_app_rej_update.php",
+                                data: data,
+                              );
+                            } else {
+                              FlutterPhoneDirectCaller.callNumber(
+                                  '+91${visitor.visitorMobile}');
+                            }
                           }
+
+                          await AwesomeDialog(
+                            context: context,
+                            animType: AnimType.leftSlide,
+                            headerAnimationLoop: false,
+                            dialogType: DialogType.info,
+                            showCloseIcon: true,
+                            title: 'Response Back',
+                            desc: visitorAfterVerification[
+                                "visitor_approve_reject"],
+                            btnOkOnPress: () {
+                              context.pop();
+                            },
+                            btnOkIcon: Icons.check_circle,
+                            onDismissCallback: (type) {
+                              context.pop();
+                            },
+                          ).show();
+
+                          // AwesomeDialog(
+                          //   context: context,
+                          //   animType: AnimType.leftSlide,
+                          //   headerAnimationLoop: false,
+                          //   dialogType: DialogType.success,
+                          //   showCloseIcon: true,
+                          //   title: 'Succes',
+                          //   desc: visitorAfterVerification[
+                          //       "visitor_approve_reject"],
+                          //   btnOkOnPress: () {
+                          //     context.pop();
+                          //   },
+                          //   btnOkIcon: Icons.check_circle,
+                          //   onDismissCallback: (type) {
+                          //     debugPrint('Dialog Dissmiss from callback $type');
+                          //   },
+                          // ).show();
+                          // Fluttertoast.showToast(
+                          //     msg:
+                          //         "User ${visitorAfterVerification["visitor_approve_reject"]}",
+                          //     toastLength: Toast.LENGTH_LONG);
+
+                          // if (context.mounted) {
+                          //   context.pop();
+                          // }
                         },
                         onChange: (String timeStamp) {
                           debugPrint('Countdown Changed $timeStamp');

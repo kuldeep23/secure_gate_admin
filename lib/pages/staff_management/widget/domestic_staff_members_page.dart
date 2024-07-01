@@ -3,12 +3,10 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../controllers/user_controller.dart';
 import '../../../entities/staff.dart';
-import '../../../routes/app_routes_constants.dart';
-import '../../homepage/admin_home_page.dart';
+
 
 final staffMemberProvider = FutureProvider.autoDispose
     .family<List<Staff>, String>((ref, staffType) async {
@@ -267,7 +265,7 @@ class DomesticStaffMembersPage extends HookConsumerWidget {
   }) async {
     await showGeneralDialog(
       transitionDuration: const Duration(milliseconds: 600),
-      barrierDismissible: true,
+      barrierDismissible: false,
       barrierColor: Colors.black.withOpacity(0.85),
       context: context,
       pageBuilder: (context, a1, a2) {

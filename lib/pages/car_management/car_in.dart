@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CarIn extends StatelessWidget {
-  const CarIn({Key? key}) : super(key: key);
+  const CarIn({super.key});
 
   @override
   Widget build(BuildContext context) {

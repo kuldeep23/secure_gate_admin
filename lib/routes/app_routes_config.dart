@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:secure_gates_admin/pages/guard_management/add_guard.dart';
+import 'package:secure_gates_admin/pages/guard_management/guard_list.dart';
 import 'package:secure_gates_admin/pages/homepage/admin_home_page.dart';
 import 'package:secure_gates_admin/pages/staff_management/remove_staff_list.dart';
 import 'package:secure_gates_admin/pages/staff_management/staff_list.dart';
@@ -115,6 +116,11 @@ class MyAppRouterConfig {
         name: MyAppRoutes.removeGuard,
         path: "/remove-Guard",
         builder: (context, state) => const RemoveGuardList(),
+      ),
+      GoRoute(
+        name: MyAppRoutes.guardList,
+        path: "/guard-List",
+        builder: (context, state) => const GuardList(),
       ),
       GoRoute(
           name: MyAppRoutes.domesticStaffMembersPage,

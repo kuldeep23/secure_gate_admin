@@ -5,7 +5,7 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:secure_gates_admin/pages/visitor_management/widget/vertical_divider_widget.dart';
-import 'package:secure_gates_admin/services/staff_services.dart';
+import 'package:secure_gates_admin/services/guard_services.dart';
 
 class UserListCard extends HookConsumerWidget {
   UserListCard({
@@ -62,8 +62,8 @@ class UserListCard extends HookConsumerWidget {
           context: context,
           inTime: userFirstName,
           inDate: userFirstName,
-          outTime: userFirstName ?? "Still Inside",
-          outDate: userFirstName ?? "Still Inside",
+          outTime: userFirstName,
+          outDate: userFirstName,
           allowedBy: userFirstName,
           visitorTypeDetail: userFirstName,
           phoneNo: userFirstName,
@@ -92,31 +92,9 @@ class UserListCard extends HookConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           CircleAvatar(
-                            radius: 32,
+                            radius: 40,
                             backgroundImage: NetworkImage(
                               userImage,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 1,
-                              horizontal: 5,
-                            ),
-                            decoration: BoxDecoration(
-                              color: userFirstName == "Inside"
-                                  ? const Color(0xffFF6663)
-                                  : Colors.green[600],
-                              borderRadius: BorderRadius.circular(
-                                10,
-                              ),
-                            ),
-                            child: Text(
-                              userFirstName.toUpperCase(),
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 12),
                             ),
                           ),
                         ],
@@ -297,108 +275,32 @@ class UserListCard extends HookConsumerWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      /* if (staffStatus == "Inside") {
-                        AwesomeDialog(
-                          context: context,
-                          transitionAnimationDuration:
-                              const Duration(milliseconds: 400),
-                          dialogType: DialogType.warning,
-                          animType: AnimType.scale,
-                          title: "Staff Inside",
-                          desc: "Please let $staffName leave the society first",
-                          btnCancelOnPress: () {},
-                          btnCancelText: "No",
-                          btnOkOnPress: () async {
-                            await ref
-                                .read(staffServiceProvider)
-                                .staffExist(
-                                  uid,
-                                  socCode,
-                                )
-                                .catchError((e, st) {});
+                      AwesomeDialog(
+                        context: context,
+                        transitionAnimationDuration:
+                            const Duration(milliseconds: 400),
+                        dialogType: DialogType.question,
+                        animType: AnimType.scale,
+                        title: "Remove Guard",
+                        desc: "Do you want to remove $userFirstName ?",
+                        btnCancelOnPress: () {},
+                        btnCancelText: "No",
+                        btnOkOnPress: () async {
+                          await ref
+                              .read(userServiceProvider)
+                              .guradRemove(uid)
+                              .catchError((e, st) {});
 
-                            await FlutterTts().setLanguage("en-Us");
-                            await FlutterTts().setVolume(1.0);
-                            await FlutterTts().setSpeechRate(0.5);
-                            await FlutterTts().setPitch(1.0);
-                            await FlutterTts().speak("Staff Exit Successfully");
-                          },
-                          btnOkText: "Yes",
-                        ).show();
-                      } else if (staffStatus == "Outside") {
-                        AwesomeDialog(
-                          context: context,
-                          transitionAnimationDuration:
-                              const Duration(milliseconds: 400),
-                          dialogType: DialogType.question,
-                          animType: AnimType.scale,
-                          title: "Remove Staff",
-                          desc: "Do you want to remove the staff ?",
-                          btnCancelOnPress: () {},
-                          btnCancelText: "No",
-                          btnOkOnPress: () async {
-                            await ref
-                                .read(staffServiceProvider)
-                                .staffRemove(uid)
-                                .catchError((e, st) {});
-
-                            await FlutterTts().setLanguage("en-Us");
-                            await FlutterTts().setVolume(1.0);
-                            await FlutterTts().setSpeechRate(0.5);
-                            await FlutterTts().setPitch(1.0);
-                            await FlutterTts()
-                                .speak("Staff Removed Successfully");
-                          },
-                          btnOkText: "Yes",
-                        ).show();
-                      } */
+                          await FlutterTts().setLanguage("en-Us");
+                          await FlutterTts().setVolume(1.0);
+                          await FlutterTts().setSpeechRate(0.5);
+                          await FlutterTts().setPitch(1.0);
+                          await FlutterTts()
+                              .speak("Guard Removed Successfully");
+                        },
+                        btnOkText: "Yes",
+                      ).show();
                     },
-
-                    /* AwesomeDialog(
-                      context: context,
-                      transitionAnimationDuration:
-                          const Duration(milliseconds: 400),
-                      dialogType: DialogType.question,
-                      animType: AnimType.scale,
-                      title: "Remove Staff",
-                      desc: "Do you want to remove the staff ?",
-                      btnCancelOnPress: () {},
-                      btnCancelText: "No",
-                      btnOkOnPress: () {
-                        if (staffStatus == "Inside") {
-                          AwesomeDialog(
-                            context: context,
-                            transitionAnimationDuration:
-                                const Duration(milliseconds: 400),
-                            dialogType: DialogType.question,
-                            animType: AnimType.scale,
-                            title: "Staff Inside",
-                            desc: "Do you want to remove $staffName the staff ?",
-                            btnCancelOnPress: () {},
-                            btnCancelText: "No",
-                            btnOkOnPress: () {},
-                            btnOkText: "Yes",
-                          ).show();
-                        }
-                      },
-                      /* async {
-                        await ref
-                            .read(staffServiceProvider)
-                            .staffExist(
-                              uid,
-                              socCode,
-                            )
-                            .catchError((e, st) {});
-    
-                        await FlutterTts().setLanguage("en-Us");
-                        await FlutterTts().setVolume(1.0);
-                        await FlutterTts().setSpeechRate(0.5);
-                        await FlutterTts().setPitch(1.0);
-                        await FlutterTts().speak("Staff Exit Successfully");
-                      } */
-    
-                      btnOkText: "Yes",
-                    ).show(), */
                     child: SizedBox(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -458,7 +360,7 @@ class UserListCard extends HookConsumerWidget {
   }) async {
     await showGeneralDialog(
       transitionDuration: const Duration(milliseconds: 600),
-      barrierDismissible: true,
+      barrierDismissible: false,
       barrierColor: Colors.black.withOpacity(0.85),
       context: context,
       pageBuilder: (context, a1, a2) {
@@ -488,10 +390,15 @@ class UserListCard extends HookConsumerWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Icon(
-                              Icons.close,
-                              color: Colors.white,
-                              size: 25,
+                            GestureDetector(
+                              onTap: () =>
+                                  Navigator.of(context, rootNavigator: true)
+                                      .pop(),
+                              child: const Icon(
+                                Icons.close,
+                                color: Colors.white,
+                                size: 25,
+                              ),
                             ),
                             Text(
                               visitorType,

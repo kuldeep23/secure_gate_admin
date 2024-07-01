@@ -12,8 +12,10 @@ class Visitor {
   final String visitorImage;
   final String visitorEnterDate;
   final String visitorEnterTime;
+  final String? visitorEnterBy;
   final String? visitorExitDate;
   final String? visitorExitTime;
+  final String? visitorExitBy;
   final String visitorStatus;
   final String visitorIsValidUpdate;
   final String visitorApprovReject;
@@ -32,8 +34,10 @@ class Visitor {
     required this.visitorImage,
     required this.visitorEnterDate,
     required this.visitorEnterTime,
+    this.visitorEnterBy,
     this.visitorExitDate,
     this.visitorExitTime,
+    this.visitorExitBy,
     required this.visitorStatus,
     required this.visitorIsValidUpdate,
     required this.visitorApprovReject,
@@ -54,8 +58,10 @@ class Visitor {
     String? visitorImage,
     String? visitorEnterDate,
     String? visitorEnterTime,
+    String? visitorEnterBy,
     String? visitorExitDate,
     String? visitorExitTime,
+    String? visitorExitBy,
     String? visitorStatus,
     String? visitorIsValidUpdate,
     String? visitorApprovReject,
@@ -75,8 +81,10 @@ class Visitor {
       visitorImage: visitorImage ?? this.visitorImage,
       visitorEnterDate: visitorEnterDate ?? this.visitorEnterDate,
       visitorEnterTime: visitorEnterTime ?? this.visitorEnterTime,
+      visitorEnterBy: visitorEnterBy ?? this.visitorEnterBy,
       visitorExitDate: visitorExitDate ?? this.visitorExitDate,
       visitorExitTime: visitorExitTime ?? this.visitorExitTime,
+      visitorExitBy: visitorExitBy ?? this.visitorExitBy,
       visitorStatus: visitorStatus ?? this.visitorStatus,
       visitorIsValidUpdate: visitorIsValidUpdate ?? this.visitorIsValidUpdate,
       visitorApprovReject: visitorApprovReject ?? this.visitorApprovReject,
@@ -99,8 +107,10 @@ class Visitor {
       'visitorImage': visitorImage,
       'visitorEnterDate': visitorEnterDate,
       'visitorEnterTime': visitorEnterTime,
+      'visitorEnterBy': visitorEnterBy,
       'visitorExitDate': visitorExitDate,
       'visitorExitTime': visitorExitTime,
+      'visitorExitBy': visitorExitBy,
       'visitorStatus': visitorStatus,
       'visitorIsValidUpdate': visitorIsValidUpdate,
       'visitorApprovReject': visitorApprovReject,
@@ -123,6 +133,9 @@ class Visitor {
       visitorImage: map['visitor_image'] as String,
       visitorEnterDate: map['visitor_enter_date'] as String,
       visitorEnterTime: map['visitor_enter_time'] as String,
+      visitorEnterBy: map['visitor_enter_by'] != null
+          ? map['visitor_enter_by'] as String
+          : null,
       visitorAppRejBy: map['visitor_app_rej_by'] as String,
       visitorRejByName: map['visitor_app_rej_by_name'] as String,
       visitorApprovReject: map['visitor_approve_reject'] as String,
@@ -132,6 +145,9 @@ class Visitor {
           : null,
       visitorExitTime: map['visitor_exit_time'] != null
           ? map['visitor_exit_time'] as String
+          : null,
+      visitorExitBy: map['visitor_exit_by'] != null
+          ? map['visitor_exit_by'] as String
           : null,
       visitorStatus: map['visitor_status'] as String,
       visitorIsValid: map['visitor_is_valid'] as String,
@@ -149,7 +165,7 @@ class Visitor {
   @override
   String toString() {
     return 'Visitor(visitorId: $visitorId, socCode: $socCode, visitorType: $visitorType, visitorTypeDetail: $visitorTypeDetail, visitorName: $visitorName, visitorMobile: $visitorMobile, visitorFlatNo: $visitorFlatNo, visitorImage: $visitorImage, visitorEnterDate: $visitorEnterDate, visitorEnterTime: $visitorEnterTime, visitorExitDate: $visitorExitDate, visitorExitTime: $visitorExitTime, visitorStatus: $visitorStatus, visitorIsValidUpdate: $visitorIsValidUpdate, visitorApprovReject: $visitorApprovReject, visitorAppRejBy: $visitorAppRejBy, visitorRejByName: $visitorRejByName, visitorIsValid: $visitorIsValid, visitorReview: $visitorReview)';
-  }
+
 
   @override
   bool operator ==(covariant Visitor other) {
@@ -165,8 +181,10 @@ class Visitor {
         other.visitorImage == visitorImage &&
         other.visitorEnterDate == visitorEnterDate &&
         other.visitorEnterTime == visitorEnterTime &&
+        other.visitorEnterBy == visitorEnterBy &&
         other.visitorExitDate == visitorExitDate &&
         other.visitorExitTime == visitorExitTime &&
+        other.visitorExitBy == visitorExitBy&&
         other.visitorStatus == visitorStatus &&
         other.visitorIsValidUpdate == visitorIsValidUpdate &&
         other.visitorApprovReject == visitorApprovReject &&
@@ -188,8 +206,10 @@ class Visitor {
         visitorImage.hashCode ^
         visitorEnterDate.hashCode ^
         visitorEnterTime.hashCode ^
+        visitorEnterBy.hashCode^
         visitorExitDate.hashCode ^
         visitorExitTime.hashCode ^
+        visitorExitBy.hashCode ^
         visitorStatus.hashCode ^
         visitorIsValidUpdate.hashCode ^
         visitorApprovReject.hashCode ^

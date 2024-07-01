@@ -14,7 +14,7 @@ final allSocietyUserDataProvider =
 });
 
 class ActivateUser extends HookConsumerWidget {
-  const ActivateUser({Key? key}) : super(key: key);
+  const ActivateUser({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

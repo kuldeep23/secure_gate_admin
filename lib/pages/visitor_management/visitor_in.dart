@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
@@ -14,6 +16,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:secure_gates_admin/controllers/user_controller.dart';
+import 'package:secure_gates_admin/general_providers.dart';
 import 'package:secure_gates_admin/pages/auth_exception_handler.dart';
 import 'package:secure_gates_admin/pages/visitor_management/widget/vertical_divider_widget.dart';
 import 'package:secure_gates_admin/utils/pick_new_image.dart';
@@ -278,11 +281,13 @@ class VisitorIn extends HookConsumerWidget {
                                       });
                                       final Dio dio = Dio();
                                       final userResponse = await dio.post(
-                                        "https://gatesadmin.000webhostapp.com/visitor_enter_result.php",
+                                        "${ref.read(generalUrlPathProvider)}/visitor_enter_result.php",
                                         data: formData,
                                       );
-                                      print(userResponse.data["status"]);
-                                      if (userResponse.data["status"] == "1") {
+
+                                      print(userResponse.data);
+
+                                      if (userResponse.data["status"] == 1) {
                                         EasyLoading.dismiss();
                                         final flatMateData =
                                             userResponse.data["User-data"][0];
@@ -298,6 +303,7 @@ class VisitorIn extends HookConsumerWidget {
 
                                           // ignore: use_build_context_synchronously
                                           quickDialogue(
+                                            ref: ref,
                                             callBack: () {},
                                             subtitle: flatMateData[
                                                 "Owner_First_Name"],
@@ -350,9 +356,9 @@ class VisitorIn extends HookConsumerWidget {
                                             "Visitor_Image":
                                                 imageBaseCode.value,
                                           });
-                                          final visitorAutoAddedResponse =
-                                              await dio.post(
-                                            "https://gatesadmin.000webhostapp.com/visitor_auto_enter.php",
+
+                                          await dio.post(
+                                            "${ref.read(generalUrlPathProvider)}/visitor_auto_enter.php",
                                             data: formData,
                                           );
                                           if (context.mounted) {
@@ -376,7 +382,7 @@ class VisitorIn extends HookConsumerWidget {
                                           }
                                         }
                                       } else if (userResponse.data["status"] ==
-                                          "0") {
+                                          0) {
                                         EasyLoading.dismiss();
                                         Fluttertoast.showToast(
                                             msg: "Visitor Enter faied !!!",
@@ -387,7 +393,8 @@ class VisitorIn extends HookConsumerWidget {
                                             backgroundColor: Colors.red,
                                             fontSize: 30.0);
                                         return ErrorHandlers.errorDialog(
-                                            userResponse.data["status"]);
+                                            userResponse.data["status"]
+                                                .toString());
                                       }
                                     } catch (e) {
                                       EasyLoading.dismiss();
@@ -447,6 +454,7 @@ void quickDialogue({
   required String ownerType,
   required String isAllowedByGuard,
   required String visitorTypeDetail,
+  required WidgetRef ref,
   required String userNo,
   required String flatNo,
 }) {
@@ -627,12 +635,11 @@ void quickDialogue({
                                   },
                                 },
                               };
-                              final response = await Dio().post(
+                              await Dio().post(
                                 "https://te724vu3fz4hwt23vnl4koewhy0pvxxo.lambda-url.ap-south-1.on.aws/",
                                 data: formData,
                               );
 
-                              print(response.data["res"]["name"]);
                               // AwesomeDialog(
                               //   context: context,
                               //   transitionAnimationDuration:
@@ -704,23 +711,21 @@ void quickDialogue({
                                   },
                                 },
                               };
-                              final response = await Dio().post(
+                              await Dio().post(
                                 "https://te724vu3fz4hwt23vnl4koewhy0pvxxo.lambda-url.ap-south-1.on.aws/",
                                 data: data,
                               );
-
-                              print(response);
 
                               EasyLoading.dismiss();
 
                               timerDialog(
                                 context: context,
+                                ref: ref,
                                 visitor: visitor,
                                 ownerName: ownerName,
                                 isAllowed:
                                     isAllowedByGuard == "1" ? true : false,
                               );
-
                             },
                             child: Container(
                               padding: const EdgeInsets.symmetric(vertical: 10),
@@ -771,6 +776,7 @@ void timerDialog({
   required Visitor visitor,
   required String ownerName,
   required bool isAllowed,
+  required WidgetRef ref,
 }) {
   showGeneralDialog(
       transitionDuration: const Duration(milliseconds: 400),
@@ -841,7 +847,7 @@ void timerDialog({
                           });
                           final Dio dio = Dio();
                           final response = await dio.post(
-                            "https://gatesadmin.000webhostapp.com/visitor_approval_status.php",
+                            "${ref.read(generalUrlPathProvider)}/visitor_approval_status.php",
                             data: data,
                           );
                           EasyLoading.dismiss();
@@ -862,8 +868,8 @@ void timerDialog({
                               });
 
                               final Dio dio = Dio();
-                              final response = await dio.post(
-                                "https://gatesadmin.000webhostapp.com/visitor_app_rej_update.php",
+                              await dio.post(
+                                "${ref.read(generalUrlPathProvider)}/visitor_app_rej_update.php",
                                 data: data,
                               );
                             } else {

@@ -9,6 +9,7 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:secure_gates_admin/general_providers.dart';
 import '../../controllers/user_controller.dart';
 import '../../utils/pick_new_image.dart';
 import '../../widgets/rounded_button.dart';
@@ -470,7 +471,7 @@ class AddGuard extends HookConsumerWidget {
                                       });
                                       final Dio dio = Dio();
                                       final userResponse = await dio.post(
-                                        "https://gatesadmin.000webhostapp.com/add_admin_user.php",
+                                        "${ref.read(generalUrlPathProvider)}/add_admin_user.php",
                                         data: formData,
                                       );
 

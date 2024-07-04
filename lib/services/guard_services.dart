@@ -4,6 +4,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:secure_gates_admin/controllers/user_controller.dart';
+import 'package:secure_gates_admin/general_providers.dart';
 import 'package:secure_gates_admin/pages/guard_management/remove_guard.dart';
 import '../auth_exception_handler.dart';
 import '../entities/user.dart';
@@ -29,7 +30,7 @@ class UserServices implements BaseUserService {
       final formData = FormData.fromMap({"soc": socCode});
 
       final dataResponse = await _dio.post(
-        "https://gatesadmin.000webhostapp.com/users_list.php",
+        "${ref.read(generalUrlPathProvider)}/users_list.php",
         data: formData,
       );
       if (dataResponse.data["code"] == "100") {
@@ -61,7 +62,7 @@ class UserServices implements BaseUserService {
           {"uid": guarduid, "removed_by": "$userfName $userlName"});
 
       final userResponse = await _dio.post(
-        "https://gatesadmin.000webhostapp.com/guard_removed_update.php",
+        "${ref.read(generalUrlPathProvider)}/guard_removed_update.php",
         data: formData,
       );
       if (userResponse.data["status"] == 1) {

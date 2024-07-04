@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:secure_gates_admin/general_providers.dart';
 import '../../controllers/user_controller.dart';
 import '../../entities/staffList.dart';
 import '../../routes/app_routes_constants.dart';
@@ -13,11 +14,9 @@ final staffListProvider =
   final data = FormData.fromMap({'soc': socCode});
 
   final response = await Dio().post(
-    "https://gatesadmin.000webhostapp.com/staff_list.php",
+    "${ref.read(generalUrlPathProvider)}/staff_list.php",
     data: data,
   );
-
-
 
   final results = List<Map<String, dynamic>>.from(response.data);
 

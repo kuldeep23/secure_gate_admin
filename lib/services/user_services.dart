@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:secure_gates_admin/controllers/user_controller.dart';
 import 'package:secure_gates_admin/entities/society_user.dart';
+import 'package:secure_gates_admin/general_providers.dart';
 import 'package:secure_gates_admin/pages/user_management/deactivate_user.dart';
 import '../auth_exception_handler.dart';
 
@@ -30,7 +31,7 @@ class SocietyUserServices implements BaseSocietyUserService {
       final formData = FormData.fromMap({"soc": socCode});
 
       final dataResponse = await _dio.post(
-        "https://gatesadmin.000webhostapp.com/activate_user.php",
+        "${ref.read(generalUrlPathProvider)}/activate_user.php",
         data: formData,
       );
       if (dataResponse.data["code"] == "100") {
@@ -57,7 +58,7 @@ class SocietyUserServices implements BaseSocietyUserService {
       final formData = FormData.fromMap({"soc": socCode});
 
       final dataResponse = await _dio.post(
-        "https://gatesadmin.000webhostapp.com/deactivate_user.php",
+        "${ref.read(generalUrlPathProvider)}/deactivate_user.php",
         data: formData,
       );
       if (dataResponse.data["code"] == "100") {
@@ -83,7 +84,7 @@ class SocietyUserServices implements BaseSocietyUserService {
       final formData = FormData.fromMap({"UID": uid});
 
       final userResponse = await _dio.post(
-        "https://gatesadmin.000webhostapp.com/deactivate_user_update.php",
+        "${ref.read(generalUrlPathProvider)}/deactivate_user_update.php",
         data: formData,
       );
       if (userResponse.data["status"] == 1) {
@@ -95,15 +96,18 @@ class SocietyUserServices implements BaseSocietyUserService {
         Fluttertoast.showToast(
             msg: "Deactivate User successfully !!!",
             toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.CENTER,
+            gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
-            textColor: Colors.black,
-            fontSize: 30.0);
+            textColor: Colors.white,
+            backgroundColor: Colors.red,
+            fontSize: 15.0);
+
+            
       } else if (userResponse.data["status"] == 0) {
         Fluttertoast.showToast(
             msg: "Deactivate User successfully Failed",
             toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.CENTER,
+            gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             textColor: Colors.white,
             backgroundColor: Colors.red,

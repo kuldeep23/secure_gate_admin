@@ -3,45 +3,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:secure_gates_admin/pages/visitor_management/widget/vertical_divider_widget.dart';
 
-class GuardCard extends HookConsumerWidget {
-  GuardCard({
+class DeActivatedUserCard extends HookConsumerWidget {
+  DeActivatedUserCard({
     super.key,
     required this.uid,
     required this.socCode,
-    required this.socName,
-    required this.userRole,
-    required this.userFirstName,
-    required this.userLastName,
-    required this.userImage,
-    required this.userNumber,
-    required this.email,
-    required this.address,
-    required this.gender,
-    required this.dob,
-    required this.creationDate,
+    required this.ownerTenant,
+    required this.ownerFirstName,
+    required this.ownerLastName,
+    required this.ownerImage,
+    required this.contactNumber,
+    required this.flatNumber,
     required this.deactivationDate,
-    required this.addedBy,
-    required this.isActive,
   });
 
   final String uid,
       socCode,
-      socName,
-      userRole,
-      userFirstName,
-      userLastName,
-      userImage,
-      userNumber,
-      email,
-      address,
-      gender,
-      dob,
-      creationDate,
-      deactivationDate,
-      addedBy,
-      isActive;
+      ownerTenant,
+      ownerFirstName,
+      ownerLastName,
+      ownerImage,
+      contactNumber,
+      flatNumber,
+      deactivationDate;
 
   final TextEditingController feedbackController = TextEditingController();
 
@@ -69,7 +54,7 @@ class GuardCard extends HookConsumerWidget {
                         CircleAvatar(
                           radius: 35,
                           backgroundImage: NetworkImage(
-                            userImage,
+                            ownerImage,
                           ),
                         ),
                       ],
@@ -93,7 +78,7 @@ class GuardCard extends HookConsumerWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "$userFirstName $userLastName",
+                                "$ownerFirstName $ownerLastName",
                                 style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
@@ -136,7 +121,7 @@ class GuardCard extends HookConsumerWidget {
                               ),
                             ),
                             child: Text(
-                              userRole,
+                              ownerTenant,
                               style: const TextStyle(
                                 fontSize: 13,
                                 fontWeight: FontWeight.w300,
@@ -158,7 +143,7 @@ class GuardCard extends HookConsumerWidget {
                                 width: 2,
                               ),
                               Text(
-                                "Apply on $creationDate",
+                                "Deactivated on $deactivationDate",
                                 style: TextStyle(
                                   fontSize: 13,
                                   color: Colors.grey[600],
@@ -181,7 +166,7 @@ class GuardCard extends HookConsumerWidget {
                                 width: 2,
                               ),
                               Text(
-                                "Flat No. $userNumber",
+                                "Flat No. $flatNumber",
                                 style: TextStyle(
                                   fontSize: 13,
                                   color: Colors.grey[600],
@@ -213,7 +198,7 @@ class GuardCard extends HookConsumerWidget {
                     btnCancelOnPress: () {},
                     btnCancelText: "No",
                     btnOkOnPress: () {
-                      FlutterPhoneDirectCaller.callNumber('+91$userNumber');
+                      FlutterPhoneDirectCaller.callNumber('+91$contactNumber');
                     },
                     btnOkText: "Yes",
                   ).show(),

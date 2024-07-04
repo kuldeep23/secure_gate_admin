@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:dio/dio.dart';
+import 'package:secure_gates_admin/general_providers.dart';
 import '../auth_exception_handler.dart';
 import '../controllers/user_controller.dart';
 import 'login_presistence_service.dart';
@@ -28,7 +29,7 @@ class AuthenticationSerivce implements BaseAuthenticationService {
           FormData.fromMap({"mobile_no": mobileNo, "password": password});
 
       final userResponse = await _dio.post(
-        "https://gatesadmin.000webhostapp.com/admin_user.php",
+        "${ref.read(generalUrlPathProvider)}/admin_user.php",
         data: formData,
       );
       if (userResponse.data["code"] == "100") {

@@ -9,6 +9,7 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:secure_gates_admin/general_providers.dart';
 import '../../controllers/user_controller.dart';
 import '../../utils/pick_new_image.dart';
 import '../../widgets/rounded_button.dart';
@@ -46,7 +47,6 @@ class AddStaff extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     useState("");
     final imageBaseCode = useState("");
     final pickedImage = useState(XFile(""));
@@ -58,7 +58,7 @@ class AddStaff extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Add Staff"),
+        title: const Text("Add Staff", style: TextStyle(color: Colors.white)),
       ),
       body: SizedBox(
         width: size.width,
@@ -295,11 +295,11 @@ class AddStaff extends HookConsumerWidget {
                                         "staff_icon": imageBaseCode.value,
                                         "staff_mobile_no":
                                             mobileTextController.text.trim(),
-                                        "name_added": staffAddedName
+                                        "staff_created_by": staffAddedName
                                       });
                                       final Dio dio = Dio();
                                       final userResponse = await dio.post(
-                                        "https://gatesadmin.000webhostapp.com/add_staff.php",
+                                        "${ref.read(generalUrlPathProvider)}/add_staff.php",
                                         data: formData,
                                       );
                                       if (userResponse.data["status"] == 1) {

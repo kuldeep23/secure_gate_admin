@@ -7,7 +7,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../controllers/user_controller.dart';
 import '../../../entities/staff.dart';
 
-
 final staffMemberProvider = FutureProvider.autoDispose
     .family<List<Staff>, String>((ref, staffType) async {
   final socCode = ref.read(userControllerProvider).currentUser!.socCode;
@@ -15,7 +14,7 @@ final staffMemberProvider = FutureProvider.autoDispose
   final data = FormData.fromMap({'soc': socCode, 'staff_type': staffType});
 
   final response = await Dio().post(
-    "https://gatesadmin.000webhostapp.com/staff_member.php",
+    "https://superhuman-shortage.000webhostapp.com/staff_member.php",
     data: data,
   );
   ref.keepAlive();
@@ -51,7 +50,7 @@ class DomesticStaffMembersPage extends HookConsumerWidget {
         padding: EdgeInsets.zero,
         children: [
           const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.symmetric(horizontal: 15),
             child: Row(
               children: [
                 Text(
@@ -66,8 +65,8 @@ class DomesticStaffMembersPage extends HookConsumerWidget {
           staffTypeMembers.when(
               data: (data) => Padding(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 4,
+                      horizontal: 5,
+                      vertical: 5,
                     ),
                     child: Column(
                       children: data

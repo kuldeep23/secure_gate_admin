@@ -274,10 +274,8 @@ class VisitorIn extends HookConsumerWidget {
                                         "Visitor_Flat_No":
                                             flatNumberTextController.text
                                                 .trim(),
-                                        "Visitor_Approve_By": "Guard",
-                                        "Visitor_Status": "1",
-                                        "Enter_by": currentGuard.userFirstName,
                                         "Visitor_Image": imageBaseCode.value,
+                                        "Visitor_Enter_By": currentGuard.userFirstName,
                                       });
                                       final Dio dio = Dio();
                                       final userResponse = await dio.post(

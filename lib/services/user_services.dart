@@ -74,7 +74,7 @@ class SocietyUserServices implements BaseSocietyUserService {
         return [];
       }
     } catch (e) {
-      throw ErrorHandler.errorDialog(e);
+      throw ErrorHandler.errorDialog(e.toString());
     }
   }
 

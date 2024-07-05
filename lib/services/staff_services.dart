@@ -168,6 +168,7 @@ class StaffServices implements BaseStaffService {
             msg: "Staff Exist Failed !!!",
             toastLength: Toast.LENGTH_LONG,
             gravity: ToastGravity.BOTTOM,
+            backgroundColor: const Color(0xffFF6663),
             timeInSecForIosWeb: 1,
             fontSize: 15.0);
         return ErrorHandler.errorDialog(userResponse.data["status"]);
@@ -238,6 +239,7 @@ class StaffServices implements BaseStaffService {
             msg: "Staff Removed Failed !!!",
             toastLength: Toast.LENGTH_LONG,
             gravity: ToastGravity.BOTTOM,
+            backgroundColor: const Color(0xffFF6663),
             timeInSecForIosWeb: 1,
             fontSize: 15.0);
         return ErrorHandler.errorDialog(userResponse.data["status"]);

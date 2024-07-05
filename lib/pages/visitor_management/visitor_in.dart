@@ -93,8 +93,8 @@ class VisitorIn extends HookConsumerWidget {
                     child: Column(
                       children: [
                         const Text(
-                          "MAIN GATE ENTRY",
-                          style: TextStyle(fontSize: 35),
+                          "Click Image Button to Add Image",
+                          style: TextStyle(fontSize: 20),
                         ),
                         const SizedBox(
                           height: 15,
@@ -275,15 +275,14 @@ class VisitorIn extends HookConsumerWidget {
                                             flatNumberTextController.text
                                                 .trim(),
                                         "Visitor_Image": imageBaseCode.value,
-                                        "Visitor_Enter_By": currentGuard.userFirstName,
+                                        "Visitor_Enter_By":
+                                            currentGuard.userFirstName,
                                       });
                                       final Dio dio = Dio();
                                       final userResponse = await dio.post(
                                         "${ref.read(generalUrlPathProvider)}/visitor_enter_result.php",
                                         data: formData,
                                       );
-
-                                      print(userResponse.data);
 
                                       if (userResponse.data["status"] == 1) {
                                         EasyLoading.dismiss();

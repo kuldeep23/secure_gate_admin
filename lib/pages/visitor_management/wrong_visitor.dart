@@ -30,7 +30,7 @@ class WrongVisitor extends HookConsumerWidget {
         child: wrongvisitorData.when(
             skipLoadingOnRefresh: false,
             data: (data) => data.isEmpty
-                ?  Center(
+                ? Center(
                     child: Column(
                       children: [
                         Lottie.asset("assets/mt_list.json"),
@@ -48,16 +48,16 @@ class WrongVisitor extends HookConsumerWidget {
                                 visitorimage: item.visitorName,
                                 visitorsoccode: item.socCode,
                                 visitorid: item.visitorId,
-                                visitorApproveBy: item.visitorApproveBy,
-                                visitorEnterTime: item.visitorEnterTime,
+                                visitorApproveBy: item.visitorId,
+                                visitorEnterTime: item.visitorId,
                                 visitorImage: item.visitorImage,
                                 visitorName: item.visitorName,
-                                visitorEnterDate: item.visitorEnterDate,
-                                visitorStatus: item.visitorStatus,
+                                visitorEnterDate: item.visitorId,
+                                visitorStatus: item.visitorId,
                                 visitorType: item.visitorType,
                                 visitorTypeDetail: item.visitorTypeDetail,
                                 visitormobile: item.visitorMobile,
-                                visitorReview: item.visitorReview,
+                                visitorReview: item.visitorId,
                                 visitorId: item.visitorId,
                                 visitorFlatNo: item.visitorFlatNo,
                               ))

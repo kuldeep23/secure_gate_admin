@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:secure_gates_admin/controllers/user_controller.dart';
 import 'package:secure_gates_admin/entities/visitor.dart';
+import 'package:secure_gates_admin/general_providers.dart';
 import 'package:secure_gates_admin/pages/visitor_management/wrong_visitor.dart';
 import '../auth_exception_handler.dart';
 import '../entities/wrongvisitor.dart';
@@ -69,7 +70,7 @@ class VisitorService implements BaseVisitorService {
       });
 
       final userResponse = await _dio.post(
-        "https://gatesadmin.000webhostapp.com/jh_visitors.php",
+        "${ref.read(generalUrlPathProvider)}/jh_visitors.php",
         data: formData,
       );
       if (userResponse.data["status"] == 1) {
@@ -93,7 +94,7 @@ class VisitorService implements BaseVisitorService {
         return ErrorHandler.errorDialog(userResponse.data["status"]);
       }
     } catch (e) {
-      throw ErrorHandler.errorDialog(e);
+      throw ErrorHandler.errorDialog(e.toString());
     }
   }
 
@@ -104,7 +105,7 @@ class VisitorService implements BaseVisitorService {
       final formData = FormData.fromMap({"soc_code": socCode});
 
       final dataResponse = await _dio.post(
-        "https://gatesadmin.000webhostapp.com/all_visitors_list.php",
+        "${ref.read(generalUrlPathProvider)}/all_visitors_list.php",
         data: formData,
       );
       if (dataResponse.data["code"] == "100") {
@@ -121,7 +122,7 @@ class VisitorService implements BaseVisitorService {
       }
     } catch (e) {
       log(e.toString());
-      throw ErrorHandler.errorDialog(e);
+      throw ErrorHandler.errorDialog(e.toString());
     }
   }
 
@@ -134,9 +135,10 @@ class VisitorService implements BaseVisitorService {
       });
 
       final dataResponse = await _dio.post(
-        "https://gatesadmin.000webhostapp.com/get_wrong_visitors.php",
+        "${ref.read(generalUrlPathProvider)}/get_wrong_visitors.php",
         data: formData,
       );
+
       if (dataResponse.data["code"] == "100") {
         final results =
             List<Map<String, dynamic>>.from(dataResponse.data["data"]);
@@ -150,7 +152,7 @@ class VisitorService implements BaseVisitorService {
         return [];
       }
     } catch (e) {
-      throw ErrorHandler.errorDialog(e);
+      throw ErrorHandler.errorDialog(e.toString());
     }
   }
 
@@ -162,7 +164,7 @@ class VisitorService implements BaseVisitorService {
           FormData.fromMap({"visitor_id": reviewid, "visitor_review": review});
 
       final userResponse = await _dio.post(
-        "https://gatesadmin.000webhostapp.com/visitor_review.php",
+        "${ref.read(generalUrlPathProvider)}/visitor_review.php",
         data: formData,
       );
       if (userResponse.data["status"] == 1) {
@@ -171,36 +173,38 @@ class VisitorService implements BaseVisitorService {
         Fluttertoast.showToast(
             msg: "Feedback sent successfully !!!",
             toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.CENTER,
+            gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
-            textColor: Colors.black,
-            fontSize: 30.0);
+            textColor: Colors.white,
+            backgroundColor: Colors.red,
+            fontSize: 15.0);
       } else if (userResponse.data["status"] == 0) {
         EasyLoading.dismiss();
         Fluttertoast.showToast(
             msg: "Feedback sent faied !!!",
             toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.CENTER,
+            gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             textColor: Colors.white,
             backgroundColor: Colors.red,
-            fontSize: 30.0);
+            fontSize: 15.0);
         return ErrorHandler.errorDialog(userResponse.data["status"]);
       }
     } catch (e) {
       EasyLoading.dismiss();
-      throw ErrorHandler.errorDialog(e);
+      throw ErrorHandler.errorDialog(e.toString());
     }
   }
 
   @override
-  Future<void> visitorout(String visitorid,  String visitorOutByName) async {
+  Future<void> visitorout(String visitorid, String visitorOutByName) async {
     EasyLoading.show();
     try {
-      final formData = FormData.fromMap({"visitor_id": visitorid, "exit_by": visitorOutByName});
+      final formData = FormData.fromMap(
+          {"visitor_id": visitorid, "exit_by": visitorOutByName});
 
       final userResponse = await _dio.post(
-        "https://gatesadmin.000webhostapp.com/visitor_out.php",
+        "${ref.read(generalUrlPathProvider)}/visitor_out.php",
         data: formData,
       );
       if (userResponse.data["status"] == 1) {
@@ -230,7 +234,7 @@ class VisitorService implements BaseVisitorService {
       }
     } catch (e) {
       EasyLoading.dismiss();
-      throw ErrorHandler.errorDialog(e);
+      throw ErrorHandler.errorDialog(e.toString());
     }
   }
 
@@ -271,7 +275,7 @@ class VisitorService implements BaseVisitorService {
       });
 
       final userResponse = await _dio.post(
-        "https://gatesadmin.000webhostapp.com/wrong_visitor_update.php",
+        "${ref.read(generalUrlPathProvider)}/wrong_visitor_update.php",
         data: formData,
       );
       if (userResponse.data["status"] == 1) {
@@ -298,7 +302,7 @@ class VisitorService implements BaseVisitorService {
         return ErrorHandler.errorDialog(userResponse.data["status"]);
       }
     } catch (e) {
-      throw ErrorHandler.errorDialog(e);
+      throw ErrorHandler.errorDialog(e.toString());
     }
   }
 }

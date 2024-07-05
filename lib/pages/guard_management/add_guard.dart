@@ -92,10 +92,24 @@ class AddGuard extends HookConsumerWidget {
                           height: 10,
                         ),
                         RoundedSquareButton(
-                            icon: const Icon(
-                              Icons.image,
-                              size: 50,
-                            ),
+                            icon: imageBaseCode.value.isNotEmpty
+                                ? ClipRRect(
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(
+                                        20,
+                                      ),
+                                    ),
+                                    child: Image.memory(
+                                      base64.decode(imageBaseCode.value),
+                                      height: 120,
+                                      width: 120,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  )
+                                : const Icon(
+                                    Icons.image,
+                                    size: 50,
+                                  ),
                             onPress: () async {
                               if (!Platform.isIOS) {
                                 final pickedFile = await pickNewImage(false);

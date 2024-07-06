@@ -297,7 +297,6 @@ class VisitorIn extends HookConsumerWidget {
                                                 "Is_Notification_Active"] ==
                                             "1") {
                                           // timerDialog(context);
-
                                           // ignore: use_build_context_synchronously
                                           quickDialogue(
                                             ref: ref,
@@ -332,6 +331,7 @@ class VisitorIn extends HookConsumerWidget {
                                           );
                                         } else {
                                           final formData = FormData.fromMap({
+                                            "Soc_code": currentGuard.socCode,
                                             "Visitor_Type":
                                                 visitorTypeValue.value,
                                             "Visitor_Type_Detail":
@@ -344,14 +344,14 @@ class VisitorIn extends HookConsumerWidget {
                                             "Visitor_Flat_No":
                                                 flatNumberTextController.text
                                                     .trim(),
+                                            "Visitor_Image":
+                                                imageBaseCode.value,
                                             "Visitor_Approve_By": "Guard",
-                                            "Visitor_Status": "1",
+                                            "Visitor_Status": "Inside",
                                             "Guard_Name":
                                                 currentGuard.userFirstName,
                                             "Enter_by":
                                                 currentGuard.userFirstName,
-                                            "Visitor_Image":
-                                                imageBaseCode.value,
                                           });
 
                                           await dio.post(
@@ -361,12 +361,12 @@ class VisitorIn extends HookConsumerWidget {
                                           if (context.mounted) {
                                             AwesomeDialog(
                                               context: context,
-                                              animType: AnimType.leftSlide,
+                                              animType: AnimType.scale,
                                               headerAnimationLoop: false,
                                               dialogType: DialogType.success,
                                               showCloseIcon: true,
-                                              title: 'Succes',
-                                              desc: 'Visitor Added',
+                                              title: 'Approved',
+                                              desc: 'Visitor Entery Approved',
                                               btnOkOnPress: () {
                                                 debugPrint('OnClcik');
                                               },
@@ -395,7 +395,8 @@ class VisitorIn extends HookConsumerWidget {
                                       }
                                     } catch (e) {
                                       EasyLoading.dismiss();
-                                      throw ErrorHandlers.errorDialog(e);
+                                      throw ErrorHandlers.errorDialog(
+                                          e.toString());
                                     }
                                   } else {
                                     EasyLoading.dismiss();

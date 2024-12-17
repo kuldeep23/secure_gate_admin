@@ -6,6 +6,7 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:secure_gates_admin/general_providers.dart';
 import 'package:secure_gates_admin/pages/auth_exception_handler.dart';
 import 'package:secure_gates_admin/pages/user_management/activate_user.dart';
 import 'package:secure_gates_admin/widgets/rounded_button.dart';
@@ -922,7 +923,7 @@ class UpdateUserCard extends HookConsumerWidget {
                                               .trim()
                                     });
                                     final userResponse = await Dio().post(
-                                      "https://gatesadmin.000webhostapp.com/update_flat_user.php",
+                                      "${ref.read(generalUrlPathProvider)}/update_flat_user.php",
                                       data: formData,
                                     );
                                     if (userResponse.data["status"] == 1) {
@@ -931,7 +932,7 @@ class UpdateUserCard extends HookConsumerWidget {
                                       await FlutterTts().setSpeechRate(0.5);
                                       await FlutterTts().setPitch(1.0);
                                       await FlutterTts().speak(
-                                          "User Acitivated Successfully");
+                                          "User Activated Successfully");
                                       // ignore: use_build_context_synchronously
                                       AwesomeDialog(
                                         context: context,

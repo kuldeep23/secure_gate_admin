@@ -159,63 +159,63 @@ class Visitor {
 
   String toJson() => json.encode(toMap());
 
-  factory Visitor.fromJson(String source) =>
-      Visitor.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Visitor.fromJson(String source) => Visitor.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
-    return 'Visitor(visitorId: $visitorId, socCode: $socCode, visitorType: $visitorType, visitorTypeDetail: $visitorTypeDetail, visitorName: $visitorName, visitorMobile: $visitorMobile, visitorFlatNo: $visitorFlatNo, visitorImage: $visitorImage, visitorEnterDate: $visitorEnterDate, visitorEnterTime: $visitorEnterTime, visitorExitDate: $visitorExitDate, visitorExitTime: $visitorExitTime, visitorStatus: $visitorStatus, visitorIsValidUpdate: $visitorIsValidUpdate, visitorApprovReject: $visitorApprovReject, visitorAppRejBy: $visitorAppRejBy, visitorRejByName: $visitorRejByName, visitorIsValid: $visitorIsValid, visitorReview: $visitorReview)';
-
+    return 'Visitor(visitorId: $visitorId, socCode: $socCode, visitorType: $visitorType, visitorTypeDetail: $visitorTypeDetail, visitorName: $visitorName, visitorMobile: $visitorMobile, visitorFlatNo: $visitorFlatNo, visitorImage: $visitorImage, visitorEnterDate: $visitorEnterDate, visitorEnterTime: $visitorEnterTime, visitorEnterBy: $visitorEnterBy, visitorExitDate: $visitorExitDate, visitorExitTime: $visitorExitTime, visitorExitBy: $visitorExitBy, visitorStatus: $visitorStatus, visitorIsValidUpdate: $visitorIsValidUpdate, visitorApprovReject: $visitorApprovReject, visitorAppRejBy: $visitorAppRejBy, visitorRejByName: $visitorRejByName, visitorIsValid: $visitorIsValid, visitorReview: $visitorReview)';
+  }
 
   @override
   bool operator ==(covariant Visitor other) {
     if (identical(this, other)) return true;
-
-    return other.visitorId == visitorId &&
-        other.socCode == socCode &&
-        other.visitorType == visitorType &&
-        other.visitorTypeDetail == visitorTypeDetail &&
-        other.visitorName == visitorName &&
-        other.visitorMobile == visitorMobile &&
-        other.visitorFlatNo == visitorFlatNo &&
-        other.visitorImage == visitorImage &&
-        other.visitorEnterDate == visitorEnterDate &&
-        other.visitorEnterTime == visitorEnterTime &&
-        other.visitorEnterBy == visitorEnterBy &&
-        other.visitorExitDate == visitorExitDate &&
-        other.visitorExitTime == visitorExitTime &&
-        other.visitorExitBy == visitorExitBy&&
-        other.visitorStatus == visitorStatus &&
-        other.visitorIsValidUpdate == visitorIsValidUpdate &&
-        other.visitorApprovReject == visitorApprovReject &&
-        other.visitorAppRejBy == visitorAppRejBy &&
-        other.visitorRejByName == visitorRejByName &&
-        other.visitorIsValid == visitorIsValid &&
-        other.visitorReview == visitorReview;
+  
+    return 
+      other.visitorId == visitorId &&
+      other.socCode == socCode &&
+      other.visitorType == visitorType &&
+      other.visitorTypeDetail == visitorTypeDetail &&
+      other.visitorName == visitorName &&
+      other.visitorMobile == visitorMobile &&
+      other.visitorFlatNo == visitorFlatNo &&
+      other.visitorImage == visitorImage &&
+      other.visitorEnterDate == visitorEnterDate &&
+      other.visitorEnterTime == visitorEnterTime &&
+      other.visitorEnterBy == visitorEnterBy &&
+      other.visitorExitDate == visitorExitDate &&
+      other.visitorExitTime == visitorExitTime &&
+      other.visitorExitBy == visitorExitBy &&
+      other.visitorStatus == visitorStatus &&
+      other.visitorIsValidUpdate == visitorIsValidUpdate &&
+      other.visitorApprovReject == visitorApprovReject &&
+      other.visitorAppRejBy == visitorAppRejBy &&
+      other.visitorRejByName == visitorRejByName &&
+      other.visitorIsValid == visitorIsValid &&
+      other.visitorReview == visitorReview;
   }
 
   @override
   int get hashCode {
     return visitorId.hashCode ^
-        socCode.hashCode ^
-        visitorType.hashCode ^
-        visitorTypeDetail.hashCode ^
-        visitorName.hashCode ^
-        visitorMobile.hashCode ^
-        visitorFlatNo.hashCode ^
-        visitorImage.hashCode ^
-        visitorEnterDate.hashCode ^
-        visitorEnterTime.hashCode ^
-        visitorEnterBy.hashCode^
-        visitorExitDate.hashCode ^
-        visitorExitTime.hashCode ^
-        visitorExitBy.hashCode ^
-        visitorStatus.hashCode ^
-        visitorIsValidUpdate.hashCode ^
-        visitorApprovReject.hashCode ^
-        visitorAppRejBy.hashCode ^
-        visitorRejByName.hashCode ^
-        visitorIsValid.hashCode ^
-        visitorReview.hashCode;
+      socCode.hashCode ^
+      visitorType.hashCode ^
+      visitorTypeDetail.hashCode ^
+      visitorName.hashCode ^
+      visitorMobile.hashCode ^
+      visitorFlatNo.hashCode ^
+      visitorImage.hashCode ^
+      visitorEnterDate.hashCode ^
+      visitorEnterTime.hashCode ^
+      visitorEnterBy.hashCode ^
+      visitorExitDate.hashCode ^
+      visitorExitTime.hashCode ^
+      visitorExitBy.hashCode ^
+      visitorStatus.hashCode ^
+      visitorIsValidUpdate.hashCode ^
+      visitorApprovReject.hashCode ^
+      visitorAppRejBy.hashCode ^
+      visitorRejByName.hashCode ^
+      visitorIsValid.hashCode ^
+      visitorReview.hashCode;
   }
 }

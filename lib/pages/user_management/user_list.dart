@@ -4,8 +4,10 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:secure_gates_admin/entities/society_user.dart';
-import 'package:secure_gates_admin/pages/user_management/widget/activate_user_card_wigdet.dart';
+import 'package:secure_gates_admin/general_providers.dart';
+import 'package:secure_gates_admin/pages/user_management/widget/activated_user_list_card_wigdet.dart';
 import 'package:secure_gates_admin/pages/user_management/widget/activate_user_loading_widget.dart';
+import 'package:secure_gates_admin/pages/user_management/widget/deactivated_user_list_card_wigdet.dart';
 /* import 'package:secure_gates_project/widgets/loading_widgets.dart';
 import 'package:secure_gates_project/widgets/visitor_card_widget.dart';
 import 'package:secure_gates_project/widgets/visitor_card_widget_second.dart'; */
@@ -21,7 +23,7 @@ final allActivateUserProvider =
     final formData = FormData.fromMap({"soc": socCode});
 
     final dataResponse = await dio.post(
-      "https://gatesadmin.000webhostapp.com/activate_user_list.php",
+      "${ref.read(generalUrlPathProvider)}/activate_user_list.php",
       data: formData,
     );
 
@@ -49,7 +51,7 @@ final allDeActivateUserProvider =
     final formData = FormData.fromMap({"soc": socCode});
 
     final dataResponse = await dio.post(
-      "https://gatesadmin.000webhostapp.com/deactivate_user_list.php",
+      "${ref.read(generalUrlPathProvider)}/deactivate_user_list.php",
       data: formData,
     );
 
@@ -76,7 +78,7 @@ class UserList extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final tabController = useTabController(initialLength: 2);
-    final currentTabName = useState("Activated User");
+    final currentTabName = useState("Activated Users");
     final allActivateUsers = ref.watch(allActivateUserProvider);
     final allDeActivateUsers = ref.watch(allDeActivateUserProvider);
 
@@ -89,22 +91,22 @@ class UserList extends HookConsumerWidget {
           onTap: (value) {
             switch (value) {
               case 0:
-                currentTabName.value = "Activated User";
+                currentTabName.value = "Activated Users";
                 break;
               case 1:
-                currentTabName.value = "De-Activated User";
+                currentTabName.value = "De-Activated Users";
                 break;
               default:
-                currentTabName.value = "Activated User";
+                currentTabName.value = "Activated Users";
             }
           },
           isScrollable: false,
           tabs: const [
             Tab(
-              text: "Activated User",
+              text: "Activated Users",
             ),
             Tab(
-              text: "De-Activated User",
+              text: "De-Activated Users",
             ),
           ],
         ),
@@ -139,7 +141,7 @@ class UserList extends HookConsumerWidget {
                                 horizontal: 5, vertical: 10),
                             child: Column(
                               children: data
-                                  .map((item) => SocietyUserCard(
+                                  .map((item) => ActivatedUserCard(
                                         uid: item.uid,
                                         socCode: item.socCode,
                                         ownerTenant: item.ownerTenant,
@@ -148,7 +150,7 @@ class UserList extends HookConsumerWidget {
                                         ownerImage: item.ownerImage,
                                         contactNumber: item.contactNumber,
                                         flatNumber: item.flatNumber,
-                                        creationDate: item.creationDate,
+                                        activationDate: item.updationDate,
                                       ))
                                   .toList(),
                             ),
@@ -200,7 +202,7 @@ class UserList extends HookConsumerWidget {
                                 horizontal: 5, vertical: 10),
                             child: Column(
                               children: data
-                                  .map((item) => SocietyUserCard(
+                                  .map((item) => DeActivatedUserCard(
                                         uid: item.uid,
                                         socCode: item.socCode,
                                         ownerTenant: item.ownerTenant,
@@ -209,7 +211,7 @@ class UserList extends HookConsumerWidget {
                                         ownerImage: item.ownerImage,
                                         contactNumber: item.contactNumber,
                                         flatNumber: item.flatNumber,
-                                        creationDate: item.creationDate,
+                                        deactivationDate: item.deActivationDate,
                                       ))
                                   .toList(),
                             ),

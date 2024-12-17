@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:secure_gates_admin/controllers/user_controller.dart';
 import 'package:secure_gates_admin/entities/staff.dart';
+import 'package:secure_gates_admin/general_providers.dart';
 import 'package:secure_gates_admin/pages/staff_management/staff_out.dart';
 import '../auth_exception_handler.dart';
 import '../pages/staff_management/remove_staff_list.dart';
@@ -36,7 +37,7 @@ class StaffServices implements BaseStaffService {
       final formData = FormData.fromMap({"soc": socCode});
 
       final dataResponse = await _dio.post(
-        "https://gatesadmin.000webhostapp.com/get_all_outside_staff.php",
+        "${ref.read(generalUrlPathProvider)}/get_all_outside_staff.php",
         data: formData,
       );
       if (dataResponse.data["code"] == "100") {
@@ -66,7 +67,7 @@ class StaffServices implements BaseStaffService {
           {"staff_id": staffId, "soc_code": socCode, "guard_name": guardName});
 
       final userResponse = await _dio.post(
-        "https://gatesadmin.000webhostapp.com/staff_enter.php",
+        "${ref.read(generalUrlPathProvider)}/staff_enter.php",
         data: formData,
       );
       if (userResponse.data["status"] == 1) {
@@ -109,7 +110,7 @@ class StaffServices implements BaseStaffService {
       final formData = FormData.fromMap({"soc": socCode});
 
       final dataResponse = await _dio.post(
-        "https://gatesadmin.000webhostapp.com/get_all_inside_staff.php",
+        "${ref.read(generalUrlPathProvider)}/get_all_inside_staff.php",
         data: formData,
       );
       if (dataResponse.data["code"] == "100") {
@@ -143,7 +144,7 @@ class StaffServices implements BaseStaffService {
       });
 
       final userResponse = await _dio.post(
-        "https://gatesadmin.000webhostapp.com/staff_exit.php",
+        "${ref.read(generalUrlPathProvider)}/staff_exit.php",
         data: formData,
       );
       if (userResponse.data["status"] == 1) {
@@ -167,6 +168,7 @@ class StaffServices implements BaseStaffService {
             msg: "Staff Exist Failed !!!",
             toastLength: Toast.LENGTH_LONG,
             gravity: ToastGravity.BOTTOM,
+            backgroundColor: const Color(0xffFF6663),
             timeInSecForIosWeb: 1,
             fontSize: 15.0);
         return ErrorHandler.errorDialog(userResponse.data["status"]);
@@ -184,7 +186,7 @@ class StaffServices implements BaseStaffService {
       final formData = FormData.fromMap({"soc": socCode});
 
       final dataResponse = await _dio.post(
-        "https://gatesadmin.000webhostapp.com/staff_all_member_list.php",
+        "${ref.read(generalUrlPathProvider)}/staff_all_member_list.php",
         data: formData,
       );
       if (dataResponse.data["code"] == "100") {
@@ -206,6 +208,7 @@ class StaffServices implements BaseStaffService {
 
   @override
   Future<void> staffRemove(String staffuid) async {
+    EasyLoading.show();
     try {
       final userfName =
           ref.watch(userControllerProvider).currentUser!.userFirstName;
@@ -215,10 +218,11 @@ class StaffServices implements BaseStaffService {
           {"uid": staffuid, "name_remove": "$userfName $userlName"});
 
       final userResponse = await _dio.post(
-        "https://gatesadmin.000webhostapp.com/staff_removed_update.php",
+        "${ref.read(generalUrlPathProvider)}/staff_removed_update.php",
         data: formData,
       );
       if (userResponse.data["status"] == 1) {
+        EasyLoading.dismiss();
         // ignore: unused_result
         ref.refresh(allStaffListDataProvider.future);
 
@@ -235,6 +239,7 @@ class StaffServices implements BaseStaffService {
             msg: "Staff Removed Failed !!!",
             toastLength: Toast.LENGTH_LONG,
             gravity: ToastGravity.BOTTOM,
+            backgroundColor: const Color(0xffFF6663),
             timeInSecForIosWeb: 1,
             fontSize: 15.0);
         return ErrorHandler.errorDialog(userResponse.data["status"]);

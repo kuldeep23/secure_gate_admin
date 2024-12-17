@@ -22,7 +22,7 @@ class DeActivateUser extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Deactivate User",
+          "Remove User",
           style: TextStyle(color: Colors.white),
         ),
       ),

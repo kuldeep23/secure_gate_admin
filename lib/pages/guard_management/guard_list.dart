@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:secure_gates_admin/entities/user.dart';
+import 'package:secure_gates_admin/general_providers.dart';
 import 'package:secure_gates_admin/pages/guard_management/widget/guard_card_wigdet.dart';
 import 'package:secure_gates_admin/pages/user_management/widget/activate_user_loading_widget.dart';
 /* import 'package:secure_gates_project/widgets/loading_widgets.dart';
@@ -21,7 +22,7 @@ final allActivateGuardProvider =
     final formData = FormData.fromMap({"soc": socCode});
 
     final dataResponse = await dio.post(
-      "https://gatesadmin.000webhostapp.com/activated_guard_list.php",
+      "${ref.read(generalUrlPathProvider)}/activated_guard_list.php",
       data: formData,
     );
 
@@ -49,7 +50,7 @@ final allDeActivateGuardProvider =
     final formData = FormData.fromMap({"soc": socCode});
 
     final dataResponse = await dio.post(
-      "https://gatesadmin.000webhostapp.com/deactivated_guard_list.php",
+      "${ref.read(generalUrlPathProvider)}/deactivated_guard_list.php",
       data: formData,
     );
 
